@@ -1,8 +1,10 @@
 <div class="entity-grid__container">
   <app-generic-grid    
-    [serverSidePagination]="true"
+    [infiniteScroll]="true"
+    [itemHeight]="48"
+    (scrollEnd)="onLoadNextPage()"
     [pageSize]="15"
-    (pageChange)="onPageChange($event)"
+    (sortChange)="onSortChange($event)"
     (edit)="onEdit($event)"
     (delete)="onDelete($event)"
     (open)="onOpen($event)">   

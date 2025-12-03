@@ -63,6 +63,8 @@ export class EntityService {
   getEntities(pageFilter: PageFilter, entityParameters: EntityFilter): Observable<PaginatedList<EntityGrid>> {
     
     const pageParams = pageFilter.toString();
+    console.log("SS",pageParams);
+    
     const entityParams = entityParameters.toString();
     const paramsString = entityParams ? `${pageParams}&${entityParams}` : pageParams;   
     

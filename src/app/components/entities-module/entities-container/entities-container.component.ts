@@ -51,6 +51,7 @@ export class EntitiesContainerComponent implements OnInit, OnDestroy {
   selectedEntityId: number | null = null;
   filterParameters: EntityFilter = new EntityFilter();
   
+  private _dataLoaded: EntityGrid[] = [];
   private _openedEntities: Entity[] = [];
   private _pageFilter: PageFilter = new PageFilter();
   private readonly _destroyRef = inject(DestroyRef);
@@ -79,11 +80,32 @@ export class EntitiesContainerComponent implements OnInit, OnDestroy {
   }
 
   onFilterApplied(filter: EntityFilter): void {
-    try {      
+    try {   
+      this._dataLoaded = [];   
+      this._pageFilter.page = 1;
       this.filterParameters = filter;
       this.loadEntities(this._pageFilter, this.filterParameters);
     } catch (error) {
       this._messagesService.addMessage("Error al aplicar filtro", EnumMessageType.Error);
+    }
+  }
+
+  onSortChange(pageFilter: PageFilter): void {
+    try {      
+      this._pageFilter.sortDirection=pageFilter.sortDirection;
+      this._pageFilter.sortField=pageFilter.sortField;
+      this.loadEntities(this._pageFilter, this.filterParameters);
+    } catch (error) {
+      this._messagesService.addMessage("ERROR.", EnumMessageType.Error);
+    }
+  }
+
+  onLoadNextPage(): void {
+    try {
+      this._pageFilter.page += 1;
+      this.loadEntities(this._pageFilter, this.filterParameters);
+    } catch (error) {
+      this._messagesService.addMessage("Error al cargar la siguiente página", EnumMessageType.Error);
     }
   }
 
@@ -190,8 +212,11 @@ export class EntitiesContainerComponent implements OnInit, OnDestroy {
     this._entityService.getEntities(pageFilter, filterParameters)
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
-        next: (response) => {         
-          this._gridService.setData(response.data);
+        next: (response) => { 
+          
+          this._dataLoaded = this._dataLoaded.concat(response.data);
+          console.log("loadEntities", this._dataLoaded);
+          this._gridService.setData(this._dataLoaded);
         },
         error: (error) => {
           this._messagesService.addMessage(error, EnumMessageType.Error);

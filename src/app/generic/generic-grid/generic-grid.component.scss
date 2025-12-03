@@ -2,6 +2,33 @@
   overflow: hidden;
 }
 
+.scroll-container {
+  height: 500px; // Altura por defecto, puede personalizarse
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  // Webkit browsers
+  &::-webkit-scrollbar-track {
+    background: var(--container-primary-border);
+  }
+
+  &::-webkit-scrollbar {
+    background: transparent;
+    width: 15px;
+    height: 15px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--container-primary-border-hover);
+    border-radius: 6px;
+  }
+
+  // Firefox — set track color while keeping thumb automatic
+  scrollbar-color: auto var(--container-primary-border);
+  scrollbar-width: auto;
+}
+
 mat-table {
   width: 100%;
   background: var(--grid-primary-bg);  
@@ -42,3 +69,4 @@ mat-paginator {
   flex-grow: 1; 
    
 }
+

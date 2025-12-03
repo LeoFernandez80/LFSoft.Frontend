@@ -17,7 +17,9 @@
         class="entities-container__grid"
         (edit)="onEdit($event)"
         (delete)="onDeleteEntity($event)"
-        (open)="onOpenEntity($event)">        
+        (open)="onOpenEntity($event)"
+        (sortChange)="onSortChange($event)"
+        (scrollEndChange)="onLoadNextPage()">        
     </app-entity-grid>
 
     <div formContent>

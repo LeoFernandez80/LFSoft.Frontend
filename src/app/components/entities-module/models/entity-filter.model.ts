@@ -5,7 +5,6 @@ export class EntityFilter implements QueryParams {
   description?: string;
 
   toString(): string {
-    console.log("toString", this.description);
     const params = new URLSearchParams();
     if (this.id !== undefined && this.id !== null) {
       params.append('id', this.id.toString());

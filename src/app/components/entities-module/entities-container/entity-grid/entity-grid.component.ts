@@ -11,6 +11,8 @@ import { EnumActionsViewType } from '../../../../generic/generic-actions/enums/a
 import { TranslationService } from '../../../../generic/generic-translate/translation.service';
 import { EnumActionsStyle } from '../../../../generic/generic-actions/enums/actions-styles.enums';
 import { EnumPermissionType } from '../../../security-module/models/enum-permission.type.model';
+import { Sort } from '@angular/material/sort';
+import { EntityFilter } from '../../models/entity-filter.model';
 
 @Component({
   selector: 'app-entity-grid',
@@ -25,7 +27,8 @@ export class EntityGridComponent implements OnInit {
   @Output() delete = new EventEmitter<EntityGrid>();
   @Output() open = new EventEmitter<EntityGrid>();
   
-  @Output() changePage = new EventEmitter<PageFilter>();
+  @Output() sortChange = new EventEmitter<PageFilter>();
+  @Output() scrollEndChange = new EventEmitter<void>();
   
   columns: GridColumn<EntityGrid>[] = [];
 
@@ -38,8 +41,15 @@ export class EntityGridComponent implements OnInit {
     this._loadSecurityActions();
   }
 
-  onPageChange(event: {page: number, pageSize: number, sortField?: string, sortDirection?: 'asc' | 'desc'}) {
-    this.changePage.emit(event as PageFilter);
+  onSortChange(event: Sort) {
+    const pageFilter= new PageFilter();
+    pageFilter.sortField= event.active;
+    pageFilter.sortDirection= event.direction ;    
+    this.sortChange.emit(pageFilter);
+  }
+
+  onLoadNextPage() {
+    this.scrollEndChange.emit();
   }
 
   onEdit(entity: EntityGrid) {

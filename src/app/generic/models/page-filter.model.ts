@@ -1,10 +1,11 @@
+import { SortDirection } from "@angular/material/sort";
 import { QueryParams } from "./interfaces/query-params.interface";
 
 export class PageFilter implements QueryParams {
     page: number = 1;
     pageSize: number = 5;
     sortField?: string="";
-    sortDirection?: 'asc' | 'desc' = 'asc';
+    sortDirection?: SortDirection="asc";
 
     toString(): string {
         const params = new URLSearchParams();

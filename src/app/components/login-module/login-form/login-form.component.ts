@@ -69,12 +69,11 @@ export class LoginFormComponent implements OnInit, OnDestroy {
     // Usar directamente el servicio de autenticación que se conecta al backend
     this._authService.login(loginUser.username, loginUser.password).subscribe({
       next: (loggedInUser) => {
-        this._messagesService.addMessage('Login exitoso', EnumMessageType.Success, 3000);
+        this._messagesService.addMessage('MESSAGE.welcome', EnumMessageType.Success, 3000);
         this.acept.emit();
       },
       error: (err) => {
-        console.error('Error during login', err);
-        this._messagesService.addMessage('Error al iniciar sesión', EnumMessageType.Error, 5000);
+        this._messagesService.addMessage('MESSAGE.loginError', EnumMessageType.Error, 5000);
       }
     });
   }

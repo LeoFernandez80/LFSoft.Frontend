@@ -1,32 +1,64 @@
 <div class="mat-elevation-z8">
-  <mat-table [dataSource]="dataSource" matSort role="grid" (matSortChange)="onSortChange($event)">
-    
-    <ng-container *ngFor="let column of columns" [matColumnDef]="column.field.toString()" >
-      <mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="!column.sortable" [style.text-align]="'left'" [style.width]="column.width" [style.min-width]="column.width"  [style.max-width]="column.width">
-        {{column.header | translate}}
-      </mat-header-cell>
-      <mat-cell *matCellDef="let element" [style.text-align]="column.align" [style.width]="column.width" [style.min-width]="column.width" [style.max-width]="column.width">
-        {{getCellValue(element, column)}}
-      </mat-cell>
-    </ng-container>
-    @if (hasActions){
-      <ng-container matColumnDef="actions" >
-        <mat-header-cell *matHeaderCellDef class="actions-column" [style.text-align]="'center'"  >
-          <mat-icon  (click)="onConfigurationClick()">settings</mat-icon>
+  @if (infiniteScroll) {
+    <!-- Modo scroll infinito -->
+    <div class="scroll-container" #scrollContainer (scroll)="onScroll($event)">
+      <mat-table [dataSource]="dataSource" matSort role="grid" (matSortChange)="onSortChange($event)">        
+        <ng-container *ngFor="let column of columns" [matColumnDef]="column.field.toString()" >
+          <mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="!column.sortable" [style.text-align]="'left'" [style.width]="column.width" [style.min-width]="column.width"  [style.max-width]="column.width">
+            {{column.header | translate}}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" [style.text-align]="column.align" [style.width]="column.width" [style.min-width]="column.width" [style.max-width]="column.width">
+            {{getCellValue(element, column)}}
+          </mat-cell>
+        </ng-container>
+        @if (hasActions){
+          <ng-container matColumnDef="actions" >
+            <mat-header-cell *matHeaderCellDef class="actions-column" [style.text-align]="'center'"  >
+              <mat-icon  (click)="onConfigurationClick()">settings</mat-icon>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element" class="actions-column" [style.text-align]="'center'" [style.width]="'auto'" >
+              <app-generic-actions  
+                  class="actions-container"                         
+                  (actionClick)="onAction($event, element)">
+              </app-generic-actions> 
+            </mat-cell>
+          </ng-container>
+        }
+
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" [class.selected]="selectedElement === row" (dblclick)="onEdit(row)"></mat-row>
+      </mat-table>
+    </div>
+  } @else {
+    <!-- Modo normal con paginaci\u00f3n -->
+    <mat-table [dataSource]="dataSource" matSort role="grid" (matSortChange)="onSortChange($event)">
+      
+      <ng-container *ngFor="let column of columns" [matColumnDef]="column.field.toString()" >
+        <mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="!column.sortable" [style.text-align]="'left'" [style.width]="column.width" [style.min-width]="column.width"  [style.max-width]="column.width">
+          {{column.header | translate}}
         </mat-header-cell>
-        <mat-cell *matCellDef="let element" class="actions-column" [style.text-align]="'center'" [style.width]="'auto'" >
-          <app-generic-actions  
-              class="actions-container"                         
-              (actionClick)="onAction($event, element)">
-          </app-generic-actions> 
+        <mat-cell *matCellDef="let element" [style.text-align]="column.align" [style.width]="column.width" [style.min-width]="column.width" [style.max-width]="column.width">
+          {{getCellValue(element, column)}}
         </mat-cell>
       </ng-container>
-    }
+      @if (hasActions){
+        <ng-container matColumnDef="actions" >
+          <mat-header-cell *matHeaderCellDef class="actions-column" [style.text-align]="'center'"  >
+            <mat-icon  (click)="onConfigurationClick()">settings</mat-icon>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="actions-column" [style.text-align]="'center'" [style.width]="'auto'" >
+            <app-generic-actions  
+                class="actions-container"                         
+                (actionClick)="onAction($event, element)">
+            </app-generic-actions> 
+          </mat-cell>
+        </ng-container>
+      }
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" [class.selected]="selectedElement === row" (dblclick)="onEdit(row)"></mat-row>
-  </mat-table>
-
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" [class.selected]="selectedElement === row" (dblclick)="onEdit(row)"></mat-row>
+    </mat-table>
+  }
 </div>
 
 <app-configurations-drawer></app-configurations-drawer>
