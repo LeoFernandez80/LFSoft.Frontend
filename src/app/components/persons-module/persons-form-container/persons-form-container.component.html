@@ -1,0 +1,9 @@
+<app-generic-message></app-generic-message>
+
+<app-generic-layout [title]="'Personas'" [type]="layoutTypes.layoutWithoutSidebar" class="persons-container">
+  <app-person-form
+    formContent    
+    (save)="onSavePerson($event)"
+    (cancel)="onCancelPerson()">
+  </app-person-form>
+</app-generic-layout>

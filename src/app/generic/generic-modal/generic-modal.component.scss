@@ -1,0 +1,44 @@
+@import '../../styles/overlay.scss';
+@import '../../styles/modal.scss';
+
+
+.modal-overlay {
+  @extend .overlay;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-container {
+  @extend .modal-container;
+}
+
+.modal-header {
+  @extend .modal-header;
+
+  .modal-title {
+    @extend .modal-header-title;
+  }
+
+  .close-button {
+    @extend .modal-header-close-button;
+  }
+}
+
+.modal-content {
+  @extend .modal-content;
+
+  .modal-text {
+    @extend .modal-text;
+  }
+}
+
+.modal-footer {
+  @extend .modal-footer;
+}

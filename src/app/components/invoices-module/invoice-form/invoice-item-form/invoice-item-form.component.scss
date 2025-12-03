@@ -1,0 +1,41 @@
+@import '../../../../styles/form.scss';
+@import '../../../../styles/actions.scss';
+
+.invoice-item-form {
+  @extend .form;
+  @extend .form-container--full;
+  
+  &__label {
+    @extend .form-control-label;
+  }
+
+  &__control {
+    @extend .form-control;
+  }
+
+  &__group {
+    @extend .form-group;
+  }
+
+  &__grid {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 10px;
+  }
+
+  &__main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+  }
+
+  &__actions {
+    @extend .form-actions;
+    padding: 5px;
+
+    &--buttons {
+      @extend .actions-button;
+      background-color:var( --button-primary-bg);
+    }
+  }
+}

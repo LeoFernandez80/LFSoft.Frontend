@@ -1,0 +1,9 @@
+  <div class="body">
+    <div class="floating-toolbar">
+      <app-generic-actions (actionClick)="onAction($event)"></app-generic-actions>
+    </div>
+
+    <router-outlet></router-outlet>
+    <app-generic-modal></app-generic-modal>
+    <app-configurations-drawer (changeTheme)="changeTheme($event)"></app-configurations-drawer>
+  </div>

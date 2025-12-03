@@ -1,0 +1,24 @@
+<app-generic-form [title]="'Filtro de datos'">
+  <div bodyTop>
+   <mat-tab-group >
+    <mat-tab [label]="'Datos presupuesto'">
+        <form [formGroup]="form"  class="form form-container--small">
+          <div class="form-group" col-span="6">
+            <label for="id">Numero:</label>
+            <input 
+              id="id"
+              type="number"
+              name="id"
+              formControlName="id"
+              class="form-control">
+          </div>
+
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <div footerContent class="form-actions--footer" >
+    <button mat-button color="primary" (click)="onApply()">Apply</button>
+  </div>
+</app-generic-form>

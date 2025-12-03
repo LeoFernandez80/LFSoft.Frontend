@@ -1,0 +1,25 @@
+@import '../../../styles/form.scss';
+
+.quote-form {
+  @extend .form;
+  @extend .form-actions;
+  @extend .form-container--full;
+  &__grid {
+    flex: 1;
+    //margin-top: 10px;
+    overflow-y: auto;
+    //border-bottom: 10px solid #be2317;
+    padding: 0 10px;
+  }
+
+  &__main {
+    flex: 1;
+    //padding: 1rem;    
+    background-color: #fff;
+
+    // Modifier para cuando el sidebar está oculto
+    &--full-width {
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,9 @@
+<div class="quote-item-articles-grid__container">
+  <app-generic-grid
+   
+    [columns]="columns"
+    [serverSidePagination]="true"
+    (edit)="onEdit($event)"
+    (delete)="onDelete($event)">
+  </app-generic-grid>
+</div>

@@ -1,0 +1,29 @@
+<div class="generic-form">
+  <div class="generic-form__header">
+    <span class="generic-form__header-label">{{ title }}</span>
+      <ng-content select="[headerContent]"></ng-content>
+  </div>
+  
+  <div class="generic-form__data">
+    <ng-content select="[data]"></ng-content>
+  </div>  
+  <div class="generic-form__body">    
+    <div class="generic-form__body-left">
+      <div class="generic-form__body-left-top">
+        <ng-content select="[bodyTop]"></ng-content>
+      </div>
+      <div class="generic-form__body-left-bottom">
+        <ng-content select="[bodyBottom]"></ng-content>
+      </div>
+    </div>
+
+    <div class="generic-form__body-right">
+      <ng-content select="[bodyRight]"></ng-content>
+    </div>
+  </div>
+  @if(showActions){
+    <div class="generic-form__footer">
+        <ng-content select="[footerContent]"></ng-content>
+    </div>
+  }
+</div>

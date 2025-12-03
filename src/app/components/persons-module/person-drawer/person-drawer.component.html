@@ -1,0 +1,7 @@
+<app-generic-drawer>    
+    <app-person-form drawer-content 
+    [personId]="personId"
+    (save)="onSavePerson($event)"
+    (cancel)="onCancelPerson()">
+    </app-person-form>
+</app-generic-drawer>

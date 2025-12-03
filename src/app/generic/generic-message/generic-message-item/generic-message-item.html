@@ -1,0 +1,6 @@
+<div class="message" *ngIf="isVisible" [ngClass]="getMessageClass()">
+    <div class="message__content">
+        <span class="message__text">{{message.message | translate}}</span>
+        <button class="message__close-btn" (click)="closeMessage()" aria-label="Cerrar">&times;</button>
+    </div>
+</div>

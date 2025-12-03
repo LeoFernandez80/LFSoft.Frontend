@@ -1,0 +1,121 @@
+
+.theme-blue {  
+
+  /* #region Color Form Variables */
+  --container-primary-bg: #0d1b2a;         /* Fondo principal oscuro azulado */
+  --container-floting-bar-primary-bg: #4777aa;         /* Fondo principal oscuro azulado */
+  --container-primary-border: #25395e;
+  --container-primary-border-hover: #7292ce;  
+
+  --form-primary-bg: #1b263b;              /* Fondo del formulario */
+  --form-control-primary-bg: #415a77;      /* Fondo de campos */
+  --form-label-primary-bg: #1b263b;      /* Fondo de labels */
+  
+  --container-secondary-bg: #e0e7ef;       /* Fondo alternativo claro */
+  --form-secondary-bg: #e0e7ef;
+  --form-control-secondary-bg: #cdd5df;
+  --form-label-secondary-bg: #e0e7ef;      
+  
+  --form-primary-text: #f8f9fa;            /* Texto claro */
+  --form-control-primary-text: #ffffff;
+  --form-label-primary-text: #e3e0cf;
+  
+  --form-secondary-text: #0d1b2a;          /* Texto oscuro */
+  --form-control-secondary-text: #0d1b2a;
+  --form-label-secondary-text: #1b263b;
+  /* #endregion */
+
+  /* #region Color Message Variables */
+  --message-border: #cfd8e3;
+  
+  --message-primary-text: #0d1b2a;
+  --message-secondary-text: #0d1b2a;
+
+  --message-error-bg: #cf7d84;
+  --message-success-bg: #d1e7dd;
+  --message-warning-bg: #fff3cd;
+  --message-info-bg: #cfe2ff;
+  /* #endregion */
+
+  /* #region Color Button Variables */
+  --button-disabled-bg: #878b8d;  
+  
+  --button-primary-bg: #0077b6;            /* Azul vibrante */
+  --button-secondary-bg: #f4a261;          /* Naranja suave */
+
+  --button-primary-text: #ffffff;
+  --button-secondary-text: #0d1b2a;
+  /* #endregion */
+  
+  /* #region Color Header Variables */
+  --header-border: #1b263b;
+
+  --header-primary-bg: #0a192f;            /* Azul muy oscuro */
+  --header-secondary-bg: #1e3a5f;
+
+  --header-primary-text: #f4a261;          /* Acento cálido (dorado suave) */
+  --header-secondary-text: #e0e7ef;
+  /* #endregion */
+  
+  /* #region Color Footer Variables */
+  --footer-border: #1b263b;
+
+  --footer-primary-bg: #0a192f;
+  --footer-secondary-bg: #1e3a5f;
+
+  --footer-primary-text: #f8f9fa;
+  --footer-secondary-text: #cfd8e3;
+  /* #endregion */
+    
+  /* #region Color Skeleton Variables */
+  --skeleton-primary-bg: #1b263b;
+  --skeleton-secondary-bg: #415a77;
+  --skeleton-tertiary-bg: #778da9;
+  /* #endregion */
+
+  /* #region Color Grid Variables */
+  --grid-primary-bg: #1b263b;
+  --grid-secondary-bg: #415a77;
+
+  --grid-border: #1b263b;
+
+  --grid-header-primary-bg: #1e3a5f;
+  --grid-header-secondary-bg: #415a77;
+
+  --grid-header-primary-text: #ee9e43;
+  --grid-header-secondary-text: #415a77;
+
+  --grid-row-primary-text: #c0c2c4;
+  --grid-row-secondary-text: #415a77;
+
+  --grid-primary-text: #4bbd84;
+  --grid-secondary-text: #cfd8e3;
+  
+  /* #endregion */
+      
+  /* #region Color Modal Variables */
+  --modal-primary-bg: #1b263b;
+  --modal-secondary-bg: #415a77;
+  
+  --modal-border: #1b263b;
+  --modal-overlay: #20215c;
+
+  --modal-header-primary-bg: #3c4cd8;
+  --modal-header-secondary-bg: #415a77;
+
+  --modal-header-primary-text: #9b7e30;
+  --modal-header-secondary-text: #415a77;
+
+  --modal-primary-text: #c0c2c4;
+  --modal-secondary-text: #415a77;
+
+  --modal-footer-border: #1b263b;
+
+  --modal-footer-primary-bg: #0a192f;
+  --modal-footer-secondary-bg: #1e3a5f;
+
+  --footer-primary-text: #f8f9fa;
+  --footer-secondary-text: #cfd8e3;
+  /* #endregion */
+
+}

@@ -1,0 +1,8 @@
+<app-generic-message></app-generic-message>
+<app-generic-layout  [title]="'Invoice'" [type]="layoutTypes.layoutWithoutSidebar" class="invoice-container" >
+  <app-invoice-form
+    formContent
+    (save)="onSave()"
+    (cancel)="onCancel()">
+  </app-invoice-form>
+</app-generic-layout>

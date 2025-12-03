@@ -1,0 +1,50 @@
+<!-- <div class="login-form">
+  <div class="field">
+    <label for="username">Usuario</label>
+    <input id="username" name="username" [(ngModel)]="userName" />
+  </div>
+  <div class="field">
+    <label for="password">Contraseña</label>
+    <input id="password" name="password" type="password" [(ngModel)]="password" />
+  </div>
+  <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+  <div class="actions">
+    <app-generic-actions (actionClick)="onGenericAction($event)"></app-generic-actions>
+  </div>
+</div> -->
+
+<app-generic-form [title]="'TITLE.loginData' | translate">
+  <div data>
+    <form [formGroup]="loginForm">
+      <div class="login-form">
+        <div class="login-form__group skeleton-field" col-span="2">
+          <label class="login-form__label" for="username">{{ 'LABEL.username' | translate }}</label>
+          <input 
+            id="username"
+            type="text"
+            formControlName="username"
+            class="login-form__control"/>
+        </div>
+        <div class="login-form__group skeleton-field" col-span="2">
+          <label class="login-form__label" for="password">{{ 'LABEL.password' | translate }}</label>
+          <input 
+            id="password"
+            type="password"
+            maxlength="16"
+            formControlName="password"
+            class="login-form__control"/>
+        </div>
+        
+        <div class="login-form__group skeleton-field" col-span="2">
+          <app-generic-actions 
+            footerContent    
+            (actionClick)="onAction($event)">
+          </app-generic-actions>
+
+          </div>
+      </div>
+    </form>
+  </div>
+ 
+</app-generic-form>

@@ -1,0 +1,108 @@
+<app-generic-form [title]="'TITLE.invoiceData' | translate"  [showActions]="!showForm">
+  <div headerContent class="form-actions form-actions--header">
+    <div class="invoice-form__actions">
+      <div class="invoice-form__actions--buttons">              
+        <mat-icon class="invoice-form__actions--button" (click)="onExportPDF()" >picture_as_pdf</mat-icon> 
+      </div>
+      <div class="invoice-form__actions--buttons">              
+        <mat-icon class="invoice-form__actions--button" (click)="onAddInvoiceItem()" >add</mat-icon> 
+      </div>
+    </div>
+  </div>
+  <div data>
+    <form [formGroup]="invoiceForm" [appSkeleton]="isLoading" [appFormValidations]="invoiceForm">
+      <div class="invoice-form">        
+          <div class="invoice-form__group skeleton-field" col-span="1">
+            <label class="invoice-form__label" for="personDocumentType">{{ 'LABEL.documentType' | translate}}</label>
+            <input 
+              id="personDocumentType"
+              type="text"
+              formControlName="personDocumentType"
+              class="invoice-form__control"
+              readonly>
+          </div>
+          <div class="invoice-form__group skeleton-field" col-span="1">
+            <label class="invoice-form__label" for="personDocumentNumber">{{ 'LABEL.documentNumber' | translate}}</label>
+            <input 
+              id="personDocumentNumber"
+              type="text"
+              formControlName="personDocumentNumber"
+              class="invoice-form__control"
+              readonly>
+          </div>
+          <div class="invoice-form__group skeleton-field" col-span="3"> 
+            <label class="invoice-form__label" for="personName">{{ 'LABEL.personName' | translate }}</label>
+            <input 
+              id="personName"
+              type="text"
+              formControlName="personName"
+              class="invoice-form__control"
+              readonly>
+          </div>
+          <div class="invoice-form__group skeleton-field" col-span="1">
+            <label class="invoice-form__label" for="invoiceId">{{ 'LABEL.number' | translate}}</label>
+            <input 
+              id="invoiceId"
+              type="number"
+              formControlName="invoiceId"
+              class="invoice-form__control"
+              readonly>
+          </div> 
+          <div class="invoice-form__group skeleton-field" col-span="5">
+            <label class="invoice-form__label" for="invoiceDescription">{{ 'LABEL.description' | translate}}</label>
+            <input 
+              id="invoiceDescription"
+              type="text"
+              formControlName="invoiceDescription"
+              class="invoice-form__control">
+          </div>
+          <div class="invoice-form__group skeleton-field" col-span="1">
+            <label class="invoice-form__label" for="invoiceCreationDate">{{ 'LABEL.creationDate' | translate}}</label>
+            <input 
+              id="invoiceCreationDate"
+              type="date"
+              formControlName="invoiceCreationDate"
+              class="invoice-form__control"
+              readonly>
+          </div> 
+      </div>
+      
+      @if(!showForm){
+        <div bodyTop>
+          <div class="invoice-form__grid">       
+            <app-invoice-item-grid (edit)="onEditInvoiceItem($event)" (delete)="onDeleteInvoiceItem($event)"></app-invoice-item-grid>
+          </div>
+          <div class="invoice-form__actions">
+            <div class="invoice-form__actions--buttons">              
+              <mat-icon class="invoice-form__actions--button" (click)="onAddInvoiceItem()">add</mat-icon> 
+            </div>
+          </div>
+    </div>
+  }
+      
+  @if(showForm){
+    <div bodyTop>
+      <div class="invoice-form__main">
+        <app-invoice-item-form [invoiceItem]="invoiceItemSelected" (accept)="onAcceptInvoiceItem($event)" (cancel)="onCancelInvoiceItem()"></app-invoice-item-form>
+      </div>
+    </div>  
+  }
+ 
+  
+  <div class="invoice-form__footer">   
+    <label class="invoice-form__label" for="invoiceTotalPrice">{{ 'LABEL.totalPrice' | translate}}  </label>
+    <div class="invoice-form__group skeleton-field" col-span="1">
+      <input 
+        id="invoiceTotalPrice"
+        formControlName="invoiceTotalPrice"
+        class="invoice-form__control"
+        readonly/>
+      </div>
+    </div>
+  </form>
+  </div>
+  <app-generic-actions 
+    footerContent  
+    (actionClick)="onAction($event)">
+  </app-generic-actions>
+</app-generic-form>

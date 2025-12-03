@@ -1,0 +1,23 @@
+
+.floating-toolbar {
+    position: fixed;
+    top: 5px;
+    left: 50%;
+    gap: 5px;
+    transform: translateX(-50%);
+    background: var(--container-floting-bar-primary-bg);
+    opacity: 0.5;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateX(-50%) scale(1.05);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        background: var(--container-floting-bar-primary-bg);
+        opacity: 1;
+    }
+}

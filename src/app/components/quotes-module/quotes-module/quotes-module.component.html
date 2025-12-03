@@ -1,0 +1,43 @@
+<app-generic-layout [title]="'Presupuestos'" class="quotes-module">
+    <app-quote-header-actions 
+        headerActions
+        (create)="onCreate()">
+    </app-quote-header-actions>
+
+    <app-quote-grid-filter 
+        filterContent
+        class="quotes-module__filter"
+        [filter]="filterParameters"
+        (apply)="onFilterApplied($event)">
+    </app-quote-grid-filter>
+
+    <app-quote-grid 
+        gridContent
+        class="quotes-module__grid"
+        (edit)="onEdit($event)"
+        (delete)="onDelete($event)"
+        (open)="onOpen($event)"
+        (changePage)="onPageChange($event)">
+
+    </app-quote-grid>
+
+    <div formContent>
+        <mat-tab-group >
+            <mat-tab *ngFor="let quote of quotesOpened; let i = index" [label]="'quote'">
+                <ng-template mat-tab-label>
+                    {{ quote.id }}
+                    <button mat-icon-button (click)="onCloseTab(quote)">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </ng-template>
+                <app-quote-form 
+                    formContent
+                    [quoteId]="selectedQuote.id"
+                    (save)="onSave($event)" 
+                    (cancel)="onCancel()">
+                </app-quote-form>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</app-generic-layout>
+

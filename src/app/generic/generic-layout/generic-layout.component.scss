@@ -1,0 +1,145 @@
+// Block
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  
+  // Elements
+  &__header {
+    height: 60px;
+    min-height: 50px;
+    background: var(--header-primary-bg);    
+    border-bottom: 1px solid #dee2e6;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    &-title {
+      flex: 0 0 auto;
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--header-primary-text);
+    }
+  }
+
+  &__header-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    background: var(--header-primary-bg);
+  }
+
+  &__container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    background: var(--container-primary-bg);
+
+  }
+
+  &__sidebar {
+    min-width: 200px;
+    max-width: 800px;
+    background: var(--color-bg);
+    display: flex;
+    flex-direction: column;
+    background: var(--container-primary-bg);
+
+    &-grid {
+      flex: 1;
+      margin-top: 10px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 0 10px;
+    }
+
+    &-resizer {
+      height: 4px;
+      background: var(--container-primary-bg);
+      cursor: row-resize;
+      transition: background 0.2s;
+      flex-shrink: 0;
+
+      &:hover {
+        background: var(--container-primary-border-hover);
+      }
+    }
+
+    &-filter {
+      margin-top: 10px;
+      padding: 0 10px 10px 10px;
+      flex-shrink: 0;
+      min-height: 100px;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    // Modifier para cuando el sidebar está oculto
+    &--hidden {
+      display: none;
+    }
+  }
+
+  &__resizer {
+    width: 4px;
+    background: var(--container-primary-bg);
+    cursor: col-resize;
+    transition: background 0.2s;
+    flex-shrink: 0;
+
+    &:hover {
+      background: var(--container-primary-border-hover);
+    }
+  }
+
+  &__main {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    background: var(--container-primary-bg);
+
+    // Modifier para cuando el sidebar está oculto
+    &--full-width {
+      width: 100%;
+    }
+  }
+
+  &__footer {
+    height: 1vh;
+    min-height: 20px;
+    border-top: 1px solid #dee2e6;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    background: var(--footer-primary-bg);
+    color: var(--footer-primary-text);
+  }
+}
+
+/* Scrollbar styling: set track background to container primary border */
+.layout__sidebar-grid,
+.layout__sidebar-filter,
+.layout__main {
+  // Webkit browsers
+  &::-webkit-scrollbar-track {
+    background: var(--container-primary-border);
+  }
+
+  &::-webkit-scrollbar {
+    background: transparent;
+    width: 15px;
+    height: 15px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--container-primary-border-hover);
+    border-radius: 6px;
+  }
+
+  // Firefox — set track color while keeping thumb automatic
+  scrollbar-color: auto var(--container-primary-border);
+  scrollbar-width: auto;
+}

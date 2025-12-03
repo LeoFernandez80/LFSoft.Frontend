@@ -1,0 +1,9 @@
+<app-generic-message></app-generic-message>
+
+<app-generic-layout [title]="'TITLE.users' | translate" [type]="layoutTypes.layoutWithoutSidebar" class="users-container">
+  <app-user-form
+    formContent    
+    (save)="onSaveUser($event)"
+    (cancel)="onCancelUser()">
+  </app-user-form>
+</app-generic-layout>

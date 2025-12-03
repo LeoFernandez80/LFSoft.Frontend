@@ -1,0 +1,9 @@
+<app-generic-message></app-generic-message>
+
+<app-generic-layout [title]="'Documentos'" [type]="layoutTypes.layoutWithoutSidebar" class="documents-container">
+  <app-document-form
+    formContent    
+    (save)="onSaveDocument($event)"
+    (cancel)="onCancelDocument()">
+  </app-document-form>
+</app-generic-layout>

@@ -1,0 +1,71 @@
+<app-generic-form [title]="'Datos del presupuesto'" [showActions]="!showForm">
+  <div headerContent class="form-actions form-actions--header">
+    <button mat-button color="primary" >Busquedas</button>
+  </div>
+  <div data>
+    <form [formGroup]="form" class="form form-container--full">
+      <div class="form-group" col-span="2">
+        <label for="id">ID</label>
+        <input 
+          id="id"
+          type="number"
+          formControlName="id"
+          class="form-control"
+          [class.is-invalid]="form.get('id')?.invalid && form.get('id')?.touched">
+        
+      </div>
+  
+      <div class="form-group" col-span="2">
+        <label for="customerId">Customer ID</label>
+        <input 
+          id="customerId"
+          type="text"
+          formControlName="customerId"
+          class="form-control"
+          [class.is-invalid]="form.get('customerId')?.invalid && form.get('customerId')?.touched">
+        
+      </div>
+      <div class="form-group" col-span="2">
+        <label for="creation">Creacion</label>
+        <input 
+          id="creation"
+          type="date"
+          formControlName="creation"
+          class="form-control"
+          [class.is-invalid]="form.get('creation')?.invalid && form.get('creation')?.touched">
+        
+      </div>
+      
+      <div class="form-group" col-span="6">
+        <label for="description">description</label>
+        <input 
+          id="description"
+          type="text"
+          formControlName="description"
+          class="form-control"
+          [class.is-invalid]="form.get('description')?.invalid && form.get('description')?.touched">
+        
+      </div>
+    </form>
+  </div>
+
+    <div bodyTop>
+      <div class="quote-form__grid">
+        <app-quote-items-grid  (edit)="onEditQuoteItem($event)" (delete)="onDeleteQuoteItem($event)"  ></app-quote-items-grid>
+      </div>
+    </div>
+  
+  @if(showForm){
+    <div bodyRight >
+      <div class="quote-form__main">
+        <app-quote-item-form [quoteItem]="quoteItemSelected" (accept)="onAcceptQuoteItem($event)" (cancel)="onCancelQuoteItem()" ></app-quote-item-form>
+      </div>
+    </div>  
+  }
+
+    <div footerContent class="form-actions form-actions--footer">
+      <button matButton="filled" (click)="onSave()" [disabled]="!isReadyToSave()">Save</button>
+    </div>
+  
+</app-generic-form>
+

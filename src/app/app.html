@@ -1,0 +1,4 @@
+<!-- Router outlet para el ruteo de la SPA -->
+<app-generic-message></app-generic-message>
+<app-home-container *ngIf="isAuthenticated()"></app-home-container>
+<router-outlet></router-outlet>

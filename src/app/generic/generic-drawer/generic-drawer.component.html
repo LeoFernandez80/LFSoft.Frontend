@@ -1,0 +1,17 @@
+<div class="drawer-overlay" *ngIf="isVisible">
+    
+    <div class="drawer-container" *ngIf="config?.showOverlay" >
+        
+        <div class="drawer" 
+            [class.drawer-left]="config?.position === 'left'"
+            [class.drawer-right]="config?.position === 'right'"
+            [class.animate]="config?.animate"
+            [style.width]="config?.width"
+            >
+                  
+            <div class="drawer-content">
+                <ng-content select="[drawer-content]"></ng-content>
+            </div>
+        </div>
+    </div>
+</div>

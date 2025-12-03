@@ -1,0 +1,138 @@
+<div class="date-config-example">
+  <h2>Configuración de Fechas y Zona Horaria</h2>
+  
+  <div class="date-config-example__controls">
+    <div class="date-config-example__section">
+      <h3>Configuración Actual</h3>
+      
+      <div class="form-group">
+        <label for="timezone">Zona Horaria:</label>
+        <select 
+          id="timezone"
+          [value]="currentConfig.timezone"
+          (change)="onTimezoneChange($any($event.target).value)"
+          class="form-control">
+          <option *ngFor="let tz of timezones" [value]="tz.value">
+            {{ tz.label }}
+          </option>
+        </select>
+        <small>Zona horaria del navegador: {{ browserTimezone }}</small>
+        <button (click)="useBrowserTimezone()" class="btn-secondary">
+          Usar zona horaria del navegador
+        </button>
+      </div>
+      
+      <div class="form-group">
+        <label for="dateFormat">Formato de Fecha:</label>
+        <select 
+          id="dateFormat"
+          [value]="currentConfig.dateFormat"
+          (change)="onDateFormatChange($any($event.target).value)"
+          class="form-control">
+          <option *ngFor="let fmt of dateFormats" [value]="fmt.value">
+            {{ fmt.label }}
+          </option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="dateTimeFormat">Formato de Fecha y Hora:</label>
+        <select 
+          id="dateTimeFormat"
+          [value]="currentConfig.dateTimeFormat"
+          (change)="onDateTimeFormatChange($any($event.target).value)"
+          class="form-control">
+          <option *ngFor="let fmt of dateTimeFormats" [value]="fmt.value">
+            {{ fmt.label }}
+          </option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="timeFormat">Formato de Hora:</label>
+        <select 
+          id="timeFormat"
+          [value]="currentConfig.timeFormat"
+          (change)="onTimeFormatChange($any($event.target).value)"
+          class="form-control">
+          <option *ngFor="let fmt of timeFormats" [value]="fmt.value">
+            {{ fmt.label }}
+          </option>
+        </select>
+      </div>
+      
+      <button (click)="resetToDefaults()" class="btn-warning">
+        Restablecer valores por defecto
+      </button>
+    </div>
+    
+    <div class="date-config-example__section">
+      <h3>Vista Previa de Formatos</h3>
+      <p>Fecha de ejemplo: {{ exampleDate.toISOString() }}</p>
+      
+      <div class="preview-item">
+        <strong>Fecha:</strong>
+        <span>{{ exampleDate | customDate:'date' }}</span>
+      </div>
+      
+      <div class="preview-item">
+        <strong>Fecha y Hora:</strong>
+        <span>{{ exampleDate | customDate:'dateTime' }}</span>
+      </div>
+      
+      <div class="preview-item">
+        <strong>Hora:</strong>
+        <span>{{ exampleDate | customDate:'time' }}</span>
+      </div>
+      
+      <div class="preview-item">
+        <strong>Fecha Corta:</strong>
+        <span>{{ exampleDate | customDate:'short' }}</span>
+      </div>
+      
+      <div class="preview-item">
+        <strong>Fecha Larga:</strong>
+        <span>{{ exampleDate | customDate:'long' }}</span>
+      </div>
+      
+      <div class="preview-item">
+        <strong>Formato Personalizado (dd-MMM-yyyy HH:mm):</strong>
+        <span>{{ exampleDate | customDate:'dd-MMM-yyyy HH:mm' }}</span>
+      </div>
+    </div>
+    
+    <div class="date-config-example__section">
+      <h3>Comparación de Zonas Horarias</h3>
+      <p>Misma fecha en diferentes zonas horarias:</p>
+      
+      <div class="preview-item" *ngFor="let tz of timezones">
+        <strong>{{ tz.label }}:</strong>
+        <span>{{ exampleDate | customDate:'dateTime':tz.value }}</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="date-config-example__info">
+    <h3>Ejemplos de Uso en Templates</h3>
+    <pre><code>
+&lt;!-- Formato por defecto --&gt;
+{{ '{{ fecha | customDate }}' }}
+
+&lt;!-- Formatos predefinidos --&gt;
+{{ '{{ fecha | customDate:\'date\' }}' }}
+{{ '{{ fecha | customDate:\'dateTime\' }}' }}
+{{ '{{ fecha | customDate:\'time\' }}' }}
+{{ '{{ fecha | customDate:\'short\' }}' }}
+{{ '{{ fecha | customDate:\'long\' }}' }}
+
+&lt;!-- Formato personalizado --&gt;
+{{ '{{ fecha | customDate:\'dd/MM/yyyy HH:mm\' }}' }}
+
+&lt;!-- Con zona horaria específica --&gt;
+{{ '{{ fecha | customDate:\'dateTime\':\'America/New_York\' }}' }}
+
+&lt;!-- Con locale específico --&gt;
+{{ '{{ fecha | customDate:\'long\':\'\':\en-US\' }}' }}
+    </code></pre>
+  </div>
+</div>

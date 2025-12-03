@@ -1,0 +1,24 @@
+
+@import '../../../styles/floating-toolbar.scss';
+
+.body {
+    height: 100vh;
+    background: var(--container-primary-bg);
+    position: relative;
+}
+
+.icon {
+    width: 28px;
+    height: 28px;
+    color: #333333;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        transform: rotate(90deg);
+        color: #000000;
+    }
+}

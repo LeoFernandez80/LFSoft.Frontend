@@ -1,0 +1,15 @@
+.skeleton-placeholder {
+  background: linear-gradient(90deg, var(--skeleton-primary-bg) 25%, var(--skeleton-secondary-bg) 50%, var(--skeleton-tertiary-bg) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.4s infinite;
+  border-radius: 6px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

@@ -1,0 +1,37 @@
+<app-generic-form [title]="'TITLE.userData' | translate">
+
+  <div data>
+    <form [formGroup]="userForm" [appSkeleton]="isLoading" [appFormValidations]="userForm" >
+      <div class="user-form">
+        <div class="user-form__group skeleton-field" col-span="3" >
+          <label class="user-form__label" for="userName">{{ 'LABEL.userName' | translate }}</label>
+        <input 
+          id="userName"
+          type="text"
+          formControlName="userName"
+          class="user-form__control"
+      >     
+        </div>
+        <div class="user-form__group skeleton-field" col-span="3">
+          <label class="user-form__label" for="role">{{ 'LABEL.role' | translate}}</label>
+          <input 
+            id="role"
+            type="text"
+            formControlName="role"
+            class="user-form__control "
+            >
+          
+        </div>
+          <app-person-form drawer-content 
+            class="user-form__group skeleton-field" col-span="6"
+            [personId]="personId">
+          </app-person-form>
+        </div>
+    </form>
+  </div>
+ 
+  <app-generic-actions 
+    footerContent    
+    (actionClick)="onAction($event)">
+  </app-generic-actions>
+</app-generic-form>

@@ -1,0 +1,28 @@
+.login-fullscreen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+    background: var(--container-primary-bg);
+
+}
+
+.login-top {
+  flex: 0 0 70%;
+  position: relative;
+  margin: 20px 25px;
+  background: var(--container-secondary-bg);
+
+}
+
+.login-bottom {
+  flex: 0 0 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-bottom__content {
+  width: 100%;
+  max-width: 1080px;
+  padding: 12px;
+}

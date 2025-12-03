@@ -1,0 +1,44 @@
+<app-generic-form [title]="'TITLE.personData' | translate">
+
+  <div data>
+    <form [formGroup]="personForm" [appSkeleton]="isLoading" [appFormValidations]="personForm" >
+      <div class="person-form">
+        <div class="person-form__group skeleton-field" col-span="2" >
+          <label class="person-form__label" for="firstName">{{ 'LABEL.firstName' | translate }}</label>
+        <input 
+          id="firstName"
+          type="text"
+          formControlName="firstName"
+          class="person-form__control"
+      >     
+        </div>
+        <div class="person-form__group skeleton-field" col-span="2">
+          <label class="person-form__label" for="lastName">{{ 'LABEL.lastName' | translate}}</label>
+          <input 
+            id="lastName"
+            type="text"
+            formControlName="lastName"
+            class="person-form__control "
+            >
+          
+        </div>
+        <div class="person-form__group skeleton-field " col-span="2">
+          <label class="person-form__label" for="birthDate">{{ 'LABEL.birthDate' | translate}}</label>
+          <input 
+            id="birthDate"
+            type="date"
+            formControlName="birthDate"
+            class="person-form__control "
+            >
+            
+        </div>
+      </div>
+    </form>
+  </div>
+ 
+  <app-generic-actions 
+    footerContent    
+    (actionClick)="onAction($event)">
+  </app-generic-actions>
+</app-generic-form>
+

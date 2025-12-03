@@ -1,0 +1,26 @@
+<app-generic-drawer>
+    <div drawer-content>
+        <div class="modal-header">            
+            <div class="modal-header-title" >
+                <h1>{{ 'configurationApp' | translate}}</h1>
+            </div>
+            <button mat-icon-button class="modal-header-close-button" (click)="onClose()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+        <div class="modal-content">
+        
+            <mat-form-field appearance="outline" class="app__theme-select">
+                <mat-label>Tema</mat-label>
+                <mat-select
+                    [(value)]="selectedTheme"
+                    (selectionChange)="changedTheme($event.value)"
+                    >
+                    <mat-option *ngFor="let t of themes" [value]="t.value">
+                    {{ t.label }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+</app-generic-drawer>

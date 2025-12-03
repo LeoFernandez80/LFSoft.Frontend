@@ -1,0 +1,53 @@
+<app-generic-message></app-generic-message>
+    <div class="floating-toolbar">
+      <app-generic-actions (actionClick)="onAction($event)"></app-generic-actions>
+    </div>
+
+<app-generic-layout [title]="'TITLE.documents' | translate" class="documents-container">
+
+    <app-generic-actions 
+        headerActions
+        (actionClick)="onAction($event)">
+    </app-generic-actions>
+
+    <app-document-grid-filter 
+    filterContent
+    class="documents-container__filter"
+        [filter]="filterParameters"
+        (apply)="onFilterApplied($event)">
+    </app-document-grid-filter>
+
+    <app-document-grid 
+    gridContent        
+    class="documents-container__grid"
+    (edit)="onEdit($event)"
+        (delete)="onDeleteDocument($event)"
+        (open)="onOpenDocument($event)"
+        (changePage)="onPageChange($event)">        
+    </app-document-grid>
+
+    <div formContent>
+        <mat-tab-group >
+            <mat-tab *ngFor="let documentId of openedDocumentsId; let i = index" >
+                <ng-template mat-tab-label >
+                    <div class="documents-container__tab" (click)="onClickTab(documentId)">
+                        <div class="documents-container__tab-label">
+                            {{ (getDocumentById(documentId)?.personName || 'Documento') + ' - ' + (getDocumentById(documentId)?.documentDescription || '') }} 
+                        </div>
+                        <!-- <button mat-icon-button class="documents-container__tab-button" (click)="onCloseTab(documentId); $event.stopPropagation()">
+                            <mat-icon>close</mat-icon>
+                        </button> -->
+                    </div>
+                </ng-template>
+                <app-document-form 
+                    formContent
+                    [documentId]="documentId"
+                    (save)="onSaveDocument($event)" 
+                    (cancel)="onCancelDocument()">
+                </app-document-form>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+    
+
+</app-generic-layout>

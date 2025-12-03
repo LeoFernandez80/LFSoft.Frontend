@@ -1,0 +1,8 @@
+<div class="invoice-item-detail-grid__container">
+  <app-generic-grid   
+    [columns]="columns"
+    [serverSidePagination]="true"
+    (edit)="onEdit($event)"
+    (delete)="onDelete($event)">
+  </app-generic-grid>
+</div>

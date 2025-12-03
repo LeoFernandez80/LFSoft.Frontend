@@ -1,0 +1,9 @@
+@import '../../../styles/form.scss';
+
+.quote-filter {
+  max-height: 40%;
+  overflow-y: auto;
+  @extend .form;
+  @extend .form-actions;
+  @extend .form-container--small;
+}

@@ -1,0 +1,49 @@
+<app-generic-message></app-generic-message>
+<div class="floating-toolbar">
+  <app-generic-actions (actionClick)="onAction($event)"></app-generic-actions>
+</div>
+
+<app-generic-layout [title]="'TITLE.invoices' | translate" class="invoices-container">
+
+    <app-generic-actions 
+        headerActions
+        (actionClick)="onAction($event)">
+    </app-generic-actions>
+
+    <app-invoice-grid-filter 
+        filterContent
+        class="invoices-container__filter"
+        [filter]="filterParameters"
+        (apply)="onFilterApplied($event)">
+    </app-invoice-grid-filter>
+
+    <app-invoice-grid 
+        gridContent        
+        class="invoices-container__grid"
+        (edit)="onEdit($event)"
+        (delete)="onDeleteInvoice($event)"
+        (open)="onOpenInvoice($event)"
+        (changePage)="onPageChange($event)">        
+    </app-invoice-grid>
+
+    <div formContent>
+        <mat-tab-group>
+            <mat-tab *ngFor="let invoiceId of openedInvoicesId; let i = index">
+                <ng-template mat-tab-label>
+                    <div class="invoices-container__tab" (click)="onClickTab(invoiceId)">
+                        <div class="invoices-container__tab-label">
+                            {{ (getInvoiceById(invoiceId)?.personName || 'Factura') + ' - ' + (getInvoiceById(invoiceId)?.invoiceDescription || '') }} 
+                        </div>
+                    </div>
+                </ng-template>
+                <app-invoice-form 
+                    formContent
+                    [invoiceId]="invoiceId"
+                    (save)="onSaveInvoice($event)" 
+                    (cancel)="onCancelInvoice()">
+                </app-invoice-form>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+
+</app-generic-layout>

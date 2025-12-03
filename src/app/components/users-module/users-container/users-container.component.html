@@ -1,0 +1,50 @@
+<app-generic-message></app-generic-message>
+<app-generic-layout [title]="'TITLE.users' | translate" class="users-container">
+
+    <app-generic-actions 
+        headerActions
+        (actionClick)="onAction($event)">
+    </app-generic-actions>
+
+    <app-user-grid-filter 
+    filterContent
+    class="users-container__filter"
+        [filter]="filterParameters"
+        (apply)="onFilterApplied($event)">
+    </app-user-grid-filter>
+
+    <app-user-grid 
+    gridContent        
+    class="users-container__grid"
+    (edit)="onEdit($event)"
+        (delete)="onDeleteUser($event)"
+        (open)="onOpenUser($event)"
+        >        
+    </app-user-grid>
+
+    <div formContent>
+        <mat-tab-group >
+            <mat-tab *ngFor="let userId of openedUsersId; let i = index" >
+                <ng-template mat-tab-label >
+                    <div class="users-container__tab" (click)="onClickTab(userId)">
+                        <div class="users-container__tab-label">
+                            {{ (getUserById(userId)?.userName || 'Usuario') + ' (' + (getUserById(userId)?.role || '') + ')' }} 
+                        </div>
+                        <button mat-icon-button class="users-container__tab-button" (click)="onCloseTab(userId); $event.stopPropagation()">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </div>
+                </ng-template>
+                <app-user-form 
+                    formContent
+                    [userId]="userId"
+                    (save)="onSaveUser($event)" 
+                    (cancel)="onCancelUser()">
+                </app-user-form>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+    
+    
+
+</app-generic-layout>

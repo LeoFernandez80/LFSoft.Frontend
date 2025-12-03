@@ -1,0 +1,23 @@
+<div class="message" *ngIf="isVisible">
+  <!-- Header Section - 5% height -->
+  <header class="message__header">
+    <div class="message__header-title">
+      <h1 class="message__header-heading">Mensajes</h1>
+    </div>
+    <div class="message__header-actions">
+      <button class="message__close-btn"  (click)="closeMessages()" aria-label="Cerrar">&times;</button>
+    </div>
+  </header>
+
+  <div class="message__container">    
+    <!-- Main Content Area -->
+    <main class="message__main">
+      <app-generic-message-item *ngFor="let message of messages, let i = index" [message]="message" (close)="closeMessage(i)"></app-generic-message-item>    
+    </main>
+  </div>
+
+  <!-- Footer Section - 1% height -->
+  <!-- <footer class="message__footer">
+    <ng-content select="[footerContent]"></ng-content>
+  </footer> -->
+</div>

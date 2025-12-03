@@ -1,0 +1,44 @@
+@import '../../styles/actions.scss';
+
+.actions-container {
+  @extend .actions-content;
+
+  &__button__content  {
+    @extend .actions-button__content;
+  }
+
+  &__button-icon__content {
+      @extend .actions-button-icon__content;
+  }
+
+  &__button {
+    @extend .actions-button;
+
+    &-primary {
+      @extend .actions-button-disabled;
+      &:not([disabled]) {
+        @extend .actions-button-primary;
+      }
+    }
+
+    &-secondary {
+      @extend .actions-button-disabled;
+      &:not([disabled]) {        
+        @extend .actions-button-secondary;
+      }
+    }
+    &-tertiary {
+      @extend .actions-button-disabled;
+      &:not([disabled]) {        
+        @extend .actions-button-tertiary;
+      }
+    }
+    &-outline {
+      @extend .actions-button-disabled;
+      &:not([disabled]) {        
+        @extend .actions-button-outline;
+      }
+    }
+  }
+
+}

@@ -1,0 +1,9 @@
+<app-generic-message></app-generic-message>
+
+<app-generic-layout [title]="'Entidades'" [type]="layoutTypes.layoutWithoutSidebar" class="entities-container">
+  <app-entity-form
+    formContent    
+    (save)="onSaveEntity($event)"
+    (cancel)="onCancelEntity()">
+  </app-entity-form>
+</app-generic-layout>

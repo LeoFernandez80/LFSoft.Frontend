@@ -1,0 +1,108 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.container-header {
+  height: 60px;
+  min-height: 50px;
+  background: var(--header-primary-bg);    
+  border-bottom: 1px solid #dee2e6;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  &-title {
+    flex: 0 0 auto;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--header-primary-text);
+  }
+}
+
+.container-content__body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: row;
+  overflow-y: auto;   
+  overflow-x: hidden;   
+}
+
+.container-content__body-left {
+  flex: 1 1 auto;      
+  flex-direction: column;
+  overflow-y: auto;   
+  overflow-x: hidden;     
+}
+
+.container-content__body-left-top {
+  flex: 1 1 auto;
+  overflow-y: auto;   
+  overflow-x: hidden; 
+}
+.container-content__body-left-bottom {
+  flex: 1 1 auto;
+  max-height: 40%;
+  overflow-y: auto;   
+  overflow-x: hidden; 
+}
+
+.container-content__body-right {
+  flex-direction: column;
+  overflow-y: auto;   
+  overflow-x: hidden; 
+  position: relative;
+}
+
+.container-footer {
+  height: 1vh;
+  min-height: 20px;
+  border-top: 1px solid #dee2e6;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  background: var(--footer-primary-bg);
+  color: var(--footer-primary-text);
+
+  &__label {
+      color: white !important;; 
+      font-size: 10px;
+      font-weight: 500;
+    }
+}
+
+.container-tab-header {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;    
+
+    &__label {
+      color: white !important;; 
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    &__button {
+      margin: 0.5rem;
+      display: flex;      
+      border: none !important;
+      background: lightblue !important;
+      border-radius: 10px;
+      cursor: pointer;
+    }  
+}
+
+.container-actions {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  align-items: center;
+  padding-left: 1rem;
+}

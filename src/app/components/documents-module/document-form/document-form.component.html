@@ -1,0 +1,104 @@
+<app-generic-form [title]="'TITLE.documentData' | translate"  [showActions]="!showForm">
+
+  <div data>
+    <form [formGroup]="documentForm" [appSkeleton]="isLoading" [appFormValidations]="documentForm" >
+      <div class="document-form" >        
+          <div class=" document-form__group skeleton-field" col-span="1">
+            <label class="document-form__label" for="personDocumentType">{{ 'LABEL.personDocumentType' | translate}}</label>
+            <input 
+              id="personDocumentType"
+              type="text"
+              formControlName="personDocumentType"
+              class="document-form__control "
+              readonly
+              >
+            
+          </div>
+          <div class="document-form__group skeleton-field" col-span="1">
+          <label class="document-form__label" for="personDocumentNumber">{{ 'LABEL.personDocumentNumber' | translate}}</label>
+          <input 
+            id="personDocumentNumber"
+            type="text"
+            formControlName="personDocumentNumber"
+            class="document-form__control "
+
+            >
+          
+          </div>
+          <div class="document-form__group skeleton-field" col-span="3"> 
+            <label class="document-form__label" for="personName">{{ 'LABEL.personName' | translate }}</label>
+          <input 
+            id="personName"
+            type="text"
+            formControlName="personName"
+            class="document-form__control"
+            readonly
+        >     
+          </div>
+       
+          <div class="document-form__group skeleton-field " col-span="1">
+            <label class="document-form__label" for="documentCreationDate">{{ 'LABEL.documentCreationDate' | translate}}</label>
+            <input 
+              id="documentCreationDate"
+              type="date"
+              formControlName="documentCreationDate"
+              class="document-form__control "
+              readonly
+              >
+              
+          </div> 
+
+          <div class="document-form__group skeleton-field " col-span="5">
+            <label class="document-form__label" for="documentDescription">{{ 'LABEL.documentDescription' | translate}}</label>
+            <input 
+            id="documentDescription"
+            type="text"
+            formControlName="documentDescription"
+            class="document-form__control "
+              
+            >
+            
+          </div>
+
+          <div class="document-form__group skeleton-field " col-span="1">
+            <label class="document-form__label" for="documentStatus">{{ 'LABEL.documentStatus' | translate}}</label>
+            <input 
+              id="documentStatus"
+              formControlName="documentStatus"
+              class="document-form__control "
+              readonly
+              />
+
+            
+          </div>
+        <!-- <div class="document-form__rows" col-span="6">  -->
+          
+        <!-- </div> -->
+    </div>
+      
+    </form>
+  </div>
+  
+  @if(!showForm){
+
+    <div bodyTop >
+      <div class="document-form__grid">       
+        <app-document-item-grid  (edit)="onEditDocumentItem($event)" (delete)="onDeleteDocumentItem($event)"  ></app-document-item-grid>
+      </div>
+    </div>
+  }
+      
+    @if(showForm){
+      <div bodyTop >
+        <div class="document-form__main">
+          <app-document-item-form [documentItem]="documentItemSelected" (accept)="onAcceptDocumentItem($event)" (cancel)="onCancelDocumentItem()" ></app-document-item-form>
+        </div>
+      </div>  
+    }
+    
+ 
+  <app-generic-actions 
+    footerContent    
+    (actionClick)="onAction($event)">
+  </app-generic-actions>
+</app-generic-form>

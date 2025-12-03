@@ -1,0 +1,76 @@
+<app-generic-form [title]="'Datos del item ' + (invoiceItem?.itemId || '')" [showActions]="!showForm">
+  <div data>
+    <form [formGroup]="form"  [appFormValidations]="form">
+      <div class="invoice-item-form">
+        <div class="invoice-item-form__group skeleton-field" col-span="1">
+          <label class="invoice-item-form__label" for="itemQuantity">{{ 'LABEL.quantity' | translate}}</label>
+          <input 
+            id="itemQuantity"
+            type="number"
+            formControlName="itemQuantity"
+            class="invoice-item-form__control"
+            min="0"
+            step="1">
+        </div>
+        <div class="invoice-item-form__group skeleton-field" col-span="3" row-span="2">
+          <label class="invoice-item-form__label" for="itemDescription">{{ 'LABEL.description' | translate}}</label>
+          <textarea 
+            id="itemDescription"
+            formControlName="itemDescription"
+            class="invoice-item-form__control"
+            rows="7">
+          </textarea>
+        </div>        
+        <div class="invoice-item-form__group skeleton-field" col-span="1">
+          <label class="invoice-item-form__label" for="itemUnitPrice">{{ 'LABEL.unitPrice' | translate}}</label>
+          <input 
+            id="itemUnitPrice"
+            type="number"
+            formControlName="itemUnitPrice"
+            class="invoice-item-form__control"
+            readonly>
+        </div>
+        <div class="invoice-item-form__group skeleton-field" col-span="1">
+          <label class="invoice-item-form__label" for="itemTotalPrice">{{ 'LABEL.totalPrice' | translate}}</label>
+          <input 
+            id="itemTotalPrice"
+            type="number"
+            formControlName="itemTotalPrice"
+            class="invoice-item-form__control"
+            readonly>
+        </div><div class="invoice-item-form__group skeleton-field" col-span="1">
+          <label class="invoice-item-form__label" for="itemTotalPrice">{{ 'LABEL.totalPrice' | translate}}</label>
+          <input 
+            id="itemTotalPrice"
+            type="number"
+            formControlName="itemTotalPrice"
+            class="invoice-item-form__control"
+            readonly>
+        </div>
+      </div>
+    </form>
+  </div>
+  @if(!showForm){
+    <div bodyTop>
+      <div class="invoice-item-form__grid">
+        <app-invoice-item-detail-grid (edit)="onEditItemDetail($event)" (delete)="onDeleteItemDetail($event)"></app-invoice-item-detail-grid>
+      </div>
+      <div class="invoice-item-form__actions">
+        <div class="invoice-item-form__actions--buttons">          
+          <mat-icon  (click)="onAddItemDetail()">add</mat-icon> 
+        </div>
+      </div>
+    </div> 
+  }
+  @if(showForm){
+  <div  bodyTop>
+    <div class="invoice-item-form__main">
+      <app-invoice-item-detail-form [invoiceItemDetail]="itemDetailSelected" (accept)="onAcceptItemDetail($event)" (cancel)="onCancelItemDetail()"></app-invoice-item-detail-form>
+    </div>
+  </div>
+  }
+  <app-generic-actions
+    footerContent
+    (actionClick)="onAction($event)">
+  </app-generic-actions>
+</app-generic-form>

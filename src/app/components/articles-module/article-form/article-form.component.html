@@ -1,0 +1,70 @@
+<app-generic-form [title]="'TITLE.articleData' | translate">
+
+  <div data>
+    <form [formGroup]="articleForm" [appSkeleton]="isLoading" [appFormValidations]="articleForm">
+      <div class="article-form">
+        <div class="article-form__group skeleton-field" col-span="2">
+          <label class="article-form__label" for="codigoAsy">{{ 'LABEL.codigoAsy' | translate }}</label>
+          <input
+            id="codigoAsy"
+            type="text"
+            formControlName="codigoAsy"
+            class="article-form__control"
+          >
+        </div>
+        <div class="article-form__group skeleton-field" col-span="2">
+          <label class="article-form__label" for="description">{{ 'LABEL.description' | translate }}</label>
+          <input
+            id="description"
+            type="text"
+            formControlName="description"
+            class="article-form__control"
+          >
+        </div>
+        <div class="article-form__group skeleton-field" col-span="2">
+          <label class="article-form__label" for="listprice">{{ 'LABEL.listprice' | translate }}</label>
+          <input
+            id="listprice"
+            type="number"
+            step="0.01"
+            formControlName="listprice"
+            class="article-form__control"
+          >
+        </div>
+        <div class="article-form__group skeleton-field" col-span="2">
+          <label class="article-form__label" for="revendedorsPrice">{{ 'LABEL.revendedorsPrice' | translate }}</label>
+          <input
+            id="revendedorsPrice"
+            type="number"
+            step="0.01"
+            formControlName="revendedorsPrice"
+            class="article-form__control"
+          >
+        </div>
+        <div class="article-form__group skeleton-field" col-span="2">
+          <label class="article-form__label" for="codigoProvider">{{ 'LABEL.codigoProvider' | translate }}</label>
+          <input
+            id="codigoProvider"
+            type="text"
+            formControlName="codigoProvider"
+            class="article-form__control"
+          >
+        </div>
+        <div class="article-form__group skeleton-field" col-span="2">
+          <label class="article-form__label" for="descriptionProvider">{{ 'LABEL.descriptionProvider' | translate }}</label>
+          <input
+            id="descriptionProvider"
+            type="text"
+            formControlName="descriptionProvider"
+            class="article-form__control"
+          >
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <app-generic-actions
+    footerContent
+    (actionClick)="onAction($event)">
+  </app-generic-actions>
+</app-generic-form>
