@@ -17,7 +17,7 @@ import { environment } from '../../../../environments/environment';
 })
 export class AuthService {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}/auth`;
+  private apiUrl = `${environment.entitiesApiUrl}/auth`;
   
   private _currentUser$ = new BehaviorSubject<AuthenticatedUser | null>(null);
   private _isAuthenticated$ = new BehaviorSubject<boolean>(false);
