@@ -1,11 +1,12 @@
 <div class="article-grid__container">
-
-  <app-generic-grid
-    [serverSidePagination]="true"
+  <app-generic-grid    
+    [infiniteScroll]="true"
+    [itemHeight]="48"
+    (scrollEnd)="onLoadNextPage()"
     [pageSize]="15"
-    
+    (sortChange)="onSortChange($event)"
     (edit)="onEdit($event)"
     (delete)="onDelete($event)"
-    (open)="onOpen($event)">
+    (open)="onOpen($event)">   
   </app-generic-grid>
 </div>

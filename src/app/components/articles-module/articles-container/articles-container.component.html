@@ -16,10 +16,11 @@
   <app-article-grid
     gridContent
     class="articles-container__grid"
-    (changePage)="onPageChange($event)"
     (edit)="onEdit($event)"
     (delete)="onDeleteArticle($event)"
-    (open)="onOpenArticle($event)">
+    (open)="onOpenArticle($event)"
+    (sortChange)="onSortChange($event)"
+    (scrollEndChange)="onLoadNextPage()">
   </app-article-grid>
 
   <div formContent>

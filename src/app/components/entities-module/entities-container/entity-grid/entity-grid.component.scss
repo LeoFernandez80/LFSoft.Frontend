@@ -1,3 +1,8 @@
+
 .entity-grid__container {
   padding: 0;
+  flex-direction: column;
+  display: block;
+  height: 100%;
+  width: 100%;
 }

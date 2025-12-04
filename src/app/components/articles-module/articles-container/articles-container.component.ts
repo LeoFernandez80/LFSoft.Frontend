@@ -51,7 +51,8 @@ export class ArticlesContainerComponent implements OnInit, OnDestroy {
   selectedArticleId: number | null = null;
   filterParameters: ArticleFilter = new ArticleFilter();
   
-  private openedArticles: Article[] = [];
+  private _dataLoaded: ArticleGrid[] = [];
+  private _openedArticles: Article[] = [];
   private _pageFilter: PageFilter = new PageFilter();
   private readonly _destroyRef = inject(DestroyRef);
 
@@ -78,6 +79,27 @@ export class ArticlesContainerComponent implements OnInit, OnDestroy {
     // que usen takeUntilDestroyed()
   }
 
+  onSortChange(pageFilter: PageFilter): void {
+    try {
+      this._pageFilter.sortField = pageFilter.sortField;
+      this._pageFilter.sortDirection = pageFilter.sortDirection;
+      this._pageFilter.page = 1;
+      this._dataLoaded = [];
+      this.loadArticles(this._pageFilter, this.filterParameters);
+    } catch (error) {
+      this._messagesService.addMessage("Error al ordenar", EnumMessageType.Error);
+    }
+  }
+
+  onLoadNextPage(): void {
+    try {
+      this._pageFilter.page++;
+      this.loadArticles(this._pageFilter, this.filterParameters);
+    } catch (error) {
+      this._messagesService.addMessage("Error al cargar más datos", EnumMessageType.Error);
+    }
+  }
+
   onPageChange(pageFilter: PageFilter): void {
     try {
       this._pageFilter = pageFilter;
@@ -90,6 +112,8 @@ export class ArticlesContainerComponent implements OnInit, OnDestroy {
   onFilterApplied(filter: ArticleFilter): void {
     try {
       this.filterParameters = filter;
+      this._pageFilter.page = 1;
+      this._dataLoaded = [];
       this.loadArticles(this._pageFilter, this.filterParameters);
     } catch (error) {
       this._messagesService.addMessage("Error al aplicar filtro", EnumMessageType.Error);
@@ -108,7 +132,6 @@ export class ArticlesContainerComponent implements OnInit, OnDestroy {
       case EnumActionsType.actionList:
         try {
           this.openedArticlesId = [];
-          this.openedArticles = [];
           this.selectedArticleId = null;
           this._messagesService.addMessage("Generando listado", EnumMessageType.Error);
         } catch (error) {
@@ -131,7 +154,7 @@ export class ArticlesContainerComponent implements OnInit, OnDestroy {
         .subscribe({
           next: (fullArticle) => {
             this.openedArticlesId.push(article.id);
-            this.openedArticles.push(fullArticle);
+            this._openedArticles.push(fullArticle);
             this.selectedArticleId = article.id;
           },
           error: () => {
@@ -166,12 +189,29 @@ export class ArticlesContainerComponent implements OnInit, OnDestroy {
   }
 
   onSaveArticle(article: Article): void {
+    // Actualizar en el array de artículos abiertos
     const index = this.openedArticlesId.indexOf(article.id);
     if (index !== -1) {
-      this.openedArticles[index] = article;
+      this._openedArticles[index] = article;
     }
+    
+    // Actualizar en la grilla
+    const indexData = this._dataLoaded.findIndex(a => a.id === article.id);
+    if (indexData !== -1) {
+      this._dataLoaded[indexData] = this._mapArticleToGrid(article);
+    }
+    
+    this._gridService.setData(this._dataLoaded);
     this._messagesService.addMessage('MESSAGE.successSave', EnumMessageType.Info);
-    this.loadArticles(this._pageFilter, this.filterParameters);
+  }
+
+  private _mapArticleToGrid(article: Article): ArticleGrid {
+    const articleGrid = new ArticleGrid();
+    articleGrid.id = article.id;
+    articleGrid.codigoAsy = article.codigoAsy;
+    articleGrid.description = article.description;
+    articleGrid.listprice = article.listprice;
+    return articleGrid;
   }
 
   onCancelArticle(): void {
@@ -199,9 +239,11 @@ export class ArticlesContainerComponent implements OnInit, OnDestroy {
   private _closeArticle(articleId: number): void {
     const index = this.openedArticlesId.indexOf(articleId);
     if (index !== -1) {
+      // Sincronizar ambos arrays
       this.openedArticlesId.splice(index, 1);
-      this.openedArticles.splice(index, 1);
+      this._openedArticles.splice(index, 1);
       
+      // Seleccionar otra pestaña si quedan
       if (this.openedArticlesId.length > 0) {
         this.selectedArticleId = this.openedArticlesId[Math.max(index - 1, 0)];
       } else {
@@ -211,35 +253,36 @@ export class ArticlesContainerComponent implements OnInit, OnDestroy {
   }
 
   private _createArticle(): void {
-    try {
-      const newArticle = new Article();
-      newArticle.id = 0;
-      newArticle.codigoAsy = 'Nuevo';
-      newArticle.description = 'Artículo';
-      
-      this.openedArticlesId.push(0);
-      this.openedArticles.push(newArticle);
-      this.selectedArticleId = 0;
-    } catch (error) {
-      throw error;
-    }
+    const newArticle = new Article();
+    newArticle.id = 0;
+    newArticle.codigoAsy = 'Nuevo';
+    newArticle.description = 'Artículo';
+    
+    this.openedArticlesId.push(0);
+    this._openedArticles.push(newArticle);
+    this.selectedArticleId = 0;
   }
 
   getArticleById(articleId: number): Article | undefined {
     const index = this.openedArticlesId.indexOf(articleId);
-    return index !== -1 ? this.openedArticles[index] : undefined;
+    return index !== -1 ? this._openedArticles[index] : undefined;
   }
 
   private _deleteArticle(article: ArticleGrid): void {
-    try {
-      this._articleService.deleteArticle(article.id!)
-        .pipe(takeUntilDestroyed(this._destroyRef))
-        .subscribe(() => {
+    this._articleService.deleteArticle(article.id!)
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: () => {
           this._messagesService.addMessage("MESSAGE.successDelete", EnumMessageType.Info);
-        });
-    } catch (error) {
-      throw error;
-    }
+          // Recargar la grilla
+          this._dataLoaded = [];
+          this._pageFilter.page = 1;
+          this.loadArticles(this._pageFilter, this.filterParameters);
+        },
+        error: (error) => {
+          this._messagesService.addMessage(error, EnumMessageType.Error);
+        }
+      });
   }
 
   private _openArticle(article: ArticleGrid): void {
@@ -264,8 +307,10 @@ export class ArticlesContainerComponent implements OnInit, OnDestroy {
   private loadArticles(pageFilter: PageFilter, filterParameters: ArticleFilter) {
     this._articleService.getArticles(pageFilter, filterParameters)
       .pipe(takeUntilDestroyed(this._destroyRef))
-      .subscribe(response => {
-        this._gridService.setData(response.data);
+      .subscribe(response => {        
+        this._dataLoaded = [...this._dataLoaded, ...response.data];        
+        console.log("Articulos", this._dataLoaded, response);
+        this._gridService.setData(this._dataLoaded);
       });
   }
 

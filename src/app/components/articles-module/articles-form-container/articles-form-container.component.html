@@ -1,8 +1,8 @@
 <app-generic-message></app-generic-message>
-
-<app-generic-layout [title]="'Artículos'" [type]="layoutTypes.layoutWithoutSidebar" class="articles-container">
-  <app-article-form
+<app-generic-layout [title]="'TITLE.articles' | translate" class="articles-container">
+  <app-article-form 
     formContent
+    [articleId]="articleId"
     (save)="onSaveArticle($event)"
     (cancel)="onCancelArticle()">
   </app-article-form>

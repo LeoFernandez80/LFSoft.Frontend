@@ -57,30 +57,30 @@ export class ArticleGridFilterComponent implements OnInit {
 
   private _resetFilter(): void {
     this.form.reset();
-    this._apply();
+    this.apply.emit(new ArticleFilter());
   }
 
   private _apply(): void {
-    const filter = this._mapToFilter();
+    const filter = new ArticleFilter();
+    filter.id = this.form.get('id')?.value;
+    filter.codigoAsy = this.form.get('codigoAsy')?.value;
+    filter.description = this.form.get('description')?.value;
     this.apply.emit(filter);
-  }
-
-  private _mapToFilter(): ArticleFilter {
-    const formData = this.form.value as ArticleFilter;
-    return {
-      id: formData.id
-    };
   }
 
   private _createForm() {
     this.form = this.fb.group({
-      id: [null]
+      id: [null],
+      codigoAsy: [null],
+      description: [null]
     });
   }
 
   private _updateForm(filter: ArticleFilter): void {
     this.form.patchValue({
-      id: filter.id
+      id: filter.id,
+      codigoAsy: filter.codigoAsy,
+      description: filter.description
     });
   }
 

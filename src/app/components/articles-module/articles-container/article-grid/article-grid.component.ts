@@ -1,5 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Sort } from '@angular/material/sort';
 import { EnumActionsType } from '../../../../generic/generic-actions/enums/actions-type.enums';
+import { EnumActionsViewType } from '../../../../generic/generic-actions/enums/actions-view-type.enums';
+import { EnumActionsStyle } from '../../../../generic/generic-actions/enums/actions-styles.enums';
 import { GenericActionsComponent } from '../../../../generic/generic-actions/generic-actions.component';
 import { GenericGridComponent } from '../../../../generic/generic-grid/generic-grid.component';
 import { GridColumn } from '../../../../generic/generic-grid/models/grid-column.model';
@@ -7,10 +10,7 @@ import { GridService } from '../../../../generic/generic-grid/services/grid.serv
 import { PageFilter } from '../../../../generic/models/page-filter.model';
 import { ArticleGrid } from '../../models/article-grid.model';
 import { Action } from '../../../../generic/generic-actions/models/actions.model';
-import { E } from '@angular/cdk/keycodes';
-import { EnumActionsViewType } from '../../../../generic/generic-actions/enums/actions-view-type.enums';
 import { TranslationService } from '../../../../generic/generic-translate/translation.service';
-import { DrawerService } from '../../../../generic/generic-drawer/services/drawer.service';
 
 @Component({
   selector: 'app-article-grid',
@@ -24,8 +24,8 @@ export class ArticleGridComponent implements OnInit {
   @Output() edit = new EventEmitter<ArticleGrid>();
   @Output() delete = new EventEmitter<ArticleGrid>();
   @Output() open = new EventEmitter<ArticleGrid>();
-
-  @Output() changePage = new EventEmitter<PageFilter>();
+  @Output() sortChange = new EventEmitter<PageFilter>();
+  @Output() scrollEndChange = new EventEmitter<void>();
 
   columns: GridColumn<ArticleGrid>[] = [];
 
@@ -38,8 +38,15 @@ export class ArticleGridComponent implements OnInit {
     this._loadSecurityActions();
   }
 
-  onPageChange(event: { page: number, pageSize: number, sortField?: string, sortDirection?: 'asc' | 'desc' }) {
-    this.changePage.emit(event as PageFilter);
+  onSortChange(event: Sort) {
+    const pageFilter = new PageFilter();
+    pageFilter.sortField = event.active;
+    pageFilter.sortDirection = event.direction;
+    this.sortChange.emit(pageFilter);
+  }
+
+  onLoadNextPage() {
+    this.scrollEndChange.emit();
   }
 
   onEdit(article: ArticleGrid) {
@@ -72,21 +79,18 @@ export class ArticleGridComponent implements OnInit {
         field: 'description',
         header: 'LABEL.description',
         sortable: true
-      },
-      {
-        field: 'listprice',
-        header: 'LABEL.listprice',
-        sortable: true,
-        align: 'right'
       }
     ];
   }
 
   private _loadSecurityActions(): void {
     const actions: Action[] = [
-      new Action('', EnumActionsType.actionEdit, 'edit', false, EnumActionsViewType.view16x16),
-      new Action('', EnumActionsType.actionDelete, 'delete', false, EnumActionsViewType.view16x16),
-      new Action('', EnumActionsType.actionOpen, 'open_in_new', false, EnumActionsViewType.view16x16),
+      new Action('', EnumActionsType.actionEdit, 'edit', false, 
+        EnumActionsViewType.view16x16, EnumActionsStyle.primary),
+      new Action('', EnumActionsType.actionDelete, 'delete', false, 
+        EnumActionsViewType.view16x16, EnumActionsStyle.primary),
+      new Action('', EnumActionsType.actionOpen, 'open_in_new', false, 
+        EnumActionsViewType.view16x16, EnumActionsStyle.primary),
     ];
     this._gridService.setActions(actions);
   }

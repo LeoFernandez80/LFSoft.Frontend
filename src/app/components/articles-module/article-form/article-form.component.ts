@@ -175,26 +175,31 @@ export class ArticleFormComponent implements OnInit, OnDestroy {
   }
 
   private _save(): void {
-    try {
-      if (!this.articleForm.dirty) {
-        return;
-      }
+    if (!this.isReadyToSave()) return;
 
-      const formData = this.articleForm.value;
-      const updatedArticle: Article = {
-        ...this.article,
-        ...formData
-      };
+    const formData = this.articleForm.value;
+    const updatedArticle: Article = {
+      ...this.article,
+      ...formData
+    };
 
-      if (!updatedArticle.id) {
-        this._articleService.addArticle(updatedArticle);
-      } else {
-        this._articleService.updateArticle(updatedArticle);
-      }
-      this.save.emit(updatedArticle);
-    } catch (error) {
-      throw error;
-    }
+    const operation = this.articleId === 0 
+      ? this._articleService.addArticle(updatedArticle)
+      : this._articleService.updateArticle(updatedArticle);
+
+    operation
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: (savedArticle) => {
+          this.article = savedArticle;
+          this.articleId = savedArticle.id;
+          this.articleForm.markAsPristine();
+          this.save.emit(savedArticle);
+        },
+        error: () => {
+          this._messagesService.addMessage("MESSAGE.errorSavingArticle", EnumMessageType.Error);
+        }
+      });
   }
 
   //#region Security

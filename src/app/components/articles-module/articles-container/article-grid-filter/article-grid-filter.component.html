@@ -12,13 +12,16 @@
         <form [formGroup]="form">
           <div class="articles-filter">
             <div class="articles-filter__group" col-span="6">
-              <label class="articles-filter__label" for="id">{{ 'number' | translate }}</label>
-              <input
-                id="id"
-                type="number"
-                name="id"
-                formControlName="id"
-                class="articles-filter__control">
+              <label class="articles-filter__label" for="id">{{ 'LABEL.number' | translate }}</label>
+              <input id="id" type="number" formControlName="id" class="articles-filter__control">
+            </div>
+            <div class="articles-filter__group" col-span="6">
+              <label class="articles-filter__label" for="codigoAsy">{{ 'LABEL.codigoAsy' | translate }}</label>
+              <input id="codigoAsy" type="text" formControlName="codigoAsy" class="articles-filter__control">
+            </div>
+            <div class="articles-filter__group" col-span="6">
+              <label class="articles-filter__label" for="description">{{ 'LABEL.description' | translate }}</label>
+              <input id="description" type="text" formControlName="description" class="articles-filter__control">
             </div>
           </div>
         </form>
@@ -28,6 +31,7 @@
 
   <app-generic-actions
     footerContent
+    class="form-actions--footer"
     (actionClick)="onAction($event)">
   </app-generic-actions>
 </app-generic-form>

@@ -1,6 +1,21 @@
-export class ArticleFilter {
-  id?: number = 0;
-  // codigoAsy?: string='';
-  // description?: string ='';
-  // listprice?: number=0;
+import { QueryParams } from "../../../generic/models/interfaces/query-params.interface";
+
+export class ArticleFilter implements QueryParams {
+  id?: number;
+  codigoAsy?: string;
+  description?: string;
+
+  toString(): string {
+    const params = new URLSearchParams();
+    if (this.id !== undefined && this.id !== null) {
+      params.append('id', this.id.toString());
+    }
+    if (this.codigoAsy !== undefined && this.codigoAsy !== null && this.codigoAsy !== '') {
+      params.append('codigoAsy', this.codigoAsy);
+    }
+    if (this.description !== undefined && this.description !== null && this.description !== '') {
+      params.append('description', this.description);
+    }
+    return params.toString();
+  }
 }

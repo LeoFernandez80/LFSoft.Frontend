@@ -190,9 +190,15 @@ export class EntitiesContainerComponent implements OnInit, OnDestroy {
       if (index !== -1) {
         this._openedEntities[index] = entity;
       }
+      const indexData = this._dataLoaded.findIndex(e => e.id === entity.id);
+      if (indexData !== -1) {
+        this._dataLoaded[indexData] = this._mapEntityToGrid(entity);
+      }
+      this._gridService.setData(this._dataLoaded);
+
       this._messagesService.addMessage("MESSAGE.successSave", EnumMessageType.Info);
-      this.loadEntities(this._pageFilter, this.filterParameters);
-      this.onCloseTab(entity.id);
+      //this.loadEntities(this._pageFilter, this.filterParameters);
+      //this.onCloseTab(entity.id);
     } catch (error) {
       this._messagesService.addMessage("Error al guardar entidad", EnumMessageType.Error);
     }
@@ -212,16 +218,21 @@ export class EntitiesContainerComponent implements OnInit, OnDestroy {
     this._entityService.getEntities(pageFilter, filterParameters)
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
-        next: (response) => { 
-          
+        next: (response) => {           
           this._dataLoaded = this._dataLoaded.concat(response.data);
-          console.log("loadEntities", this._dataLoaded);
           this._gridService.setData(this._dataLoaded);
         },
         error: (error) => {
           this._messagesService.addMessage(error, EnumMessageType.Error);
         }
       });
+  }
+
+  private _mapEntityToGrid(entity: Entity): EntityGrid {
+    const entityGrid = new EntityGrid();
+    entityGrid.id = entity.id;
+    entityGrid.description = entity.description;
+    return entityGrid;
   }
 
   private _closeEntity(entityId: number): void {

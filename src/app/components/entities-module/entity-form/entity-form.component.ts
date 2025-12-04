@@ -89,7 +89,7 @@ export class EntityFormComponent implements OnInit, OnDestroy {
 
   private _createForm() {
     this.entityForm = this.fb.group({
-      description: ['', [Validators.required, Validators.minLength(3)]]
+      description: [null, [Validators.required, Validators.minLength(3)]]
     });
     this.entityForm.statusChanges
       .pipe(takeUntilDestroyed(this._destroyRef))
@@ -185,12 +185,16 @@ export class EntityFormComponent implements OnInit, OnDestroy {
         this._entityService.addEntity(updatedEntity).pipe(
           takeUntilDestroyed(this._destroyRef)
         ).subscribe(createdEntity => {
+          this.entityForm.markAsPristine();
+          this._enabledActions();
           this.save.emit(createdEntity);
         });
       } else {
         this._entityService.updateEntity(updatedEntity).pipe(
           takeUntilDestroyed(this._destroyRef)
         ).subscribe(updatedEntity => {
+          this.entityForm.markAsPristine();
+          this._enabledActions();
           this.save.emit(updatedEntity);
         }, error => {          
           throw error;

@@ -1,9 +1,19 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
 .mat-elevation-z8 {
   overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .scroll-container {
-  height: 500px; // Altura por defecto, puede personalizarse
+  height: 100%;
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;

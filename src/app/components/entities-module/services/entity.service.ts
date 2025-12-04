@@ -15,56 +15,9 @@ export class EntityService {
   private http = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}/entities`;
 
-  // getEntities(pageFilter: PageFilter, filterParameters: EntityFilter): Observable<PaginatedList<EntityGrid>> {
-  //   return this.http.get<Entity[]>(this.apiUrl,  {
-  //     headers: this.getHeaders()
-  //   }).pipe(
-  //     map(entities => {
-  //       let filteredData = this._filterEntities(entities, filterParameters);
-  //       const total = filteredData.length;
-  //       console.log("filtered data",filterParameters, filteredData);
-        
-  //       // Map to EntityGrid
-  //       let gridData: EntityGrid[] = filteredData.map(entity => ({
-  //         selected: false,
-  //         id: entity.id!,
-  //         description: entity.description
-  //       }));
-        
-  //       // Ordenamiento
-  //       if (pageFilter.sortField) {
-  //         gridData.sort((a: any, b: any) => {
-  //           const sortField = pageFilter.sortField ?? "";
-  //           const valueA = a[sortField];
-  //           const valueB = b[sortField];
-  //           const direction = pageFilter.sortDirection === 'asc' ? 1 : -1;
-  //           if (valueA < valueB) return -1 * direction;
-  //           if (valueA > valueB) return 1 * direction;
-  //           return 0;
-  //         });
-  //       }
-        
-  //       // Paginación
-  //       const start = (pageFilter.page - 1) * pageFilter.pageSize;
-  //       const paginatedData = gridData.slice(start, start + pageFilter.pageSize);
-        
-  //       return {
-  //         data: paginatedData,
-  //         total
-  //       };
-  //     }),
-  //     catchError(error => {
-  //       console.error('Error fetching entities:', error);
-  //       return throwError(() => error);
-  //     })
-  //   );
-  // }
-
   getEntities(pageFilter: PageFilter, entityParameters: EntityFilter): Observable<PaginatedList<EntityGrid>> {
     
-    const pageParams = pageFilter.toString();
-    console.log("SS",pageParams);
-    
+    const pageParams = pageFilter.toString();    
     const entityParams = entityParameters.toString();
     const paramsString = entityParams ? `${pageParams}&${entityParams}` : pageParams;   
     
