@@ -13,7 +13,7 @@ import { environment } from '../../../../environments/environment';
 })
 export class ArticleService {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.articlesApiUrl}/articles`;
+  private apiUrl = `${environment.apiUrl}/articles`;
 
   // GET ALL (paginado y filtrado)
   getArticles(pageFilter: PageFilter, articleParameters: ArticleFilter): Observable<PaginatedList<ArticleGrid>> {

@@ -13,7 +13,7 @@ import { environment } from '../../../../environments/environment';
 })
 export class EntityService {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.entitiesApiUrl}/entities`;
+  private apiUrl = `${environment.apiUrl}/entities`;
 
   getEntities(pageFilter: PageFilter, entityParameters: EntityFilter): Observable<PaginatedList<EntityGrid>> {
     

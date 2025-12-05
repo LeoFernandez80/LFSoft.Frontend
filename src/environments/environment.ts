@@ -9,9 +9,10 @@ export const environment = {
   /**
    * URL base de la API
    */
-  entitiesApiUrl: 'http://localhost:3000/api',
-  articlesApiUrl: 'http://localhost:3001/api',
-  securityApiUrl: 'http://localhost:3002/api',
+  apiUrl: 'http://localhost:3000/api',
+  // entitiesApiUrl: 'http://localhost:3000/api',
+  // articlesApiUrl: 'http://localhost:3001/api',
+  // securityApiUrl: 'http://localhost:3002/api',
   
   /**
    * Configuración de fechas y zona horaria
