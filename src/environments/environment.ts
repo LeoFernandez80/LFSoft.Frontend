@@ -11,6 +11,7 @@ export const environment = {
    */
   entitiesApiUrl: 'http://localhost:3000/api',
   articlesApiUrl: 'http://localhost:3001/api',
+  securityApiUrl: 'http://localhost:3002/api',
   
   /**
    * Configuración de fechas y zona horaria

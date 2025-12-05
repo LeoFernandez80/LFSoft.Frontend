@@ -110,7 +110,7 @@ export class ArticleFormComponent implements OnInit, OnDestroy {
       switch (this._operation) {
         case 'open':
           this._editArticle(this.articleId).subscribe(article => {
-            this._updateArticle(article);
+            this._updateArticle(article);            
             this._enabledActions();
           });
           break;
@@ -129,7 +129,7 @@ export class ArticleFormComponent implements OnInit, OnDestroy {
 
   private _updateArticle(article: Article): void {
     this.article = article;
-    this.articleForm.patchValue(this.article, { emitEvent: false });
+    this.articleForm.patchValue(this.article);
   }
 
   private _loadParams(): Observable<void> {
