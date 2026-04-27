@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Action, EnumActionsStyle, EnumActionsType, EnumActionsViewType } from '@lib/shared';
-import { EnumActions } from '../../../../../common/src/lib/enums/actions.enum';
 import { EnumActionsIcons } from 'libs/shared/src/lib/generic-actions/enums/actions-icons.enums';
+import { EnumActions } from '../enums/actions.enum';
 
 @Injectable({
   providedIn: 'root'

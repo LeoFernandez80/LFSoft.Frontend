@@ -16,7 +16,7 @@ import { UrlService } from '@lib/shared';
 import { AuthService, EnumUserRole } from '@lib/security';
 import { Configuration, ConfigurationService, EnumActions } from '@lib/common';
 import { ConfigurationItem } from '@lib/common';
-import { UserPermissionsService } from '../../permissions/services/user-permissions.service';
+import { UserPermissionsService } from '../../../../../security/src/lib/permissions/services/user-permissions.service';
 import { MenuesService } from 'libs/common/src/lib/services/menues.service';
 import { EnumLiteralKeys } from 'libs/common/src/lib/enums/literal-keys.enum';
 

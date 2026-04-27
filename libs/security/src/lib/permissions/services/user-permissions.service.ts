@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { EnumUserRole } from '../../../../../security/src/lib/enums/user-role.enum';
+import { EnumUserRole } from '../../enums/user-role.enum';
 import { EnumActions } from '../../../../../common/src/lib/enums/actions.enum';
 import { Action } from '@lib/shared';
-import { PermisionsActionsService } from './permissions-actions.service';
+import { PermisionsActionsService } from '../../../../../common/src/lib/services/permissions-actions.service';
 import { UserPermissions } from '../models/user-permissions.model';
 import { EnumLiteralKeys } from 'libs/common/src/lib/enums/literal-keys.enum';
 import { UserRolFields } from '../models/user-rol-fields.model';

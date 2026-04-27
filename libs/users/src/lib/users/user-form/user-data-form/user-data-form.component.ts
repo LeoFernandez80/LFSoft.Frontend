@@ -15,7 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormValidationsDirective, GenericFormComponent, TranslatePipe } from '@lib/shared';
 import { Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { UserPermissionsService } from '../../../permissions/services/user-permissions.service';
+import { UserPermissionsService } from '../../../../../../security/src/lib/permissions/services/user-permissions.service';
 import { EnumLiteralKeys } from 'libs/common/src/lib/enums/literal-keys.enum';
 
 @Component({

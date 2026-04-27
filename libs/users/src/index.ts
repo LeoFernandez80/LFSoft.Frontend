@@ -26,10 +26,10 @@ export * from './lib/users/users-form-container/users-form-container.component';
 //#region User Permissions 
 
 // Models
-export * from './lib/permissions/models/user-permissions.model';
-export * from './lib/permissions/models/user-roles.model';
+export * from '../../security/src/lib/permissions/models/user-permissions.model';
+export * from '../../security/src/lib/permissions/models/user-roles.model';
 
 // Services
-export * from './lib/permissions/services/user-permissions.service';
+export * from '../../security/src/lib/permissions/services/user-permissions.service';
 
 //#endregion

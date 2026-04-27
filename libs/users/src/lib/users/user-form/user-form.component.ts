@@ -12,7 +12,7 @@ import { AuthService, EnumUserRole, UrlSecurityService } from '@lib/security';
 import { GenericFormComponent, GenericActionsComponent, TranslatePipe, ActionService, MessagesService, ModalService, EnumMessageType, EnumActionsType, CONFIRM_CANCEL } from '@lib/shared';
 import { EnumActions, EnumObjectMode } from '@lib/common';
 
-import { UserPermissionsService } from '../../permissions/services/user-permissions.service';
+import { UserPermissionsService } from '../../../../../security/src/lib/permissions/services/user-permissions.service';
 import { HTTPServiceUser } from '../http-services/user.service';
 import { User } from '../models/user.model';
 import { UserResponse } from '../models/user-response.model';

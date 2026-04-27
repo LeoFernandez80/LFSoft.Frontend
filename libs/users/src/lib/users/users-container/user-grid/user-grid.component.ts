@@ -4,7 +4,7 @@ import { AuthService, EnumUserRole } from '@lib/security';
 import { Sort } from '@angular/material/sort';
 
 import { UserGrid } from '../../models/user-grid.model';
-import { UserPermissionsService } from '../../../permissions/services/user-permissions.service';
+import { UserPermissionsService } from '../../../../../../security/src/lib/permissions/services/user-permissions.service';
 import { EnumLiteralKeys } from 'libs/common/src/lib/enums/literal-keys.enum';
 
 @Component({

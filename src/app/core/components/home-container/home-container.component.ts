@@ -12,7 +12,7 @@ import { Action, ActionService, DrawerService, EnumActionsIcons, EnumActionsStyl
 import { Configuration, ConfigurationService, EnumActions } from '@lib/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MenuesService } from 'libs/common/src/lib/services/menues.service';
-import { UserPermissionsService } from 'libs/users/src/lib/permissions/services/user-permissions.service';
+import { UserPermissionsService } from 'libs/security/src/lib/permissions/services/user-permissions.service';
 import { EnumLiteralKeys } from 'libs/common/src/lib/enums/literal-keys.enum';
 
 
