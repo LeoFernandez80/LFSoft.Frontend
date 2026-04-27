@@ -1,0 +1,9 @@
+<lfsoft-shared-message></lfsoft-shared-message>
+
+<lfsoft-shared-layout [title]="'Customers'" [type]="layoutTypes.layoutWithoutSidebar" class="customers-container">
+  <lfsoft-sales-customer-form
+    formContent    
+    (save)="onSaveCustomer($event)"
+    (cancel)="onCancelCustomer()">
+  </lfsoft-sales-customer-form>
+</lfsoft-shared-layout>

@@ -1,0 +1,9 @@
+<lfsoft-shared-message></lfsoft-shared-message>
+
+<lfsoft-shared-layout [title]="'Entidades'" [type]="layoutTypes.layoutWithoutSidebar" class="entities-container">
+  <lfsoft-utilities-entity-form
+    formContent    
+    (save)="onSaveEntity($event)"
+    (cancel)="onCancelEntity()">
+  </lfsoft-utilities-entity-form>
+</lfsoft-shared-layout>

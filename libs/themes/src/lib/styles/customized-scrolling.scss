@@ -1,0 +1,21 @@
+.scrollbar-container {
+  // Webkit browsers
+  &::-webkit-scrollbar-track {
+    background: var(--container-primary-border);
+  }
+
+  &::-webkit-scrollbar {
+    background: transparent;
+    width: 15px;
+    height: 15px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--container-primary-border-hover);
+    border-radius: 6px;
+  }
+
+  // Firefox — set track color while keeping thumb automatic
+  scrollbar-color: auto var(--container-primary-border);
+  scrollbar-width: auto;
+}

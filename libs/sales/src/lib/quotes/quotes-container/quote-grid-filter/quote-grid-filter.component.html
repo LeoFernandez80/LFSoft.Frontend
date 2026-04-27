@@ -1,0 +1,66 @@
+<lfsoft-shared-form [title]="'TITLE.filter' | translate">
+  <div data>
+    <mat-tab-group >
+      <mat-tab >
+        <ng-template mat-tab-label >            
+          <div class="quotes-filter-tab">
+            <div class="quotes-filter-tab__label">
+              {{ 'TITLE.quoteData' | translate }}                     
+            </div>
+          </div>
+        </ng-template>
+        <form [formGroup]="form"  >
+          <div class="quotes-filter">
+            <div class="quotes-filter__group" col-span="6">
+              <label class="quotes-filter__label" for="customerName">{{ 'LABEL.customerName' | translate }}</label>
+              <input 
+              id="customerName"
+              type="text"
+              name="customerName"
+              formControlName="customerName"
+              class="quotes-filter__control">
+            </div>
+
+            <div class="quotes-filter__group" col-span="3">
+              <label class="quotes-filter__label" for="quoteStateId">{{ 'LABEL.state' | translate }}</label>
+              <select 
+              id="quoteStateId"
+              name="quoteStateId"
+              formControlName="quoteStateId"
+              class="quotes-filter__control">
+                <option [value]="null">{{ 'LABEL.all' | translate }}</option>
+                <option [value]="1">{{ 'LABEL.quoteInMaking' | translate }}</option>
+                <option [value]="2">{{ 'LABEL.quoteApproved' | translate }}</option>
+                <option [value]="3">{{ 'LABEL.quoteRejected' | translate }}</option>
+                <option [value]="4">{{ 'LABEL.quoteCancelled' | translate }}</option>
+              </select>
+            </div>
+
+            <div class="quotes-filter__group" col-span="3">
+              <label class="quotes-filter__label" for="startDate">{{ 'LABEL.creationDateFrom' | translate }}</label>
+              <input 
+              id="startDate"
+              type="date"
+              name="startDate"
+              formControlName="startDate"
+              class="quotes-filter__control">
+            </div>
+
+            <div class="quotes-filter__group" col-span="3">
+              <label class="quotes-filter__label" for="endDate">{{ 'LABEL.creationDateTo' | translate }}</label>
+              <input 
+              id="endDate"
+              type="date"
+              name="endDate"
+              formControlName="endDate"
+              class="quotes-filter__control">
+            </div>
+          </div>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <div actions>
+    <lfsoft-shared-actions (action)="onAction($event)"></lfsoft-shared-actions>
+  </div>
+</lfsoft-shared-form>

@@ -1,0 +1,76 @@
+<lfsoft-shared-form [title]="'Datos del item ' + (invoiceItem?.itemId || '')" [showActions]="!showForm">
+  <div data>
+    <form [formGroup]="form"  [lfsoftFormValidations]="form">
+      <div class="invoice-item-form">
+        <div class="invoice-item-form__group skeleton-field" col-span="1">
+          <label class="invoice-item-form__label" for="itemQuantity">{{ 'LABEL.quantity' | translate}}</label>
+          <input 
+            id="itemQuantity"
+            type="number"
+            formControlName="itemQuantity"
+            class="invoice-item-form__control"
+            min="0"
+            step="1">
+        </div>
+        <div class="invoice-item-form__group skeleton-field" col-span="3" row-span="2">
+          <label class="invoice-item-form__label" for="itemDescription">{{ 'LABEL.description' | translate}}</label>
+          <textarea 
+            id="itemDescription"
+            formControlName="itemDescription"
+            class="invoice-item-form__control"
+            rows="7">
+          </textarea>
+        </div>        
+        <div class="invoice-item-form__group skeleton-field" col-span="1">
+          <label class="invoice-item-form__label" for="itemUnitPrice">{{ 'LABEL.unitPrice' | translate}}</label>
+          <input 
+            id="itemUnitPrice"
+            type="number"
+            formControlName="itemUnitPrice"
+            class="invoice-item-form__control"
+            readonly>
+        </div>
+        <div class="invoice-item-form__group skeleton-field" col-span="1">
+          <label class="invoice-item-form__label" for="itemTotalPrice">{{ 'LABEL.totalPrice' | translate}}</label>
+          <input 
+            id="itemTotalPrice"
+            type="number"
+            formControlName="itemTotalPrice"
+            class="invoice-item-form__control"
+            readonly>
+        </div><div class="invoice-item-form__group skeleton-field" col-span="1">
+          <label class="invoice-item-form__label" for="itemTotalPrice">{{ 'LABEL.totalPrice' | translate}}</label>
+          <input 
+            id="itemTotalPrice"
+            type="number"
+            formControlName="itemTotalPrice"
+            class="invoice-item-form__control"
+            readonly>
+        </div>
+      </div>
+    </form>
+  </div>
+  @if(!showForm){
+    <div bodyTop>
+      <div class="invoice-item-form__grid">
+        <lfsoft-sales-invoice-item-detail-grid (edit)="onEditItemDetail($event)" (delete)="onDeleteItemDetail($event)"></lfsoft-sales-invoice-item-detail-grid>
+      </div>
+      <div class="invoice-item-form__actions">
+        <div class="invoice-item-form__actions--buttons">          
+          <mat-icon  (click)="onAddItemDetail()">add</mat-icon> 
+        </div>
+      </div>
+    </div> 
+  }
+  @if(showForm){
+  <div  bodyTop>
+    <div class="invoice-item-form__main">
+      <lfsoft-sales-invoice-item-detail-form [invoiceItemDetail]="itemDetailSelected" (accept)="onAcceptItemDetail($event)" (cancel)="onCancelItemDetail()"></lfsoft-sales-invoice-item-detail-form>
+    </div>
+  </div>
+  }
+  <lfsoft-shared-actions
+    footerContent
+    (action)="onAction($event)">
+  </lfsoft-shared-actions>
+</lfsoft-shared-form>

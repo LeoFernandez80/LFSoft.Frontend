@@ -1,0 +1,74 @@
+.quote-item-form {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__label {
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: #333;
+  }
+
+  &__control {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+
+    &:focus {
+      outline: none;
+      border-color: #1976d2;
+    }
+
+    &[readonly] {
+      background-color: #f5f5f5;
+    }
+  }
+
+  &__grid {
+    margin-top: 1rem;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 1rem;
+
+    &--buttons {
+      display: flex;
+      gap: 0.5rem;
+      
+      mat-icon {
+        cursor: pointer;
+        color: #1976d2;
+        
+        &:hover {
+          color: #0d47a1;
+        }
+      }
+    }
+  }
+
+  &__main {
+    margin-top: 1rem;
+  }
+}
+
+[col-span="1"] { grid-column: span 1; }
+[col-span="2"] { grid-column: span 2; }
+[col-span="3"] { grid-column: span 3; }
+[col-span="4"] { grid-column: span 4; }
+[col-span="5"] { grid-column: span 5; }
+[col-span="6"] { grid-column: span 6; }
+
+[row-span="1"] { grid-row: span 1; }
+[row-span="2"] { grid-row: span 2; }
+[row-span="3"] { grid-row: span 3; }

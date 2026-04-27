@@ -1,0 +1,61 @@
+<lfsoft-shared-message></lfsoft-shared-message>
+
+<lfsoft-shared-form [title]="'TITLE.registerData' | translate">
+  <div data>
+    <form [formGroup]="registerForm">
+      <div class="register-form">
+        <div class="register-form__group" col-span="6">
+          <label class="register-form__label" for="user_email">{{ 'LABEL.email' | translate }}</label>
+          <input 
+            id="user_email"
+            type="email"
+            formControlName="user_email"
+            class="register-form__control"/>
+        </div>        
+
+        <div class="register-form__group" col-span="6">
+          <label class="register-form__label" for="user_firstName">{{ 'LABEL.firstName' | translate }}</label>
+          <input 
+            id="user_firstName"
+            type="text"
+            formControlName="user_firstName"
+            class="register-form__control"/>
+        </div>
+
+        <div class="register-form__group" col-span="6">
+          <label class="register-form__label" for="user_lastName">{{ 'LABEL.lastName' | translate }}</label>
+          <input 
+            id="user_lastName"
+            type="text"
+            formControlName="user_lastName"
+            class="register-form__control"/>
+        </div>
+
+        <div class="register-form__group" col-span="6">
+          <label class="register-form__label" for="user_password">{{ 'LABEL.password' | translate }}</label>
+          <input 
+            id="user_password"
+            type="password"
+            maxlength="16"
+            formControlName="user_password"
+            class="register-form__control"/>
+        </div>
+
+        <div class="register-form__group" col-span="6">
+          <label class="register-form__label" for="confirmPassword">{{ 'LABEL.confirmPassword' | translate }}</label>
+          <input 
+            id="confirmPassword"
+            type="password"|
+            maxlength="16"
+            formControlName="confirmPassword"
+            class="register-form__control"/>
+        </div>
+        
+          <lfsoft-shared-actions 
+            footerContent    
+            (action)="onAction($event)">
+          </lfsoft-shared-actions>
+      </div>
+    </form>
+  </div>
+</lfsoft-shared-form>

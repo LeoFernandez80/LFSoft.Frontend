@@ -1,0 +1,45 @@
+<lfsoft-shared-form [title]="'Datos del item ' + (documentItem?.itemId || '')" [showActions]="!showForm">
+  <div data>
+    <form [formGroup]="form"  [lfsoftFormValidations]="form">
+      <div class="document-item-form">
+        <div class="document-item-form__group skeleton-field" col-span="1" >
+          <label class="document-item-form__label" for="itemId">{{ 'LABEL.id' | translate }}</label>
+          <input 
+            id="itemId"
+            type="number"
+            formControlName="itemId"
+            class="document-item-form__control"/>
+        </div>
+        <div class="document-item-form__group skeleton-field" col-span="5">
+          <label class="document-item-form__label" for="itemDescription">{{ 'LABEL.description' | translate}}</label>
+          <input 
+            id="itemDescription"
+            type="text"
+            formControlName="itemDescription"
+            class="document-item-form__control "
+            >
+        </div>
+      </div>
+    </form>
+  </div>
+  @if(!showForm){
+    <div bodyTop>
+      <div class="document-item-form__grid">
+        <app-item-detail-grid  (edit)="onEditItemDetail($event)" (delete)="onDeleteItemDetail($event)"></app-item-detail-grid>
+      </div>
+    </div> 
+  }
+  @if(showForm){
+  <div  bodyTop>
+    <div class="document-item-form__main">
+      <app-item-detail-form [documentItemDetail]="itemDetailSelected"  (accept)="onAcceptDocumentItemDetail($event)" (cancel)="onCancelDocumentItemDetail()"></app-item-detail-form>
+    </div>
+  </div>
+  }
+  <lfsoft-shared-actions
+    footerContent
+    (action)="onAction($event)">
+  </lfsoft-shared-actions>
+  
+</lfsoft-shared-form>
+

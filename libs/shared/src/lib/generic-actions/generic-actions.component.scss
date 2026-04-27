@@ -1,0 +1,57 @@
+.actions-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  padding: 10px;
+
+  &__button__content  {
+    justify-content: flex-end;
+    flex: 1;
+  }
+
+  &__button-icon__content {
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+  }
+
+  &__button {
+    border-radius: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-primary {
+      background: var(--button-disabled-bg) !important;
+      &:not([disabled]) {
+        background: var(--button-primary-bg) !important;
+        color: var(--button-primary-text) !important;
+      }
+    }
+
+    &-secondary {
+      background: var(--button-disabled-bg) !important;
+      &:not([disabled]) {        
+        background: var(--button-secondary-bg) !important;
+        color: var(--button-secondary-text) !important;
+      }
+    }
+    &-tertiary {
+      background: var(--button-disabled-bg) !important;
+      &:not([disabled]) {        
+        background: var(--skeleton-tertiary-bg) !important;
+        color: var(--button-secondary-text) !important;
+      }
+    }
+    &-outline {
+      background: var(--button-disabled-bg) !important;
+      &:not([disabled]) {        
+        background: transparent !important;
+        border: 2px solid var(--button-primary-bg) !important;
+        color: var(--button-secondary-text) !important;
+      }
+    }
+  }
+}

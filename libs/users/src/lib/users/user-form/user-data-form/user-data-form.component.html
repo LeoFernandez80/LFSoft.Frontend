@@ -1,0 +1,67 @@
+
+
+    <form [formGroup]="userForm" [lfsoftSkeleton]="isLoading" [lfsoftFormValidations]="userForm" >
+      <div class="user-data-form">
+        <div class="user-data-form__group skeleton-field" col-span="3" *ngIf="!isHiddenField('user_username')">
+          <label class="user-data-form__label" for="user_username">{{ 'LABEL.userName' | translate }}</label>
+          <input 
+            id="user_username"
+            type="text"
+            formControlName="user_username"
+            class="user-data-form__control"
+          >     
+        </div>
+        <div class="user-data-form__group skeleton-field" col-span="3" *ngIf="!isHiddenField('user_email')">
+          <label class="user-data-form__label" for="user_email">{{ 'LABEL.email' | translate }}</label>
+          <input 
+            id="user_email"
+            type="email"
+            formControlName="user_email"
+            class="user-data-form__control"
+          >     
+        </div>
+        <div class="user-data-form__group skeleton-field" col-span="3" *ngIf="!isHiddenField('user_firstName')">
+          <label class="user-data-form__label" for="user_firstName">{{ 'LABEL.firstName' | translate }}</label>
+          <input 
+            id="user_firstName"
+            type="text"
+            formControlName="user_firstName"
+            class="user-data-form__control"
+          >     
+        </div>
+        <div class="user-data-form__group skeleton-field" col-span="3" *ngIf="!isHiddenField('user_lastName')">
+          <label class="user-data-form__label" for="user_lastName">{{ 'LABEL.lastName' | translate }}</label>
+          <input 
+            id="user_lastName"
+            type="text"
+            formControlName="user_lastName"
+            class="user-data-form__control"
+          >     
+        </div>
+        <div class="user-data-form__group skeleton-field" col-span="3" *ngIf="!isHiddenField('user_role')">
+          <label class="user-data-form__label" for="user_role">{{ 'LABEL.role' | translate}}</label>
+          <select 
+            id="user_role"
+            formControlName="user_role"
+            class="user-data-form__control"
+          >
+            <option *ngFor="let roleOption of userRoles" [value]="roleOption">
+              {{ 'ENUM.USER_ROLE.' + roleOption | translate }}
+            </option>
+          </select>
+        </div>
+        <div class="user-data-form__group skeleton-field" col-span="3" *ngIf="!isHiddenField('user_active')">
+          <label class="user-data-form__label">
+            <input 
+              id="userActive"
+              type="checkbox"
+              formControlName="user_active"
+              class="user-data-form__checkbox"
+            >
+            {{ 'LABEL.userActive' | translate}}
+          </label>
+        </div>
+      </div>
+    </form>
+
+ 

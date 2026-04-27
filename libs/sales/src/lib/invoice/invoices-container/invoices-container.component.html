@@ -1,0 +1,49 @@
+<lfsoft-shared-message></lfsoft-shared-message>
+<div class="floating-toolbar">
+  <lfsoft-shared-actions (action)="onAction($event)"></lfsoft-shared-actions>
+</div>
+
+<lfsoft-shared-layout [title]="'TITLE.invoices' | translate" class="invoices-container">
+
+    <lfsoft-shared-actions 
+        headerActions
+        (action)="onAction($event)">
+    </lfsoft-shared-actions>
+
+    <lfsoft-sales-invoice-grid-filter 
+        filterContent
+        class="invoices-container__filter"
+        [filter]="filterParameters"
+        (apply)="onFilterApplied($event)">
+    </lfsoft-sales-invoice-grid-filter>
+
+    <lfsoft-sales-invoice-grid 
+        gridContent        
+        class="invoices-container__grid"
+        (edit)="onEdit($event)"
+        (delete)="onDeleteInvoice($event)"
+        (open)="onOpenInvoice($event)"
+        (changePage)="onPageChange($event)">        
+    </lfsoft-sales-invoice-grid>
+
+    <div formContent>
+        <mat-tab-group>
+            <mat-tab *ngFor="let invoiceId of openedInvoicesId; let i = index">
+                <ng-template mat-tab-label>
+                    <div class="invoices-container__tab" (click)="onClickTab(invoiceId)">
+                        <div class="invoices-container__tab-label">
+                            {{ (getInvoiceById(invoiceId)?.personName || 'Factura') + ' - ' + (getInvoiceById(invoiceId)?.invoiceDescription || '') }} 
+                        </div>
+                    </div>
+                </ng-template>
+                <lfsoft-sales-invoice-form 
+                    formContent
+                    [invoiceId]="invoiceId"
+                    (save)="onSaveInvoice($event)" 
+                    (cancel)="onCancelInvoice()">
+                </lfsoft-sales-invoice-form>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+
+</lfsoft-shared-layout>

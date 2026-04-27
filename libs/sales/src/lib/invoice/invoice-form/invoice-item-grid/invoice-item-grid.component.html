@@ -1,0 +1,8 @@
+<div class="invoice-item-grid__container">
+  <lfsoft-shared-grid   
+    [columns]="columns"
+    [serverSidePagination]="true"
+    (edit)="onEdit($event)"
+    (delete)="onDelete($event)">
+  </lfsoft-shared-grid>
+</div>

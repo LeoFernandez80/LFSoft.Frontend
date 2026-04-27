@@ -1,0 +1,11 @@
+  <div class="body">
+    <div class="floating-toolbar" [style.border]="'4px solid black'">
+      <lfsoft-shared-actions (action)="onAction($event)"></lfsoft-shared-actions>
+    </div>
+
+    <app-user-avatar></app-user-avatar>
+
+    <router-outlet></router-outlet>
+    <lfsoft-shared-modal></lfsoft-shared-modal>
+    <app-configurations-drawer (changeTheme)="changeTheme($event)"></app-configurations-drawer>
+  </div>

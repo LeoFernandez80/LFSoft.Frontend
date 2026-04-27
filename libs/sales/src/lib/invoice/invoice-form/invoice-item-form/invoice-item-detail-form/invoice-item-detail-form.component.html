@@ -1,0 +1,60 @@
+<lfsoft-shared-form [title]="'Datos del detalle'" + (invoiceItemDetail?.itemId [showActions]="true">
+  <div data>
+    <form [formGroup]="form"  [lfsoftFormValidations]="form">
+      <div class="invoice-item-detail-form">
+        <div class="invoice-item-detail-form__group skeleton-field" col-span="1">
+          <label class="invoice-item-detail-form__label" for="detailQuantity">{{ 'LABEL.quantity' | translate}}</label>
+          <input 
+            id="detailQuantity"
+            type="number"
+            formControlName="detailQuantity"
+            class="invoice-item-detail-form__control"
+            min="0"
+            step="1">
+        </div>
+        <div class="invoice-item-detail-form__group skeleton-field" col-span="1">
+          <label class="invoice-item-detail-form__label" for="detailCode">{{ 'LABEL.code' | translate}}</label>
+          <input 
+            id="detailCode"
+            type="text"
+            formControlName="detailCode"
+            class="invoice-item-detail-form__control"
+            (keydown.enter)="onSearchArticle()">
+        </div>
+        <div class="invoice-item-detail-form__group skeleton-field" col-span="2" >
+          <label class="invoice-item-detail-form__label" for="detailDescription">{{ 'LABEL.description' | translate}}</label>
+          <input 
+            id="detailDescription"
+            type="text"
+            formControlName="detailDescription"
+            class="invoice-item-detail-form__control ">
+        </div>        
+        <div class="invoice-item-detail-form__group skeleton-field" col-span="1">
+          <label class="invoice-item-detail-form__label" for="detailUnitPrice">{{ 'LABEL.unitPrice' | translate}}</label>
+          <input 
+            id="detailUnitPrice"
+            type="number"
+            formControlName="detailUnitPrice"
+            class="invoice-item-detail-form__control"
+            min="0"
+            step="0.01">
+        </div>
+        <div class="invoice-item-detail-form__group skeleton-field" col-span="1">
+          <label class="invoice-item-detail-form__label" for="detailTotalPrice">{{ 'LABEL.totalPrice' | translate}}</label>
+          <input 
+            id="detailTotalPrice"
+            type="number"
+            formControlName="detailTotalPrice"
+            class="invoice-item-detail-form__control"
+            readonly>
+        </div>
+      </div>
+    </form>
+  </div>
+
+<lfsoft-shared-actions
+    footerContent
+    (action)="onAction($event)">
+  </lfsoft-shared-actions>
+  
+</lfsoft-shared-form>

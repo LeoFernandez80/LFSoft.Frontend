@@ -1,0 +1,8 @@
+<lfsoft-shared-message></lfsoft-shared-message>
+<lfsoft-shared-layout  [title]="'Invoice'" [type]="layoutTypes.layoutWithoutSidebar" class="invoice-container" >
+  <lfsoft-sales-invoice-form
+    formContent
+    (save)="onSave()"
+    (cancel)="onCancel()">
+  </lfsoft-sales-invoice-form>
+</lfsoft-shared-layout>

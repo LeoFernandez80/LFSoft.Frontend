@@ -1,0 +1,16 @@
+<lfsoft-shared-drawer>    
+    <div class="drawer-container" drawer-content>
+        <lfsoft-shared-form [title]="'LABEL.gridConfiguration' | translate" [showClose]="true" (close)="onClose()">
+            <div data>
+                <grid-configuration-form
+                    [gridConfiguration]="gridConfiguration">
+                </grid-configuration-form>
+            </div>
+
+            <lfsoft-shared-actions 
+                footerContent
+                (action)="onAction($event)">
+            </lfsoft-shared-actions>
+        </lfsoft-shared-form>
+    </div>
+</lfsoft-shared-drawer>

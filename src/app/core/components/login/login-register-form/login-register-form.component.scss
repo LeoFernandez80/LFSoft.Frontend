@@ -1,0 +1,19 @@
+@import 'styles/form';
+
+.register-form {
+  @extend .form;
+  @extend .form-container--medium;
+  
+  &__label {
+    @extend .form-control-label;
+  }
+
+  &__control {
+    @extend .form-control;
+  }
+
+  &__group {
+    @extend .form-group;
+  }
+
+}

@@ -1,0 +1,50 @@
+<div class="body">
+  <div class="floating-toolbar">
+    <lfsoft-shared-actions (action)="onAction($event)"></lfsoft-shared-actions>
+  </div>
+
+  <lfsoft-shared-message></lfsoft-shared-message>
+  <lfsoft-shared-layout [title]="'TITLE.articles' | translate" class="articles-container">
+
+  <app-article-grid-filter
+    filterContent
+    class="articles-container__filter"
+    [filter]="filterParameters"
+    (apply)="onFilterApplied($event)">
+  </app-article-grid-filter>
+
+  <app-article-grid
+    gridContent
+    class="articles-container__grid"
+    (edit)="onEdit($event)"
+    (delete)="onDeleteArticle($event)"
+    (open)="onOpenArticle($event)"
+    (sortChange)="onSortChange($event)"
+    (scrollEndChange)="onLoadNextPage()">
+  </app-article-grid>
+
+  <div formContent>
+    <mat-tab-group>
+      <mat-tab *ngFor="let articleId of openedArticlesId; let i = index">
+        <ng-template mat-tab-label>
+          <div class="articles-container__tab" (click)="onClickTab(articleId)">
+            <div class="articles-container__tab-label">
+              {{ (getArticleById(articleId)?.codigoAsy || 'Art\u00edculo') + ' - ' + (getArticleById(articleId)?.description || '') }}
+            </div>
+            <button mat-icon-button class="articles-container__tab-button" (click)="onCloseTab(articleId); $event.stopPropagation()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        </ng-template>
+        <app-article-form
+          formContent
+          [articleId]="articleId"
+          (save)="onSaveArticle($event)"
+          (cancel)="onCancelArticle()">
+        </app-article-form>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+</lfsoft-shared-layout>
+</div>

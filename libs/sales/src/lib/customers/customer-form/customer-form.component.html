@@ -1,0 +1,114 @@
+<lfsoft-shared-form [title]="'TITLE.customerData' | translate">
+  <div data>
+    <form [formGroup]="customerForm" [lfsoftSkeleton]="isLoading" [lfsoftFormValidations]="customerForm">
+      <div class="customer-form">
+        <div class="customer-form__group skeleton-field" col-span="4">
+          <label class="customer-form__label" for="nombre">{{ 'LABEL.nombre' | translate }}</label>
+          <input 
+            id="nombre"
+            type="text"
+            formControlName="nombre"
+            class="customer-form__control">
+        </div>
+        <div class="customer-form__group skeleton-field" col-span="4">
+          <label class="customer-form__label" for="apellido">{{ 'LABEL.apellido' | translate }}</label>
+          <input 
+            id="apellido"
+            type="text"
+            formControlName="apellido"
+            class="customer-form__control">
+        </div>
+        <div class="customer-form__group skeleton-field" col-span="4">
+          <label class="customer-form__label" for="razonSocial">{{ 'LABEL.razonSocial' | translate }}</label>
+          <input 
+            id="razonSocial"
+            type="text"
+            formControlName="razonSocial"
+            class="customer-form__control">
+        </div>
+        <div class="customer-form__group skeleton-field" col-span="4">
+          <label class="customer-form__label" for="tipoDocumento">{{ 'LABEL.tipoDocumento' | translate }}</label>
+          <select 
+            id="tipoDocumento"
+            formControlName="tipoDocumento"
+            class="customer-form__control">
+            <option value="">{{ 'LABEL.select' | translate }}</option>
+            <option value="DNI">DNI</option>
+            <option value="CUIT">CUIT</option>
+            <option value="CUIL">CUIL</option>
+            <option value="Pasaporte">Pasaporte</option>
+          </select>
+        </div>
+        <div class="customer-form__group skeleton-field" col-span="4">
+          <label class="customer-form__label" for="documento">{{ 'LABEL.documento' | translate }}</label>
+          <input 
+            id="documento"
+            type="text"
+            formControlName="documento"
+            class="customer-form__control">
+        </div>
+        <div class="customer-form__group skeleton-field" col-span="4">
+          <label class="customer-form__label" for="telefono">{{ 'LABEL.telefono' | translate }}</label>
+          <input 
+            id="telefono"
+            type="text"
+            formControlName="telefono"
+            class="customer-form__control">
+        </div>
+        <div class="customer-form__group skeleton-field" col-span="6">
+          <label class="customer-form__label" for="email">{{ 'LABEL.email' | translate }}</label>
+          <input 
+            id="email"
+            type="email"
+            formControlName="email"
+            class="customer-form__control">
+        </div>
+        <div class="customer-form__group skeleton-field" col-span="6">
+          <label class="customer-form__label" for="direccion">{{ 'LABEL.direccion' | translate }}</label>
+          <input 
+            id="direccion"
+            type="text"
+            formControlName="direccion"
+            class="customer-form__control">
+        </div>
+        <div class="customer-form__group skeleton-field" col-span="4">
+          <label class="customer-form__label" for="ciudad">{{ 'LABEL.ciudad' | translate }}</label>
+          <input 
+            id="ciudad"
+            type="text"
+            formControlName="ciudad"
+            class="customer-form__control">
+        </div>
+        <div class="customer-form__group skeleton-field" col-span="4">
+          <label class="customer-form__label" for="provincia">{{ 'LABEL.provincia' | translate }}</label>
+          <input 
+            id="provincia"
+            type="text"
+            formControlName="provincia"
+            class="customer-form__control">
+        </div>
+        <div class="customer-form__group skeleton-field" col-span="4">
+          <label class="customer-form__label" for="codigoPostal">{{ 'LABEL.codigoPostal' | translate }}</label>
+          <input 
+            id="codigoPostal"
+            type="text"
+            formControlName="codigoPostal"
+            class="customer-form__control">
+        </div>
+        <div class="customer-form__group skeleton-field" col-span="4">
+          <label class="customer-form__label" for="activo">{{ 'LABEL.activo' | translate }}</label>
+          <input 
+            id="activo"
+            type="checkbox"
+            formControlName="activo"
+            class="customer-form__control-checkbox">
+        </div>
+      </div>
+    </form>
+  </div>
+ 
+  <lfsoft-shared-actions 
+    footerContent    
+    (action)="onAction($event)">
+  </lfsoft-shared-actions>
+</lfsoft-shared-form>

@@ -1,0 +1,43 @@
+<div class="user-avatar-container" *ngIf="currentUser && currentUser.isAuthenticated">
+  <button 
+    mat-icon-button 
+    [matMenuTriggerFor]="userMenu"
+    class="avatar-button"
+    aria-label="Menú de usuario">
+    <div class="avatar-circle">
+      <span class="avatar-initials">{{ userInitials }}</span>
+    </div>
+  </button>
+
+  <mat-menu #userMenu="matMenu" class="user-menu">
+    <div class="user-menu-header" (click)="$event.stopPropagation()">
+      <div class="avatar-circle-large">
+        <span class="avatar-initials-large">{{ userInitials }}</span>
+      </div>
+      <div class="user-info">
+        <div class="user-name">{{ currentUser?.name }}</div>
+        <div class="user-email">{{ currentUser?.email }}</div>
+        <div class="user-role">{{ getRoleLabel() }}</div>
+      </div>
+    </div>
+    
+    <mat-divider></mat-divider>
+    
+    <button mat-menu-item>
+      <mat-icon>person</mat-icon>
+      <span>Mi Perfil</span>
+    </button>
+    
+    <button mat-menu-item (click)="onAction(actions.eAction_OpenConfig)">
+      <mat-icon>settings</mat-icon>
+      <span>Configuración</span>
+    </button>
+    
+    <mat-divider></mat-divider>
+    
+    <button mat-menu-item (click)="onAction(actions.eAction_Logout)"> 
+      <mat-icon>logout</mat-icon>
+      <span>Cerrar Sesión</span>
+    </button>
+  </mat-menu>
+</div>

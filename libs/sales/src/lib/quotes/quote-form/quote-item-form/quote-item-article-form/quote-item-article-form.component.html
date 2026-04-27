@@ -1,0 +1,60 @@
+<lfsoft-shared-form [title]="'Datos del artículo'" [showActions]="true">
+  <div data>
+    <form [formGroup]="form"  [lfsoftFormValidations]="form">
+      <div class="quote-item-article-form">
+        <div class="quote-item-article-form__group skeleton-field" col-span="1">
+          <label class="quote-item-article-form__label" for="itemArticleQuantity">{{ 'LABEL.quantity' | translate}}</label>
+          <input 
+            id="itemArticleQuantity"
+            type="number"
+            formControlName="itemArticleQuantity"
+            class="quote-item-article-form__control"
+            min="0"
+            step="1">
+        </div>
+        <div class="quote-item-article-form__group skeleton-field" col-span="1">
+          <label class="quote-item-article-form__label" for="itemArticleAssembly">{{ 'LABEL.assembly' | translate}}</label>
+          <input 
+            id="itemArticleAssembly"
+            type="text"
+            formControlName="itemArticleAssembly"
+            class="quote-item-article-form__control"
+            (keydown.enter)="onSearchArticle()">
+        </div>
+        <div class="quote-item-article-form__group skeleton-field" col-span="2" >
+          <label class="quote-item-article-form__label" for="itemArticleDescription">{{ 'LABEL.description' | translate}}</label>
+          <input 
+            id="itemArticleDescription"
+            type="text"
+            formControlName="itemArticleDescription"
+            class="quote-item-article-form__control ">
+        </div>        
+        <div class="quote-item-article-form__group skeleton-field" col-span="1">
+          <label class="quote-item-article-form__label" for="itemArticleUnitPrice">{{ 'LABEL.unitPrice' | translate}}</label>
+          <input 
+            id="itemArticleUnitPrice"
+            type="number"
+            formControlName="itemArticleUnitPrice"
+            class="quote-item-article-form__control"
+            min="0"
+            step="0.01">
+        </div>
+        <div class="quote-item-article-form__group skeleton-field" col-span="1">
+          <label class="quote-item-article-form__label" for="itemArticleTotalPrice">{{ 'LABEL.totalPrice' | translate}}</label>
+          <input 
+            id="itemArticleTotalPrice"
+            type="number"
+            formControlName="itemArticleTotalPrice"
+            class="quote-item-article-form__control"
+            readonly>
+        </div>
+      </div>
+    </form>
+  </div>
+
+<lfsoft-shared-actions
+    footerContent
+    (action)="onAction($event)">
+  </lfsoft-shared-actions>
+  
+</lfsoft-shared-form>

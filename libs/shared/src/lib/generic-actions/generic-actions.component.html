@@ -1,0 +1,25 @@
+@if(actions.length === 0) {
+  <div></div>
+} @else { 
+<div class="actions-container">
+
+  <div  [ngClass] = "getContainerClass()" *ngFor="let action of actions"
+  >
+
+  @if (action.viewType === enumActionsViewType.view16x16){
+    <mat-icon  (click)="onActionClick(action)">{{ action.icon }}</mat-icon>
+  } @else {
+    <button
+      mat-button
+      [ngClass]="getButtonClass(action.style)"
+      [disabled]="action.disabled"
+      (click)="onActionClick(action)"
+    >
+        <mat-icon *ngIf="action.icon">{{ action.icon }}</mat-icon>    
+        <span *ngIf="action.label">{{ action.label | translate }}</span>
+      </button>
+    }
+</div>
+
+</div>
+}

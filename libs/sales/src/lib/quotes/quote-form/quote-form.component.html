@@ -1,0 +1,116 @@
+<lfsoft-shared-form [title]="'TITLE.quoteData' | translate"  [showActions]="!showForm">
+  <div headerContent class="form-actions form-actions--header">
+    <div class="quote-form__actions">
+      <div class="quote-form__actions--buttons">              
+        <mat-icon class="quote-form__actions--button" (click)="onAddQuoteItem()" >add</mat-icon> 
+      </div>
+    </div>
+  </div>
+  <div data>
+    <form [formGroup]="quoteForm" [lfsoftSkeleton]="isLoading" [lfsoftFormValidations]="quoteForm">
+      <div class="quote-form">        
+          <div class="quote-form__group skeleton-field" col-span="1">
+            <label class="quote-form__label" for="customerDocumentType">{{ 'LABEL.documentType' | translate}}</label>
+            <input 
+              id="customerDocumentType"
+              type="text"
+              formControlName="customerDocumentType"
+              class="quote-form__control"
+              readonly>
+          </div>
+          <div class="quote-form__group skeleton-field" col-span="1">
+            <label class="quote-form__label" for="customerDocumentNumber">{{ 'LABEL.documentNumber' | translate}}</label>
+            <input 
+              id="customerDocumentNumber"
+              type="text"
+              formControlName="customerDocumentNumber"
+              class="quote-form__control"
+              readonly>
+          </div>
+          <div class="quote-form__group skeleton-field" col-span="3"> 
+            <label class="quote-form__label" for="customerName">{{ 'LABEL.customerName' | translate }}</label>
+            <input 
+              id="customerName"
+              type="text"
+              formControlName="customerName"
+              class="quote-form__control"
+              readonly>
+          </div>
+          <div class="quote-form__group skeleton-field" col-span="1">
+            <label class="quote-form__label" for="quoteId">{{ 'LABEL.number' | translate}}</label>
+            <input 
+              id="quoteId"
+              type="number"
+              formControlName="quoteId"
+              class="quote-form__control"
+              readonly>
+          </div> 
+          <div class="quote-form__group skeleton-field" col-span="4">
+            <label class="quote-form__label" for="quoteDescription">{{ 'LABEL.description' | translate}}</label>
+            <input 
+              id="quoteDescription"
+              type="text"
+              formControlName="quoteDescription"
+              class="quote-form__control">
+          </div>
+          <div class="quote-form__group skeleton-field" col-span="1">
+            <label class="quote-form__label" for="quoteCreationDate">{{ 'LABEL.creationDate' | translate}}</label>
+            <input 
+              id="quoteCreationDate"
+              type="date"
+              formControlName="quoteCreationDate"
+              class="quote-form__control"
+              readonly>
+          </div>
+          <div class="quote-form__group skeleton-field" col-span="1">
+            <label class="quote-form__label" for="quoteStateId">{{ 'LABEL.state' | translate}}</label>
+            <select 
+              id="quoteStateId"
+              formControlName="quoteStateId"
+              class="quote-form__control">
+              <option [value]="1">{{ 'LABEL.quoteInMaking' | translate }}</option>
+              <option [value]="2">{{ 'LABEL.quoteApproved' | translate }}</option>
+              <option [value]="3">{{ 'LABEL.quoteRejected' | translate }}</option>
+              <option [value]="4">{{ 'LABEL.quoteCancelled' | translate }}</option>
+            </select>
+          </div> 
+      </div>
+      
+      @if(!showForm){
+        <div bodyTop>
+          <div class="quote-form__grid">       
+            <lfsoft-sales-quote-item-grid (edit)="onEditQuoteItem($event)" (delete)="onDeleteQuoteItem($event)"></lfsoft-sales-quote-item-grid>
+          </div>
+          <div class="quote-form__actions">
+            <div class="quote-form__actions--buttons">              
+              <mat-icon class="quote-form__actions--button" (click)="onAddQuoteItem()">add</mat-icon> 
+            </div>
+          </div>
+    </div>
+  }
+      
+  @if(showForm){
+    <div bodyTop>
+      <div class="quote-form__main">
+        <lfsoft-sales-quote-item-form [quoteItem]="quoteItemSelected" (accept)="onAcceptQuoteItem($event)" (cancel)="onCancelQuoteItem()"></lfsoft-sales-quote-item-form>
+      </div>
+    </div>  
+  }
+ 
+  
+  <div class="quote-form__footer">   
+    <label class="quote-form__label" for="quoteTotalPrice">{{ 'LABEL.totalPrice' | translate}}  </label>
+    <div class="quote-form__group skeleton-field" col-span="1">
+      <input 
+        id="quoteTotalPrice"
+        formControlName="quoteTotalPrice"
+        class="quote-form__control"
+        readonly/>
+      </div>
+  </div>
+    </form>
+  </div>
+  <div actions>
+    <lfsoft-shared-actions (action)="onAction($event)"></lfsoft-shared-actions>
+  </div>
+</lfsoft-shared-form>

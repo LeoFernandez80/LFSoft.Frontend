@@ -1,0 +1,288 @@
+<form [formGroup]="configForm" [lfsoftFormValidations]="configForm">
+    <div class="grid-config-form">
+        <!-- Grid Name -->
+        <div class="grid-config-form__group skeleton-field" col-span="6">
+            <label class="grid-config-form__label" for="gridName">{{ 'LABEL.gridName' | translate }}</label>
+            <input 
+                id="gridName"
+                type="text"
+                formControlName="gridName"
+                class="grid-config-form__control">
+        </div>
+
+        <!-- Header Colors -->
+        <div class="grid-config-form__subsection" col-span="3">
+                        <h6 class="grid-config-form__subsection-title">Encabezado</h6>
+                        <div class="grid-config-form__subsection-content">
+        <div class="grid-config-form__group skeleton-field" col-span="1">
+            <label class="grid-config-form__label" for="gridHeaderBackgroundColor">{{ 'LABEL.backgroundColor' | translate }}</label>
+            <input 
+                id="gridHeaderBackgroundColor"
+                type="color"
+                formControlName="gridHeaderBackgroundColor"
+                class="grid-config-form__control grid-config-form__control--color">
+        </div>
+        <div class="grid-config-form__group skeleton-field" col-span="1">
+            <label class="grid-config-form__label" for="gridHeaderTextColor">{{ 'LABEL.textColor' | translate }}</label>
+            <input 
+                id="gridHeaderTextColor"
+                type="color"
+                formControlName="gridHeaderTextColor"
+                class="grid-config-form__control grid-config-form__control--color">
+        </div>
+        </div>
+        </div>  
+
+        <!-- Cell Colors -->
+         <div class="grid-config-form__subsection" col-span="2">
+                        <h6 class="grid-config-form__subsection-title">Celdas</h6>
+                        <div class="grid-config-form__subsection-content">
+        <div class="grid-config-form__group skeleton-field" col-span="1">
+            <label class="grid-config-form__label" for="gridCellBackgroundColor">{{ 'LABEL.backgroundColor' | translate }}</label>
+            <input 
+                id="gridCellBackgroundColor"
+                type="color"
+                formControlName="gridCellBackgroundColor"
+                class="grid-config-form__control grid-config-form__control--color">
+        </div>
+        <div class="grid-config-form__group skeleton-field" col-span="1">
+            <label class="grid-config-form__label" for="gridCellTextColor">{{ 'LABEL.textColor' | translate }}</label>
+            <input 
+                id="gridCellTextColor"
+                type="color"
+                formControlName="gridCellTextColor"
+                class="grid-config-form__control grid-config-form__control--color">
+        </div>
+        </div>
+        </div>
+
+        <!-- Interaction Colors -->
+        <div class="grid-config-form__group skeleton-field" col-span="2">
+            <label class="grid-config-form__label" for="gridHighlightColor">{{ 'LABEL.gridHighlightColor' | translate }}</label>
+            <input 
+                id="gridHighlightColor"
+                type="color"
+                formControlName="gridHighlightColor"
+                class="grid-config-form__control grid-config-form__control--color">
+        </div>
+        <div class="grid-config-form__group skeleton-field" col-span="2">
+            <label class="grid-config-form__label" for="gridMouseOverColor">{{ 'LABEL.gridMouseOverColor' | translate }}</label>
+            <input 
+                id="gridMouseOverColor"
+                type="color"
+                formControlName="gridMouseOverColor"
+                class="grid-config-form__control grid-config-form__control--color">
+        </div>
+        <div class="grid-config-form__group skeleton-field" col-span="2">
+            <label class="grid-config-form__label" for="gridCellActionsBackgroundColor">{{ 'LABEL.gridCellActionsBackgroundColor' | translate }}</label>
+            <input 
+                id="gridCellActionsBackgroundColor"
+                type="color"
+                formControlName="gridCellActionsBackgroundColor"
+                class="grid-config-form__control grid-config-form__control--color">
+        </div>
+
+        <!-- Columns Configuration -->
+        <div class="grid-config-form__columns-header">
+            <h3 class="grid-config-form__columns-title">{{ 'LABEL.columnsConfiguration' | translate }}</h3>
+            <div class="grid-config-form__columns-header-actions">
+                <button type="button" 
+                        class="grid-config-form__btn grid-config-form__btn--secondary" 
+                        (click)="toggleAll()"
+                        *ngIf="columnsFormArray.length > 0">
+                    {{ (allExpanded ? 'BUTTON.collapseAll' : 'BUTTON.expandAll') | translate }}
+                </button>
+                <button type="button" class="grid-config-form__btn grid-config-form__btn--add" (click)="addColumn()">
+                    <span class="grid-config-form__btn-icon">+</span>
+                    {{ 'BUTTON.addColumn' | translate }}
+                </button>
+            </div>
+        </div>
+
+        <div formArrayName="gridColumns" class="grid-config-form__columns">
+            <div *ngFor="let columnForm of columnsFormArray.controls; let i = index" 
+                 class="grid-config-form__column" 
+                 [formGroupName]="i">
+                
+                <div class="grid-config-form__column-header" (click)="toggleColumn(i)">
+                    <div class="grid-config-form__column-header-info">
+                        <span class="grid-config-form__column-title">
+                            {{ columnForm.get('gridColumnHeader')?.value || ('LABEL.column' | translate) }} {{ i + 1 }}
+                        </span>
+                        <span class="grid-config-form__column-field">{{ columnForm.get('gridColumnField')?.value }}</span>
+                        <span class="grid-config-form__column-badge" 
+                              [class.grid-config-form__column-badge--visible]="columnForm.get('gridColumnVisible')?.value"
+                              [class.grid-config-form__column-badge--hidden]="!columnForm.get('gridColumnVisible')?.value">
+                            {{ (columnForm.get('gridColumnVisible')?.value ? 'LABEL.visible' : 'LABEL.hidden') | translate }}
+                        </span>
+                        <span class="grid-config-form__column-badge grid-config-form__column-badge--fixed" 
+                              *ngIf="columnForm.get('gridColumnFixed')?.value">
+                            {{ 'LABEL.fixed' | translate }}
+                        </span>
+                    </div>
+                    <span class="grid-config-form__column-toggle" [class.grid-config-form__column-toggle--expanded]="isColumnExpanded(i)">
+                        ▼
+                    </span>
+                </div>
+
+                <div class="grid-config-form__column-content" [class.grid-config-form__column-content--collapsed]="!isColumnExpanded(i)">
+                    <!-- Field & Header -->
+                    <div class="grid-config-form__group skeleton-field" col-span="3">
+                        <label class="grid-config-form__label" for="gridColumnField{{i}}">{{ 'LABEL.field' | translate }}</label>
+                        <select 
+                            id="gridColumnField{{i}}"
+                            type="text"
+                            formControlName="gridColumnField"
+                            class="grid-config-form__control"
+                            >
+                                <option *ngFor="let field of fieldsGridType" [value]="field">
+                                    {{ field | translate }}
+                                </option>
+                            </select>
+                    </div>
+
+                    <div class="grid-config-form__group skeleton-field" col-span="3">
+                        <label class="grid-config-form__label" for="gridColumnHeader{{i}}">{{ 'LABEL.header' | translate }}</label>
+                        <input 
+                            id="gridColumnHeader{{i}}"
+                            type="text"
+                            formControlName="gridColumnHeader"
+                            class="grid-config-form__control">
+                    </div>
+
+                    <!-- Position, Width, Align -->
+                    <div class="grid-config-form__group skeleton-field" col-span="2">
+                        <label class="grid-config-form__label" for="gridColumnPosition{{i}}">{{ 'LABEL.position' | translate }}</label>
+                        <input 
+                            id="gridColumnPosition{{i}}"
+                            type="number"
+                            formControlName="gridColumnPosition"
+                            class="grid-config-form__control">
+                    </div>
+
+                    <div class="grid-config-form__group skeleton-field" col-span="2">
+                        <label class="grid-config-form__label" for="gridColumnWidth{{i}}">{{ 'LABEL.width' | translate }}</label>
+                        <input 
+                            id="gridColumnWidth{{i}}"
+                            type="text"
+                            formControlName="gridColumnWidth"
+                            class="grid-config-form__control">
+                    </div>
+
+                    <div class="grid-config-form__group skeleton-field" col-span="2">
+                        <label class="grid-config-form__label" for="gridColumnAlign{{i}}">{{ 'LABEL.align' | translate }}</label>
+                        <select 
+                            id="gridColumnAlign{{i}}"
+                            formControlName="gridColumnAlign"
+                            class="grid-config-form__control">
+                            <option *ngFor="let align of alignOptions" [value]="align">
+                                {{ align }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Checkboxes -->
+                    <div class="grid-config-form__group grid-config-form__group--checkbox" col-span="2">
+                        <label class="grid-config-form__label grid-config-form__label--checkbox">
+                            <input 
+                                type="checkbox"
+                                formControlName="gridColumnVisible"
+                                class="grid-config-form__checkbox">
+                            {{ 'LABEL.visible' | translate }}
+                        </label>
+                    </div>
+
+                    <div class="grid-config-form__group grid-config-form__group--checkbox" col-span="2">
+                        <label class="grid-config-form__label grid-config-form__label--checkbox">
+                            <input 
+                                type="checkbox"
+                                formControlName="gridColumnSortable"
+                                class="grid-config-form__checkbox">
+                            {{ 'LABEL.sortable' | translate }}
+                        </label>
+                    </div>
+
+                    <div class="grid-config-form__group grid-config-form__group--checkbox" col-span="2">
+                        <label class="grid-config-form__label grid-config-form__label--checkbox">
+                            <input 
+                                type="checkbox"
+                                formControlName="gridColumnDateFormat"
+                                class="grid-config-form__checkbox">
+     2                       {{ 'LABEL.dateFormat' | translate }}
+                        </label>
+                    </div>
+
+                    <!-- Column Header Colors -->
+                    <div class="grid-config-form__subsection" col-span="3">
+                        <h6 class="grid-config-form__subsection-title">Encabezado</h6>
+                        <div class="grid-config-form__subsection-content">
+                            <div class="grid-config-form__group skeleton-field" col-span="1">
+                                <label class="grid-config-form__label" for="gridColumnHeaderBackgroundColor{{i}}">{{ 'LABEL.backgroundColor' | translate }}</label>
+                                <input 
+                                    id="gridColumnHeaderBackgroundColor{{i}}"
+                                    type="color"
+                                    formControlName="gridColumnHeaderBackgroundColor"
+                                    class="grid-config-form__control grid-config-form__control--color">
+                            </div>
+                            <div class="grid-config-form__group skeleton-field" col-span="1">
+                                <label class="grid-config-form__label" for="gridColumnHeaderTextColor{{i}}">{{ 'LABEL.textColor' | translate }}</label>
+                                <input 
+                                    id="gridColumnHeaderTextColor{{i}}"
+                                    type="color"
+                                    formControlName="gridColumnHeaderTextColor"
+                                    class="grid-config-form__control grid-config-form__control--color">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column Cell Colors -->
+                     <div class="grid-config-form__subsection" col-span="3">
+                        <h6 class="grid-config-form__subsection-title">Celdas</h6>
+                        <div class="grid-config-form__subsection-content">
+                    <div class="grid-config-form__group skeleton-field" col-span="1">
+                        <label class="grid-config-form__label" for="gridColumnCellBackgroundColor{{i}}">{{ 'LABEL.backgroundColor' | translate }}</label>
+                        <input 
+                            id="gridColumnCellBackgroundColor{{i}}"
+                            type="color"
+                            formControlName="gridColumnCellBackgroundColor"
+                            class="grid-config-form__control grid-config-form__control--color">
+                    </div>
+                    <div class="grid-config-form__group skeleton-field" col-span="1">
+                        <label class="grid-config-form__label" for="gridColumnCellTextColor{{i}}">{{ 'LABEL.textColor' | translate }}</label>
+                        <input 
+                            id="gridColumnCellTextColor{{i}}"
+                            type="color"
+                            formControlName="gridColumnCellTextColor"
+                            class="grid-config-form__control grid-config-form__control--color">
+                    </div>
+                </div>
+                </div>
+                
+
+                <!-- Column Actions - Always visible -->
+                <div class="grid-config-form__column-actions" (click)="$event.stopPropagation()">
+                    <button 
+                        mat-button
+                        class="grid-config-form__action-btn grid-config-form__action-btn--secondary"
+                        [disabled]="i === 0"
+                        [matTooltip]="'BUTTON.moveUp' | translate"
+                        (click)="moveColumnUp(i)">
+                        <mat-icon>arrow_upward</mat-icon>
+                    </button>
+                    <button 
+                        mat-button
+                        class="grid-config-form__action-btn grid-config-form__action-btn--secondary"
+                        [disabled]="i === columnsFormArray.length - 1"
+                        [matTooltip]="'BUTTON.moveDown' | translate"
+                        (click)="moveColumnDown(i)">
+                        <mat-icon>arrow_downward</mat-icon>
+                    </button>
+                    <button 
+                        mat-button
+                        class="grid-config-form__action-btn grid-config-form__action-btn--danger"
+                        [disabled]="columnForm.get('gridColumnFixed')?.value"
+                        [matTooltip]="'BUTTON.remove' | translate"
+                        (click)="removeColumn(i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>

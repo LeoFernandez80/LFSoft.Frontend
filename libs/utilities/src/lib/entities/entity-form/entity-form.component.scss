@@ -1,0 +1,20 @@
+@import 'styles/form.scss';
+
+.entity-form {
+  @extend .form;
+  @extend .form-container--full;
+  padding-bottom: 30px;
+  
+  &__label {
+    @extend .form-control-label;
+  }
+
+  &__control {
+    @extend .form-control;
+  }
+
+  &__group {
+    @extend .form-group;
+  }
+
+}

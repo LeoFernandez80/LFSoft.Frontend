@@ -1,0 +1,91 @@
+<lfsoft-shared-form [title]="'TITLE.filter' | translate">
+  <div data>
+    <mat-tab-group >
+      <mat-tab >
+        <ng-template mat-tab-label >            
+          <div class="customers-filter-tab">
+            <div class="customers-filter-tab__label">
+              {{ 'TITLE.customerData' | translate }}                     
+            </div>
+          </div>
+        </ng-template>
+        <form [formGroup]="form"  >
+          <div class="customers-filter">
+            <div class="customers-filter__group" col-span="4">
+              <label class="customers-filter__label" for="id">{{ 'number' | translate }}</label>
+              <input 
+              id="id"
+              type="number"
+              name="id"
+              formControlName="id"
+              class="customers-filter__control">
+            </div>
+            <div class="customers-filter__group" col-span="4">
+              <label class="customers-filter__label" for="nombre">{{ 'LABEL.nombre' | translate }}</label>
+              <input 
+              id="nombre"
+              type="text"
+              name="nombre"
+              formControlName="nombre"
+              class="customers-filter__control">
+            </div>
+            <div class="customers-filter__group" col-span="4">
+              <label class="customers-filter__label" for="apellido">{{ 'LABEL.apellido' | translate }}</label>
+              <input 
+              id="apellido"
+              type="text"
+              name="apellido"
+              formControlName="apellido"
+              class="customers-filter__control">
+            </div>
+            <div class="customers-filter__group" col-span="6">
+              <label class="customers-filter__label" for="razonSocial">{{ 'LABEL.razonSocial' | translate }}</label>
+              <input 
+              id="razonSocial"
+              type="text"
+              name="razonSocial"
+              formControlName="razonSocial"
+              class="customers-filter__control">
+            </div>
+            <div class="customers-filter__group" col-span="6">
+              <label class="customers-filter__label" for="documento">{{ 'LABEL.documento' | translate }}</label>
+              <input 
+              id="documento"
+              type="text"
+              name="documento"
+              formControlName="documento"
+              class="customers-filter__control">
+            </div>
+            <div class="customers-filter__group" col-span="6">
+              <label class="customers-filter__label" for="email">{{ 'LABEL.email' | translate }}</label>
+              <input 
+              id="email"
+              type="email"
+              name="email"
+              formControlName="email"
+              class="customers-filter__control">
+            </div>
+            <div class="customers-filter__group" col-span="6">
+              <label class="customers-filter__label" for="activo">{{ 'LABEL.activo' | translate }}</label>
+              <select 
+              id="activo"
+              name="activo"
+              formControlName="activo"
+              class="customers-filter__control">
+                <option [value]="null">{{ 'LABEL.all' | translate }}</option>
+                <option [value]="true">{{ 'LABEL.yes' | translate }}</option>
+                <option [value]="false">{{ 'LABEL.no' | translate }}</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <lfsoft-shared-actions 
+    footerContent
+    class="form-actions--footer"
+    (action)="onAction($event)">
+  </lfsoft-shared-actions>
+</lfsoft-shared-form>

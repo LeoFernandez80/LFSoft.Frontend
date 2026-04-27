@@ -1,0 +1,35 @@
+<lfsoft-shared-form [title]="'TITLE.filter' | translate">
+  <div data>
+    <mat-tab-group >
+      <mat-tab >
+        <ng-template mat-tab-label >            
+          <div class="users-filter-tab">
+            <div class="users-filter-tab__label">
+              {{ 'TITLE.userData' | translate }}                     
+            </div>
+          </div>
+        </ng-template>
+        <form [formGroup]="form"  >
+          <div class="users-filter">
+            <div class="users-filter__group" col-span="6">
+              <label class="users-filter__label" for="id">{{ 'number' | translate }}</label>
+              <input 
+              id="id"
+              type="number"
+              name="id"
+              formControlName="user_id"
+              class="users-filter__control">
+            </div>
+          </div>
+            
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <lfsoft-shared-actions 
+    footerContent
+    class="form-actions--footer"
+    (action)="onAction($event)">
+  </lfsoft-shared-actions>
+</lfsoft-shared-form>

@@ -1,0 +1,75 @@
+<lfsoft-shared-form [title]="'TITLE.filter' | translate">
+  <div data>
+    <mat-tab-group >
+      <mat-tab >
+        <ng-template mat-tab-label >            
+          <div class="invoices-filter-tab">
+            <div class="invoices-filter-tab__label">
+              {{ 'TITLE.invoiceData' | translate }}                     
+            </div>
+          </div>
+        </ng-template>
+        <form [formGroup]="form"  >
+          <div class="invoices-filter">
+            <div class="invoices-filter__group" col-span="2">
+              <label class="invoices-filter__label" for="invoiceId">{{ 'LABEL.number' | translate }}</label>
+              <input 
+              id="invoiceId"
+              type="number"
+              name="invoiceId"
+              formControlName="invoiceId"
+              class="invoices-filter__control">
+            </div>
+
+            <div class="invoices-filter__group" col-span="4">
+              <label class="invoices-filter__label" for="personName">{{ 'LABEL.personName' | translate }}</label>
+              <input 
+              id="personName"
+              type="text"
+              name="personName"
+              formControlName="personName"
+              class="invoices-filter__control">
+            </div>
+
+            <div class="invoices-filter__group" col-span="6">
+              <label class="invoices-filter__label" for="invoiceDescription">{{ 'LABEL.description' | translate }}</label>
+              <input 
+              id="invoiceDescription"
+              type="text"
+              name="invoiceDescription"
+              formControlName="invoiceDescription"
+              class="invoices-filter__control">
+            </div>
+
+            <div class="invoices-filter__group" col-span="3">
+              <label class="invoices-filter__label" for="invoiceCreationDateFrom">{{ 'LABEL.creationDateFrom' | translate }}</label>
+              <input 
+              id="invoiceCreationDateFrom"
+              type="date"
+              name="invoiceCreationDateFrom"
+              formControlName="invoiceCreationDateFrom"
+              class="invoices-filter__control">
+            </div>
+
+            <div class="invoices-filter__group" col-span="3">
+              <label class="invoices-filter__label" for="invoiceCreationDateTo">{{ 'LABEL.creationDateTo' | translate }}</label>
+              <input 
+              id="invoiceCreationDateTo"
+              type="date"
+              name="invoiceCreationDateTo"
+              formControlName="invoiceCreationDateTo"
+              class="invoices-filter__control">
+            </div>
+          </div>
+            
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <lfsoft-shared-actions 
+    footerContent
+    class="form-actions--footer"
+    (action)="onAction($event)">
+  </lfsoft-shared-actions>
+</lfsoft-shared-form>

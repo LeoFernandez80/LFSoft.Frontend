@@ -1,0 +1,116 @@
+.theme-blue-light {  
+
+  /* #region Color Form Variables */
+  --container-primary-bg: #f5f8fc;          /* Fondo principal claro */
+  --form-primary-bg: #ffffff;               /* Fondo del formulario */
+  --form-control-primary-bg: #e7edf5;       /* Fondo de campos */
+  --form-label-primary-bg: #ffffff;      /* Fondo de labels */
+  
+  --container-secondary-bg: #f0f4fa;       
+  --form-secondary-bg: #f0f4fa;
+  --form-control-secondary-bg: #dee6ef;
+  --form-label-secondary-bg: #f0f4fa;      
+
+  --form-primary-text: #0d1b2a;             /* Texto oscuro */
+  --form-control-primary-text: #0d1b2a;
+  --form-label-primary-text: #1b263b;
+  
+  --form-secondary-text: #415a77;
+  --form-control-secondary-text: #415a77;
+  --form-label-secondary-text: #778da9;
+  /* #endregion */
+
+  /* #region Color Message Variables */
+  --message-border: #cfd8e3;
+  
+  --message-primary-text: #0d1b2a;
+  --message-secondary-text: #415a77;
+
+  --message-error-bg: #fdecea;
+  --message-success-bg: #e9f7ef;
+  --message-warning-bg: #fff8e1;
+  --message-info-bg: #e3f2fd;
+  /* #endregion */
+
+  /* #region Color Button Variables */
+  --button-primary-bg: #0077b6;             /* Azul brillante */
+  --button-secondary-bg: #f4a261;           /* Naranja cálido */
+
+  --button-primary-text: #ffffff;
+  --button-secondary-text: #0d1b2a;
+  /* #endregion */
+  
+  /* #region Color Header Variables */
+  --header-border: #d0d8e0;
+
+  --header-primary-bg: #e3f2fd;             /* Azul muy claro */
+  --header-secondary-bg: #cfe2ff;
+
+  --header-primary-text: #0d1b2a;           /* Azul oscuro */
+  --header-secondary-text: #1b263b;
+  /* #endregion */
+  
+  /* #region Color Footer Variables */
+  --footer-border: #d0d8e0;
+
+  --footer-primary-bg: #e3f2fd;
+  --footer-secondary-bg: #cfe2ff;
+
+  --footer-primary-text: #0d1b2a;
+  --footer-secondary-text: #415a77;
+  /* #endregion */
+    
+  /* #region Color Skeleton Variables */
+  --skeleton-primary-bg: #e0e7ef;
+  --skeleton-secondary-bg: #cfd8e3;
+  --skeleton-tertiary-bg: #b9c8d9;
+  /* #endregion */
+
+    /* #region Color Grid Variables */
+  --grid-primary-bg: #f5f8fc;               /* Fondo general claro */
+  --grid-secondary-bg: #e3f2fd;             /* Azul muy suave */
+
+  --container-floting-bar-primary-bg: #90b1d5;  /* Barra flotante - Azul medio para contraste */
+  --button-disabled-bg: #c0c6cc;               /* Botón deshabilitado - Gris medio para mejor visibilidad */
+  
+  --grid-border: #cfd8e3;                   /* Borde gris azulado */
+
+  --grid-header-primary-bg: #cfe2ff;        /* Encabezado principal azul claro */
+  --grid-header-secondary-bg: #e3f2fd;      /* Encabezado secundario aún más claro */
+
+  --grid-header-primary-text: #0d1b2a;      /* Texto principal oscuro */
+  --grid-header-secondary-text: #415a77;    /* Azul grisáceo secundario */
+
+  --grid-row-primary-text: #1b263b;         /* Texto principal filas */
+  --grid-row-secondary-text: #415a77;       /* Texto alternativo o secundario */
+
+  --grid-primary-text: #0077b6;             /* Acento azul vibrante */
+  --grid-secondary-text: #1b263b;           /* Texto estándar oscuro */
+  /* #endregion */
+
+  /* #region Color Modal Variables */
+  --modal-primary-bg: #ffffff;
+  --modal-secondary-bg: #f5f8fc;
+  
+  --modal-border: #cfd8e3;
+  --modal-overlay: rgba(13, 27, 42, 0.4);        /* Overlay más sutil */
+
+  --modal-header-primary-bg: #cfe2ff;            /* Azul más suave para el header */
+  --modal-header-secondary-bg: #e3f2fd;
+
+  --modal-header-primary-text: #0077b6;      /* Usando el mismo azul de los botones para consistencia */
+  --modal-header-secondary-text: #415a77;
+
+  --modal-primary-text: #1b263b;
+  --modal-secondary-text: #415a77;
+
+  --modal-footer-border: #cfd8e3;
+
+  --modal-footer-primary-bg: #e3f2fd;
+  --modal-footer-secondary-bg: #cfe2ff;
+
+  --modal-footer-primary-text: #0d1b2a;
+  --modal-footer-secondary-text: #415a77;
+  /* #endregion */
+}
+

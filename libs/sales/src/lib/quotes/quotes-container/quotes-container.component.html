@@ -1,0 +1,49 @@
+<lfsoft-shared-message></lfsoft-shared-message>
+<div class="floating-toolbar">
+  <lfsoft-shared-actions (action)="onAction($event)"></lfsoft-shared-actions>
+</div>
+
+<lfsoft-shared-layout [title]="'TITLE.quotes' | translate" class="quotes-container">
+
+    <lfsoft-shared-actions 
+        headerActions
+        (action)="onAction($event)">
+    </lfsoft-shared-actions>
+
+    <lfsoft-sales-quote-grid-filter 
+        filterContent
+        class="quotes-container__filter"
+        [filter]="filterParameters"
+        (apply)="onFilterApplied($event)">
+    </lfsoft-sales-quote-grid-filter>
+
+    <lfsoft-sales-quote-grid 
+        gridContent        
+        class="quotes-container__grid"
+        (edit)="onEdit($event)"
+        (delete)="onDeleteQuote($event)"
+        (open)="onOpenQuote($event)"
+        (changePage)="onPageChange($event)">        
+    </lfsoft-sales-quote-grid>
+
+    <div formContent>
+        <mat-tab-group>
+            <mat-tab *ngFor="let quoteId of openedQuotesId; let i = index">
+                <ng-template mat-tab-label>
+                    <div class="quotes-container__tab" (click)="onClickTab(quoteId)">
+                        <div class="quotes-container__tab-label">
+                            {{ (getQuoteById(quoteId)?.customerName || 'Cotización') + ' - ' + (getQuoteById(quoteId)?.quoteDescription || '') }} 
+                        </div>
+                    </div>
+                </ng-template>
+                <lfsoft-sales-quote-form 
+                    formContent
+                    [quoteId]="quoteId"
+                    (save)="onSaveQuote($event)" 
+                    (cancel)="onCancelQuote()">
+                </lfsoft-sales-quote-form>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+
+</lfsoft-shared-layout>

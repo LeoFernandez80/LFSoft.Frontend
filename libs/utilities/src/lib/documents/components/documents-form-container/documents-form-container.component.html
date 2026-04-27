@@ -1,0 +1,9 @@
+<lfsoft-shared-message></lfsoft-shared-message>
+
+<lfsoft-shared-layout [title]="'Documentos'" [type]="layoutTypes.layoutWithoutSidebar" class="documents-container">
+  <app-document-form
+    formContent    
+    (save)="onSaveDocument($event)"
+    (cancel)="onCancelDocument()">
+  </app-document-form>
+</lfsoft-shared-layout>

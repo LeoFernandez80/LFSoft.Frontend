@@ -1,0 +1,9 @@
+<lfsoft-shared-message></lfsoft-shared-message>
+<lfsoft-shared-layout [title]="'TITLE.articles' | translate" class="articles-container">
+  <app-article-form 
+    formContent
+    [articleId]="articleId"
+    (save)="onSaveArticle($event)"
+    (cancel)="onCancelArticle()">
+  </app-article-form>
+</lfsoft-shared-layout>

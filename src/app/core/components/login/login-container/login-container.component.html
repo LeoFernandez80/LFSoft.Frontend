@@ -1,0 +1,10 @@
+<div class="login-fullscreen" >
+  <div class="login-top">
+    <app-login-slider [images]="images"></app-login-slider>
+  </div>
+  <div class="login-bottom">
+    <div class="login-bottom__content">
+      <app-login-form (acept)="onLoginSuccess($event)" (cancel)="onCancel()" (register)="onRegister()"></app-login-form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,117 @@
+.theme-dark {
+
+
+  /* #region Color Form Variables */
+  --container-primary-bg: #1c1c1c;         /* Fondo principal oscuro */
+  --form-primary-bg: #2a2a2a;              /* Fondo de formularios */
+  --form-control-primary-bg: #3a3a3a;      /* Fondo de campos de entrada */
+  --form-label-primary-bg: #2a2a2a;      /* Fondo de labels */
+  
+  --container-secondary-bg: #e8e8e8;       /* Fondo alternativo claro */
+  --form-secondary-bg: #f2f2f2;
+  --form-control-secondary-bg: #dcdcdc;
+  --form-label-secondary-bg: #f2f2f2;      
+
+  --form-primary-text: #f5f5f5;            /* Texto claro */
+  --form-control-primary-text: #ffffff;
+  --form-label-primary-text: #cccccc;
+  
+  --form-secondary-text: #1c1c1c;          /* Texto oscuro */
+  --form-control-secondary-text: #1c1c1c;
+  --form-label-secondary-text: #2a2a2a;
+  /* #endregion */
+
+  /* #region Color Message Variables */
+  --message-border: #bfbfbf;
+  
+  --message-primary-text: #1c1c1c;
+  --message-secondary-text: #1c1c1c;
+
+  --message-error-bg: #f8d7da;
+  --message-success-bg: #d1e7dd;
+  --message-warning-bg: #fff3cd;
+  --message-info-bg: #e2e3e5;
+  /* #endregion */
+
+  /* #region Color Button Variables */
+  --button-primary-bg: #505050;            /* Gris medio oscuro - Más distintivo */
+  --button-secondary-bg: #707070;          /* Gris medio - Mejor contraste */
+
+  --button-primary-text: #ffffff;
+  --button-secondary-text: #f0f0f0;        /* Texto claro para mejor legibilidad */
+  /* #endregion */
+  
+  /* #region Color Header Variables */
+  --header-border: #333333;
+
+  --header-primary-bg: #1a1a1a;            /* Negro grisáceo profundo */
+  --header-secondary-bg: #2b2b2b;
+
+  --header-primary-text: #f2f2f2;
+  --header-secondary-text: #cccccc;
+  /* #endregion */
+  
+  /* #region Color Footer Variables */
+  --footer-border: #333333;
+
+  --footer-primary-bg: #1a1a1a;
+  --footer-secondary-bg: #2b2b2b;
+
+  --footer-primary-text: #f2f2f2;
+  --footer-secondary-text: #cccccc;
+  /* #endregion */
+    
+  /* #region Color Skeleton Variables */
+  --skeleton-primary-bg: #2b2b2b;
+  --skeleton-secondary-bg: #3c3c3c;
+  --skeleton-tertiary-bg: #4d4d4d;
+  /* #endregion */
+
+  /* #region Color Grid Variables */
+  --grid-primary-bg: #1c1c1c;               /* Fondo principal oscuro */
+  --grid-secondary-bg: #2a2a2a;             /* Fondo alternativo filas */
+
+  --container-floting-bar-primary-bg: #3d3d3d;  /* Barra flotante - Más oscuro para mejor integración */
+  --button-disabled-bg: #555555;               /* Botón deshabilitado - Gris medio oscuro */
+  
+  --grid-border: #3a3a3a;                   /* Borde gris oscuro */
+
+  --grid-header-primary-bg: #2f2f2f;        /* Encabezado principal */
+  --grid-header-secondary-bg: #3a3a3a;      /* Encabezado alternativo */
+
+  --grid-header-primary-text: #f2f2f2;      /* Texto principal encabezado */
+  --grid-header-secondary-text: #cccccc;    /* Texto secundario encabezado */
+
+  --grid-row-primary-text: #e6e6e6;         /* Texto filas principales */
+  --grid-row-secondary-text: #bfbfbf;       /* Texto alternativo filas */
+
+  --grid-primary-text: #e0e0e0;             /* Texto/acento principal */
+  --grid-secondary-text: #bfbfbf;           /* Texto/acento secundario */
+  /* #endregion */
+
+  /* #region Color Modal Variables */
+  --modal-primary-bg: #2a2a2a;
+  --modal-secondary-bg: #323232;             /* Contraste más sutil */
+  
+  --modal-border: #383838;                   /* Borde más visible */
+  --modal-overlay: rgba(0, 0, 0, 0.6);       /* Overlay menos opaco */
+
+  --modal-header-primary-bg: #1a1a1a;
+  --modal-header-secondary-bg: #2b2b2b;
+
+  --modal-header-primary-text: #f2f2f2;
+  --modal-header-secondary-text: #cccccc;
+
+  --modal-primary-text: #e6e6e6;
+  --modal-secondary-text: #bfbfbf;
+
+  --modal-footer-border: #333333;
+
+  --modal-footer-primary-bg: #1a1a1a;
+  --modal-footer-secondary-bg: #2b2b2b;
+
+  --modal-footer-primary-text: #f2f2f2;
+  --modal-footer-secondary-text: #cccccc;
+  /* #endregion */
+}
+

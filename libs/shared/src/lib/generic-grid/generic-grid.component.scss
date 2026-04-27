@@ -1,0 +1,85 @@
+@import 'styles/customized-scrolling.scss';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.mat-elevation-z8 {
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.scroll-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  @extend .scrollbar-container;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+mat-table {
+  width: 100%;
+  background: var(--grid-primary-bg);  
+}
+
+mat-header-row {
+  background-color: var(--grid-header-primary-bg);
+}
+
+mat-header-cell {
+  background-color: var(--grid-header-primary-bg) !important;
+  color: var(--grid-header-primary-text) !important;
+}
+
+mat-cell {
+  background-color: var(--grid-primary-bg) !important;
+  color: var(--grid-row-primary-text) !important;
+}
+
+mat-row:hover {
+  background-color: #93bff2;
+}
+
+mat-paginator {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.mat-row.selected {
+  background-color: #5c47aa;
+}
+
+.actions-column {
+  display: flex;
+  justify-content: center;
+  width: auto !important;
+  flex: 0 0 auto;
+}
+
+.actions-container {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1; 
+}
+
+.grid-results {
+  display: flex;
+  justify-content: right;
+  font-size: 12px;
+  padding: 5px;
+  &__label {
+    padding: 5px 15px;
+    background-color: var(--message-info-bg);
+    color: var(--message-primary-text);
+    border: 3px solid var(--message-border);
+    border-radius: 20px;
+  }
+}

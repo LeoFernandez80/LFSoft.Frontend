@@ -1,0 +1,33 @@
+<div class="generic-form">
+  <div class="generic-form__header">
+    <span class="generic-form__header-label">{{ title | translate }}</span>
+    <button mat-icon-button class="generic-form__header-close-button"  (click)="onClose()" *ngIf="showClose" aria-label="Cerrar">
+        <mat-icon >close</mat-icon>
+    </button>
+    <ng-content select="[headerContent]"></ng-content>
+  </div>
+  
+  <div class="generic-form__data">
+    <ng-content select="[data]"></ng-content>
+  </div>  
+    <div class="generic-form__body" #bodyContainer>    
+    <div class="generic-form__body-left" #bodyLeft>
+      <div class="generic-form__body-left-top" #bodyTop>
+        <ng-content select="[bodyTop]"></ng-content>
+      </div>
+      <div class="generic-form__body-left-bottom" #bodyBottom>
+        <ng-content select="[bodyBottom]"></ng-content>
+      </div>
+    </div>
+
+    <div class="generic-form__body-right" #bodyRight>
+      <ng-content select="[bodyRight]"></ng-content>
+    </div>
+  </div>
+  
+  @if(showActions){
+    <div class="generic-form__footer">
+        <ng-content select="[footerContent]"></ng-content>
+    </div>
+  }
+</div>

@@ -1,0 +1,34 @@
+<lfsoft-shared-form [title]="'TITLE.loginData' | translate">
+  <div data>
+    <form [formGroup]="loginForm">
+      <div class="login-form">
+        <div class="login-form__group skeleton-field" col-span="2">
+          <label class="login-form__label" for="username">{{ 'LABEL.username' | translate }}</label>
+          <input 
+            id="username"
+            type="text"
+            formControlName="username"
+            class="login-form__control"/>
+        </div>
+        <div class="login-form__group skeleton-field" col-span="2">
+          <label class="login-form__label" for="password">{{ 'LABEL.password' | translate }}</label>
+          <input 
+            id="password"
+            type="password"
+            maxlength="16"
+            formControlName="password"
+            class="login-form__control"/>
+        </div>
+        
+        <div class="login-form__group skeleton-field" col-span="2">
+          <lfsoft-shared-actions 
+            footerContent    
+            (action)="onAction($event)">
+          </lfsoft-shared-actions>
+
+          </div>
+      </div>
+    </form>
+  </div>
+ 
+</lfsoft-shared-form>

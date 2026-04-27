@@ -1,0 +1,56 @@
+// Estilos para el contenedor del mensaje
+.message {
+	width: 100%;
+	border-radius: 6px;
+	padding: 12px 16px;
+	margin: 8px 0;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	&__content {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+	}
+	&__text {
+		flex: 1;
+		font-size: 1rem;
+		padding-right: 12px;
+		word-break: break-word;
+	}
+	&__close-btn {
+		background: transparent;
+		border: none;
+		font-size: 1.2rem;
+		color: #555;
+		cursor: pointer;
+		padding: 4px 8px;
+		transition: color 0.2s;
+		&:hover {
+			color: #c00;
+		}
+	}
+}
+
+// Colores de fondo según el tipo de mensaje
+.message--success {
+	background: var(--message-success-bg);
+	color: var(--message-primary-text);
+	border: 1px solid var(--message-border);
+}
+.message--error {
+	background-color: var(--message-error-bg);
+	color: var(--message-primary-text);
+	border: 1px solid var(--message-border);
+}
+.message--warning {
+	background-color: var(--message-warning-bg);
+	color: var(--message-secondary-text);
+	border: 1px solid var(--message-border);
+}
+.message--info {
+	background-color: var(--message-info-bg);
+	color: var(--message-primary-text);
+	border: 1px solid var(--message-border);
+}

@@ -1,0 +1,9 @@
+<lfsoft-shared-message></lfsoft-shared-message>
+
+<lfsoft-shared-layout [title]="'Personas'" [type]="layoutTypes.layoutWithoutSidebar" class="persons-container">
+  <lfsoft-utilities-person-form
+    formContent    
+    (save)="onSavePerson($event)"
+    (cancel)="onCancelPerson()">
+  </lfsoft-utilities-person-form>
+</lfsoft-shared-layout>

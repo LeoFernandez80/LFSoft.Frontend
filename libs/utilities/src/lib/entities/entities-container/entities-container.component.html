@@ -1,0 +1,49 @@
+<lfsoft-shared-message></lfsoft-shared-message>
+<div class="body">
+    <div class="floating-toolbar">
+        <lfsoft-shared-actions (action)="onAction($event)"></lfsoft-shared-actions>
+    </div>
+
+    <lfsoft-shared-layout [title]="'TITLE.entities' | translate" class="entities-container">
+
+    <lfsoft-utilities-entity-grid-filter 
+        filterContent
+        class="entities-container__filter"
+        [filter]="filterParameters"
+        (apply)="onFilterApplied($event)">
+    </lfsoft-utilities-entity-grid-filter>
+ 
+     <lfsoft-utilities-entity-grid 
+        gridContent        
+        class="entities-container__grid"
+        (edit)="onEdit($event)"
+        (delete)="onDeleteEntity($event)"
+        (open)="onOpenEntity($event)"
+        (sortChange)="onSortChange($event)"
+        (scrollEndChange)="onLoadNextPage()">        
+    </lfsoft-utilities-entity-grid>
+
+    <div formContent>
+        <mat-tab-group>
+            <mat-tab *ngFor="let entityId of openedEntitiesId; let i = index">
+                <ng-template mat-tab-label>
+                    <div class="entities-container__tab" (click)="selectedEntityId = entityId">
+                        <div class="entities-container__tab-label">
+                            {{ getEntityById(entityId)?.description || 'Nueva Entidad' }}
+                        </div>
+                        <button mat-icon-button class="entities-container__tab-button" (click)="onCloseTab(entityId); $event.stopPropagation()">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </div>
+                </ng-template>
+                <lfsoft-utilities-entity-form 
+                    formContent
+                    [entityId]="entityId"
+                    (save)="onSaveEntity($event)" 
+                    (cancel)="onCancelEntity()">
+                </lfsoft-utilities-entity-form>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</lfsoft-shared-layout>
+</div>

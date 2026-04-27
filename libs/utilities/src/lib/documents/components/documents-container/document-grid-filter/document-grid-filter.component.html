@@ -1,0 +1,65 @@
+<lfsoft-shared-form [title]="'TITLE.filter' | translate">
+  <div data>
+    <mat-tab-group >
+      <mat-tab >
+        <ng-template mat-tab-label >            
+          <div class="documents-filter-tab">
+            <div class="documents-filter-tab__label">
+              {{ 'TITLE.documentData' | translate }}                     
+            </div>
+          </div>
+        </ng-template>
+        <form [formGroup]="form"  >
+          <div class="documents-filter">
+            <div class="documents-filter__group" col-span="6">
+              <label class="documents-filter__label" for="documentId">{{ 'number' | translate }}</label>
+              <input 
+              id="documentId"
+              type="number"
+              name="documentId"
+              formControlName="documentId"
+              class="documents-filter__control">
+            </div>
+
+            <div class="documents-filter__group" col-span="6">
+              <label class="documents-filter__label" for="personName">{{ 'LABEL.personName' | translate }}</label>
+              <input 
+              id="personName"
+              type="text"
+              name="personName"
+              formControlName="personName"
+              class="documents-filter__control">
+            </div>
+
+            <div class="documents-filter__group" col-span="6">
+              <label class="documents-filter__label" for="documentDescription">{{ 'LABEL.documentDescription' | translate }}</label>
+              <input 
+              id="documentDescription"
+              type="text"
+              name="documentDescription"
+              formControlName="documentDescription"
+              class="documents-filter__control">
+            </div>
+
+            <div class="documents-filter__group" col-span="6">
+              <label class="documents-filter__label" for="documentCreationDate">{{ 'LABEL.documentCreationDate' | translate }}</label>
+              <input 
+              id="documentCreationDate"
+              type="date"
+              name="documentCreationDate"
+              formControlName="documentCreationDate"
+              class="documents-filter__control">
+            </div>
+          </div>
+            
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <lfsoft-shared-actions 
+    footerContent
+    class="form-actions--footer"
+    (action)="onAction($event)">
+  </lfsoft-shared-actions>
+</lfsoft-shared-form>

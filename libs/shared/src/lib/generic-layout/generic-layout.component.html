@@ -1,0 +1,33 @@
+<div class="layout">
+  <header class="layout__header" >
+    <div class="layout__header-title">
+      <h1>{{title}}</h1>
+    </div>
+    <ng-content select="[headerActions]" ></ng-content>
+  </header>
+
+  <div class="layout__container">    
+    <div class="layout__sidebar" *ngIf="type === layoutTypes.layoutWithSidebar" [style.width.px]="sidebarWidth">
+      <div class="layout__sidebar-grid">
+        <ng-content select="[gridContent]"></ng-content>
+      </div>
+      <div class="layout__sidebar-resizer" 
+           (mousedown)="onFilterResizerMouseDown($event)">
+      </div>
+      <div class="layout__sidebar-filter" [style.height.px]="filterHeight">
+        <ng-content select="[filterContent]"></ng-content>
+      </div>
+    </div>
+    <div class="layout__resizer" *ngIf="type === layoutTypes.layoutWithSidebar" 
+         (mousedown)="onMouseDown($event)">
+    </div>
+
+    <main class="layout__main">
+      <ng-content select="[formContent]"></ng-content>
+    </main>
+  </div>
+
+  <footer class="layout__footer">
+    <ng-content select="[footerContent]"></ng-content>
+  </footer>
+</div>

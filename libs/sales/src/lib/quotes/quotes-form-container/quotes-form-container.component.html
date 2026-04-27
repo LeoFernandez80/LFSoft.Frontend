@@ -1,0 +1,12 @@
+<lfsoft-shared-layout 
+  [title]="'TITLE.quote' | translate" 
+  [type]="layoutTypes.layoutWithoutSidebar">
+  <lfsoft-shared-message></lfsoft-shared-message>
+  
+  <lfsoft-sales-quote-form
+    *ngIf="quoteId"
+    [quoteId]="quoteId"
+    (save)="onSave()"
+    (cancel)="onCancel()">
+  </lfsoft-sales-quote-form>
+</lfsoft-shared-layout>

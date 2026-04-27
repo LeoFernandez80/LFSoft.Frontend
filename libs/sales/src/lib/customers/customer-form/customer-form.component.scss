@@ -1,0 +1,24 @@
+@import 'styles/form.scss';
+
+.customer-form {
+  @extend .form;
+  @extend .form-container--full;
+  padding-bottom: 30px;
+  
+  &__label {
+    @extend .form-control-label;
+  }
+
+  &__control {
+    @extend .form-control;
+  }
+
+  &__control-checkbox {
+    width: auto;
+    height: auto;
+  }
+
+  &__group {
+    @extend .form-group;
+  }
+}

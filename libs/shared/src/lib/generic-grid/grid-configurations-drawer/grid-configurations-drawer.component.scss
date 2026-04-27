@@ -1,0 +1,7 @@
+.drawer-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--container-primary-bg);
+  color: var(--form-primary-text);
+}

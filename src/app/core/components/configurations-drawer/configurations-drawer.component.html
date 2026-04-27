@@ -1,0 +1,106 @@
+<lfsoft-shared-drawer>
+    <div drawer-content>
+        <div class="modal-header">            
+            <div class="modal-header-title" >
+                <h1>{{ 'configurationApp' | translate}}</h1>
+            </div>
+            <button mat-icon-button class="modal-header-close-button" (click)="onClose()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+        <div class="modal-content">
+        
+            <!-- Sección de Tema -->
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Tema</mat-label>
+                <mat-select
+                    [(value)]="selectedTheme"
+                    (selectionChange)="changedTheme($event.value)">
+                    <mat-option *ngFor="let t of themes" [value]="t.value">
+                        {{ t.label }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Información del Terminal -->
+            <div class="section-title">
+                <h3>Terminal</h3>
+            </div>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>ID Terminal</mat-label>
+                <input matInput [(ngModel)]="configurations.terminalId" placeholder="Ingrese ID del terminal">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Nombre Terminal</mat-label>
+                <input matInput [(ngModel)]="configurations.terminalName" placeholder="Ingrese nombre del terminal">
+            </mat-form-field>
+
+            <!-- Rutas de Archivos -->
+            <div class="section-title">
+                <h3>Rutas de Archivos</h3>
+            </div>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Ruta de Facturas</mat-label>
+                <input matInput [(ngModel)]="configurations.invoicePath" placeholder="C:/ruta/facturas">
+                <mat-icon matPrefix>folder</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Ruta de Cotizaciones</mat-label>
+                <input matInput [(ngModel)]="configurations.quotesPath" placeholder="C:/ruta/cotizaciones">
+                <mat-icon matPrefix>folder</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Ruta de Documentos</mat-label>
+                <input matInput [(ngModel)]="configurations.documentsPath" placeholder="C:/ruta/documentos">
+                <mat-icon matPrefix>folder</mat-icon>
+            </mat-form-field>
+
+            <!-- Items de Configuración -->
+            <div class="section-title">
+                <h3>Items de Configuración</h3>
+                <button mat-icon-button color="primary" (click)="addConfigurationItem()">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+
+            <div class="config-items-container">
+                <mat-card *ngFor="let item of configurations.items; let i = index" class="config-item-card">
+                    <mat-card-content>
+                        <div class="config-item-row">
+                            <mat-form-field appearance="outline" class="item-key-field">
+                                <mat-label>Clave Literal</mat-label>
+                                <input matInput [(ngModel)]="item.literalKey" placeholder="Clave">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" class="item-color-field">
+                                <mat-label>Color</mat-label>
+                                <input matInput [(ngModel)]="item.color" placeholder="RGB(255, 0, 0)">
+                            </mat-form-field>
+
+                            <div class="color-preview" [style.background-color]="item.color"></div>
+
+                            <button mat-icon-button color="warn" (click)="removeConfigurationItem(i)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="actions-row">
+                <button mat-raised-button (click)="onClose()">
+                    Cancelar
+                </button>
+                <button mat-raised-button color="primary" (click)="onSave()">
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</lfsoft-shared-drawer>

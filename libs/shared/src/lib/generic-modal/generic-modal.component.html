@@ -1,0 +1,18 @@
+<ng-container *ngIf="isVisible">
+  <div class="modal-overlay">
+    <div class="modal-container" (click)="stopPropagation($event)">
+      <div class="modal-header" *ngIf="modalConfig?.title || modalConfig?.showCloseButton">
+        <h3 class="modal-title" *ngIf="modalConfig?.title">{{ modalConfig.title | translate}}</h3>
+        <button *ngIf="modalConfig?.showCloseButton && !modalConfig?.blockClose" class="close-button" (click)="close()">×</button>
+      </div>
+      <div class="modal-content">
+        <i *ngIf="modalConfig?.icon" [class]="modalConfig?.icon"></i>
+        <p class="modal-text">{{modalConfig.text | translate}}</p>
+      </div>
+      <div class="modal-footer" *ngIf="modalConfig?.showActions">
+        <lfsoft-shared-actions (action)="onActionSelected($event)">
+        </lfsoft-shared-actions>
+      </div>
+    </div>
+  </div>
+</ng-container>

@@ -1,0 +1,19 @@
+<div *ngIf="isVisible">
+    <div class="generic-drawer__overlay" *ngIf="config?.showOverlay"></div>
+    
+    <div class="generic-drawer__container">
+        
+        <div class="generic-drawer__drawer" 
+            [class.generic-drawer__drawer--left]="config?.position === 'left'"
+            [class.generic-drawer__drawer--right]="config?.position === 'right'"
+            [class.generic-drawer__drawer--animate]="config?.animate"
+            [style.width]="config?.width">
+
+            <!-- <button class="generic-drawer__close-button" (click)="close()" aria-label="Cerrar">&times;</button> -->
+                  
+            <div class="generic-drawer__content">
+                <ng-content select="[drawer-content]"></ng-content>
+            </div>
+        </div>
+    </div>
+</div>

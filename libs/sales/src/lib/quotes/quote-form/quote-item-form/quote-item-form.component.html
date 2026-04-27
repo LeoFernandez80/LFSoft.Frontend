@@ -1,0 +1,68 @@
+<lfsoft-shared-form [title]="'Datos del item ' + (quoteItem?.itemId || '')" [showActions]="!showForm">
+  <div data>
+    <form [formGroup]="form"  [lfsoftFormValidations]="form">
+      <div class="quote-item-form">
+        <div class="quote-item-form__group skeleton-field" col-span="1">
+          <label class="quote-item-form__label" for="itemQuantity">{{ 'LABEL.quantity' | translate}}</label>
+          <input 
+            id="itemQuantity"
+            type="number"
+            formControlName="itemQuantity"
+            class="quote-item-form__control"
+            min="0"
+            step="1">
+        </div>
+        <div class="quote-item-form__group skeleton-field" col-span="3" row-span="2">
+          <label class="quote-item-form__label" for="itemDescription">{{ 'LABEL.description' | translate}}</label>
+          <textarea 
+            id="itemDescription"
+            formControlName="itemDescription"
+            class="quote-item-form__control"
+            rows="7">
+          </textarea>
+        </div>        
+        <div class="quote-item-form__group skeleton-field" col-span="1">
+          <label class="quote-item-form__label" for="unitPrice">{{ 'LABEL.unitPrice' | translate}}</label>
+          <input 
+            id="unitPrice"
+            type="number"
+            formControlName="unitPrice"
+            class="quote-item-form__control"
+            readonly>
+        </div>
+        <div class="quote-item-form__group skeleton-field" col-span="1">
+          <label class="quote-item-form__label" for="totalPrice">{{ 'LABEL.totalPrice' | translate}}</label>
+          <input 
+            id="totalPrice"
+            type="number"
+            formControlName="totalPrice"
+            class="quote-item-form__control"
+            readonly>
+        </div>
+      </div>
+    </form>
+  </div>
+  @if(!showForm){
+    <div bodyTop>
+      <div class="quote-item-form__grid">
+        <lfsoft-sales-quote-item-article-grid (edit)="onEditItemArticle($event)" (delete)="onDeleteItemArticle($event)"></lfsoft-sales-quote-item-article-grid>
+      </div>
+      <div class="quote-item-form__actions">
+        <div class="quote-item-form__actions--buttons">          
+          <mat-icon  (click)="onAddItemArticle()">add</mat-icon> 
+        </div>
+      </div>
+    </div> 
+  }
+  @if(showForm){
+  <div  bodyTop>
+    <div class="quote-item-form__main">
+      <lfsoft-sales-quote-item-article-form [quoteItemArticle]="itemArticleSelected" (accept)="onAcceptItemArticle($event)" (cancel)="onCancelItemArticle()"></lfsoft-sales-quote-item-article-form>
+    </div>
+  </div>
+  }
+  <lfsoft-shared-actions
+    footerContent
+    (action)="onAction($event)">
+  </lfsoft-shared-actions>
+</lfsoft-shared-form>

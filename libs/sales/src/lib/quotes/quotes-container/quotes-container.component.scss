@@ -1,0 +1,34 @@
+.quotes-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  
+  &__filter {
+    padding: 1rem;
+  }
+  
+  &__grid {
+    flex: 1;
+    overflow: auto;
+  }
+  
+  &__tab {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    
+    &-label {
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+.floating-toolbar {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+}

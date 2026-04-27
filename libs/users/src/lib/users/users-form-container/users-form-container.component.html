@@ -1,0 +1,9 @@
+<lfsoft-shared-message></lfsoft-shared-message>
+
+<lfsoft-shared-layout [title]="'TITLE.users' | translate" [type]="layoutTypes.layoutWithoutSidebar" class="users-container">
+  <app-user-form
+    formContent    
+    (save)="onSaveUser($event)"
+    (cancel)="onCancelUser()">
+  </app-user-form>
+</lfsoft-shared-layout>

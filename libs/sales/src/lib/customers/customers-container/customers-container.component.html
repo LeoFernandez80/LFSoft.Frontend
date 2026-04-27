@@ -1,0 +1,50 @@
+<lfsoft-shared-message></lfsoft-shared-message>
+    <div class="floating-toolbar">
+      <lfsoft-shared-actions (action)="onAction($event)"></lfsoft-shared-actions>
+    </div>
+<lfsoft-shared-layout [title]="'TITLE.customers' | translate" class="customers-container">
+    <lfsoft-shared-actions 
+        headerActions
+        (action)="onAction($event)">
+    </lfsoft-shared-actions>
+
+    <lfsoft-sales-customer-grid-filter 
+        filterContent
+        class="customers-container__filter"
+        [filter]="filterParameters"
+        (apply)="onFilterApplied($event)">
+    </lfsoft-sales-customer-grid-filter>
+ 
+     <lfsoft-sales-customer-grid 
+        gridContent        
+        class="customers-container__grid"
+        (edit)="onEdit($event)"
+        (delete)="onDeleteCustomer($event)"
+        (open)="onOpenCustomer($event)"
+        (sortChange)="onSortChange($event)"
+        (scrollEndChange)="onLoadNextPage()">        
+    </lfsoft-sales-customer-grid>
+
+    <div formContent>
+        <mat-tab-group>
+            <mat-tab *ngFor="let customerId of openedCustomersId; let i = index">
+                <ng-template mat-tab-label>
+                    <div class="customers-container__tab" (click)="selectedCustomerId = customerId">
+                        <div class="customers-container__tab-label">
+                            {{ getCustomerById(customerId)?.nombre || 'Nuevo Customer' }} {{ getCustomerById(customerId)?.apellido || '' }}
+                        </div>
+                        <button mat-icon-button class="customers-container__tab-button" (click)="onCloseTab(customerId); $event.stopPropagation()">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </div>
+                </ng-template>
+                <lfsoft-sales-customer-form 
+                    formContent
+                    [customerId]="customerId"
+                    (save)="onSaveCustomer($event)" 
+                    (cancel)="onCancelCustomer()">
+                </lfsoft-sales-customer-form>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</lfsoft-shared-layout>

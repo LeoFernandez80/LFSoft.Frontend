@@ -1,0 +1,46 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@lib/security": ["libs/security/src/index.ts"],
+      "@lib/shared": ["libs/shared/src/index.ts"],
+      "@lib/utilities": ["libs/utilities/src/index.ts"],
+      "@lib/themes": ["libs/themes/src/index.ts"],
+      "@lib/sales": ["libs/sales/src/index.ts"],
+      "@lib/purchases": ["libs/purchases/src/index.ts"],
+      "@lib/articles": ["libs/articles/src/index.ts"],
+      "@lib/users": ["libs/users/src/index.ts"],
+      "@lib/common": ["libs/common/src/index.ts"]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "typeCheckHostBindings": true,
+    "strictTemplates": true
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
+}
