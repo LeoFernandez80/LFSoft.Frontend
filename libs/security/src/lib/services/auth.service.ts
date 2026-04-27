@@ -2,15 +2,12 @@ import { Injectable, inject, InjectionToken, Optional, Inject, DestroyRef } from
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { AuthenticatedUser } from '../models/authenticated-user.model';
-import { EnumUserRole } from '../enums/user-role.enum';
-import { UserPermissionsService } from '@lib/users';
-import { ConfigurationService } from 'libs/common/src/lib/services/configuration.service';
-import { Configuration } from 'libs/common/src/lib/models/configuration.model';
-import { GridConfigurationService } from 'libs/shared/src/lib/generic-grid/services/grid-configuration.service';
-import { GridConfiguration } from 'libs/shared/src/lib/generic-grid/models/grid-configuration.model';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UserPermissionsService } from '@lib/security';
 
+import { AuthenticatedUser } from '../models/authenticated-user.model';
+import { EnumUserRole } from '../permissions/enums/user-role.enum';
+import { Configuration, ConfigurationService } from '@lib/common';
+import { GridConfigurationService } from '@lib/shared';
 /**
  * Token para inyectar la URL de la API
  */
@@ -42,7 +39,6 @@ export class AuthService {
   private _destroyRef: DestroyRef | undefined;
 
   constructor(
-    //private _securityService: PermissionsService,
     private _permissionsUserService: UserPermissionsService,
     private _configurationService: ConfigurationService,
     private _gridConfigurationService: GridConfigurationService,
@@ -105,9 +101,7 @@ export class AuthService {
           this._configurationService.setConfiguration(config || new Configuration());
         });
         
-        this._gridConfigurationService.loadUserGridConfiguration(user.id || '').subscribe( configs => {
-          console.log("SADFASFGASDFASDF", configs);
-          
+        this._gridConfigurationService.loadUserGridConfiguration(user.id || '').subscribe( configs => {          
           this._gridConfigurationService.setUserGridConfiguration(configs || []);
         });
 

@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import { EnumUserRole } from '../../enums/user-role.enum';
-import { EnumActions } from '../../../../../common/src/lib/enums/actions.enum';
 import { Action } from '@lib/shared';
-import { PermisionsActionsService } from '../../../../../common/src/lib/services/permissions-actions.service';
+import { EnumActions, EnumLiteralKeys, PermisionsActionsService } from '@lib/common';
+import { EnumUserRole } from '../enums/user-role.enum';
 import { UserPermissions } from '../models/user-permissions.model';
-import { EnumLiteralKeys } from 'libs/common/src/lib/enums/literal-keys.enum';
 import { UserRolFields } from '../models/user-rol-fields.model';
 
 @Injectable({
@@ -195,7 +193,7 @@ export class UserPermissionsService {
       {
         userRolId: EnumUserRole.ADMIN,
         eTypeLiteralKey: EnumLiteralKeys.eForm_Users,
-        hiddenFields: 'user_role'
+        hiddenFields: ''
       },
       {
         userRolId: EnumUserRole.VIEWER,

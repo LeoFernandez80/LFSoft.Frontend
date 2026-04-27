@@ -1,5 +1,5 @@
 //import { EnumPermissionType } from "../enums/enum-permission.type.enum";
-import { EnumUserRole } from "../enums/user-role.enum";
+import { EnumUserRole } from "../permissions/enums/user-role.enum";
 
 /**
  * Información del usuario autenticado

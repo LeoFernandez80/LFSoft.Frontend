@@ -2,11 +2,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { UserFilter } from '../../models/user-filter.model';
 import { MatTabsModule } from '@angular/material/tabs';
 import { GenericFormComponent, GenericActionsComponent, TranslatePipe, ActionService, EnumActionsType, Action } from '@lib/shared';
-import { EnumActions } from 'libs/common/src/lib/enums/actions.enum';
 
+import { UserFilter } from '../../models/user-filter.model';
+import { EnumActions } from '@lib/common';
 @Component({
   selector: 'app-user-grid-filter',
   imports: [

@@ -5,10 +5,9 @@ import { PageFilter, PaginatedList } from '@lib/shared';
 import { UserFilter } from '../models/user-filter.model';
 import { UserGrid } from '../models/user-grid.model';
 import { User } from '../models/user.model';
-import { environment } from '../../../../../../src/environments/environment';
-import { AccessControl, ConfigurationService } from '@lib/common';
-import { Terminal } from 'libs/common/src/lib/models/terminal.model';
+import { AccessControl, ConfigurationService, Terminal } from '@lib/common';
 import { EnumUserRole } from '@lib/security';
+import { environment } from 'src/environments/environment';
 
 
  class HTTPResponseUser  {  

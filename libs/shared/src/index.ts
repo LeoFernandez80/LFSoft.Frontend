@@ -35,9 +35,9 @@ export * from './lib/generic-grid/models/grid-column.model';
 export * from './lib/generic-grid/models/grid-configuration.model';
 export * from './lib/generic-grid/models/grid-column-configuration.model';
 
-
 // Interfaces
 export * from './lib/interfaces/permission-service.interface';
+export * from './lib/interfaces/section-Form.interface';
 
 // Services
 export * from './lib/generic-actions/services/actions.service';

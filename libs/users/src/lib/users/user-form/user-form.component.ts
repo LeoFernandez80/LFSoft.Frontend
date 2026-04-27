@@ -8,17 +8,14 @@ import { Observable, of } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AuthService, EnumUserRole, UrlSecurityService } from '@lib/security';
-import { GenericFormComponent, GenericActionsComponent, TranslatePipe, ActionService, MessagesService, ModalService, EnumMessageType, EnumActionsType, CONFIRM_CANCEL } from '@lib/shared';
-import { EnumActions, EnumObjectMode } from '@lib/common';
+import { AuthService, EnumUserRole, UrlSecurityService, UserPermissionsService } from '@lib/security';
+import { GenericFormComponent, GenericActionsComponent, TranslatePipe, ActionService, MessagesService, ModalService, EnumMessageType, EnumActionsType, CONFIRM_CANCEL, ISectionForm } from '@lib/shared';
+import { EnumActions, EnumLiteralKeys, EnumObjectMode } from '@lib/common';
 
-import { UserPermissionsService } from '../../../../../security/src/lib/permissions/services/user-permissions.service';
 import { HTTPServiceUser } from '../http-services/user.service';
 import { User } from '../models/user.model';
 import { UserResponse } from '../models/user-response.model';
-import { ISectionForm } from 'libs/shared/src/lib/interfaces/section-Form.interface';
 import { UserDataFormComponent } from './user-data-form/user-data-form.component';
-import { EnumLiteralKeys } from 'libs/common/src/lib/enums/literal-keys.enum';
 
 
 @Component({

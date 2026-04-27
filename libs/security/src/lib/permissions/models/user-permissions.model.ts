@@ -1,5 +1,5 @@
 import { EnumLiteralKeys } from "libs/common/src/lib/enums/literal-keys.enum";
-import { EnumUserRole } from "../../enums/user-role.enum";
+import { EnumUserRole } from "../enums/user-role.enum";
 
 export class UserPermissions{
   userRolId: EnumUserRole;

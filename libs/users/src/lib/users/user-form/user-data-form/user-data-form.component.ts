@@ -5,18 +5,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
-import { User } from '../../models/user.model';
-import { EnumObjectMode } from '@lib/common';
-import { AuthService, EnumUserRole } from '@lib/security';
-import { ISectionForm } from 'libs/shared/src/lib/interfaces/section-Form.interface';
-import { SkeletonDirective } from 'libs/shared/src/lib/generic-skeleton/skeleton.directive';
 import { MatButtonModule } from '@angular/material/button';
-import { FormValidationsDirective, GenericFormComponent, TranslatePipe } from '@lib/shared';
-import { Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { UserPermissionsService } from '../../../../../../security/src/lib/permissions/services/user-permissions.service';
-import { EnumLiteralKeys } from 'libs/common/src/lib/enums/literal-keys.enum';
+import { Observable, timer } from 'rxjs';
+
+import { EnumLiteralKeys, EnumObjectMode } from '@lib/common';
+import { AuthService, EnumUserRole, UserPermissionsService } from '@lib/security';
+import { FormValidationsDirective, GenericFormComponent, ISectionForm, SkeletonDirective, TranslatePipe } from '@lib/shared';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-user-data-form',

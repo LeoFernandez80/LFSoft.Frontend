@@ -1,11 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { GenericGridComponent, GenericActionsComponent, PageFilter, GridColumn, GridService, TranslationService, Action, EnumActionsType, EnumActionsViewType, ActionService, CustomDatePipe, GridConfiguration, GridColumnConfiguration, GridConfigurationService } from '@lib/shared';
-import { AuthService, EnumUserRole } from '@lib/security';
+import { GenericGridComponent, GenericActionsComponent, PageFilter, GridColumn, GridService, TranslationService, CustomDatePipe, GridConfiguration, GridColumnConfiguration, GridConfigurationService } from '@lib/shared';
+import { AuthService, EnumUserRole, UserPermissionsService } from '@lib/security';
 import { Sort } from '@angular/material/sort';
 
 import { UserGrid } from '../../models/user-grid.model';
-import { UserPermissionsService } from '../../../../../../security/src/lib/permissions/services/user-permissions.service';
-import { EnumLiteralKeys } from 'libs/common/src/lib/enums/literal-keys.enum';
+import { EnumLiteralKeys } from '@lib/common';
 
 @Component({
   selector: 'app-user-grid',

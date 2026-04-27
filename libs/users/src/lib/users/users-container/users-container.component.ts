@@ -1,24 +1,21 @@
 import { Component, OnInit, OnDestroy, DestroyRef, inject } from '@angular/core';
-import { UserGridFilterComponent } from './user-grid-filter/user-grid-filter.component';
-import { UserGridComponent } from './user-grid/user-grid.component';
-import { UserFormComponent } from '../user-form/user-form.component';
-import { UserGrid } from '../models/user-grid.model';
-import { User } from '../models/user.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AsyncPipe, NgFor } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { UserFilter } from '../models/user-filter.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TranslatePipe, GenericLayoutComponent, GenericMessageComponent, GenericActionsComponent, MessagesService, GridService, ActionService, PageFilter, ModalService, EnumMessageType, EnumActionsType, EnumActionsViewType, EnumActionsStyle, CONFIRM_DELETE, Action, EnumLayoutType } from '@lib/shared';
-import { HTTPServiceUser } from '../http-services/user.service';
-import { UrlService } from '@lib/shared';
-import { AuthService, EnumUserRole } from '@lib/security';
-import { Configuration, ConfigurationService, EnumActions } from '@lib/common';
+import { TranslatePipe, GenericLayoutComponent, GenericMessageComponent, GenericActionsComponent, MessagesService, GridService, ActionService, PageFilter, ModalService, EnumMessageType, EnumActionsType, CONFIRM_DELETE } from '@lib/shared';
+import { AuthService, EnumUserRole, UserPermissionsService } from '@lib/security';
+import { ConfigurationService, EnumActions, EnumLiteralKeys, MenuesService } from '@lib/common';
 import { ConfigurationItem } from '@lib/common';
-import { UserPermissionsService } from '../../../../../security/src/lib/permissions/services/user-permissions.service';
-import { MenuesService } from 'libs/common/src/lib/services/menues.service';
-import { EnumLiteralKeys } from 'libs/common/src/lib/enums/literal-keys.enum';
+
+import { HTTPServiceUser } from '../http-services/user.service';
+import { UserGridFilterComponent } from './user-grid-filter/user-grid-filter.component';
+import { UserFilter } from '../models/user-filter.model';
+import { UserGridComponent } from './user-grid/user-grid.component';
+import { UserFormComponent } from '../user-form/user-form.component';
+import { UserGrid } from '../models/user-grid.model';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-users-container',

@@ -1,6 +1,5 @@
 // Public API for @lib/users
 
-//#region Users
 // Modules
 export * from './lib/users/users.module';
 export * from './lib/users/users-module-routing.module';
@@ -21,15 +20,3 @@ export * from './lib/users/users-container/user-grid/user-grid.component';
 export * from './lib/users/users-container/user-grid-filter/user-grid-filter.component';
 export * from './lib/users/users-form-container/users-form-container.component';
 
-//#endregion
-
-//#region User Permissions 
-
-// Models
-export * from '../../security/src/lib/permissions/models/user-permissions.model';
-export * from '../../security/src/lib/permissions/models/user-roles.model';
-
-// Services
-export * from '../../security/src/lib/permissions/services/user-permissions.service';
-
-//#endregion
