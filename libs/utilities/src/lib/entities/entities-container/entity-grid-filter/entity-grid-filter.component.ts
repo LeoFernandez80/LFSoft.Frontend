@@ -1,56 +1,54 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatTabsModule } from '@angular/material/tabs';
+import { EnumActions } from '@lib/common';
+import { Action, ActionService, EnumActionsType, GenericActionsComponent, GenericFormComponent, TranslatePipe } from '@lib/shared';
 import { EntityFilter } from '../../models/entity-filter.model';
-import { MatTab, MatTabsModule } from '@angular/material/tabs';
-import { 
-  EnumActionsType, 
-  GenericActionsComponent, 
-  ActionService, 
-  GenericFormComponent, 
-  Action, 
-  TranslatePipe 
-} from '@lib/shared';
-import { EnumActions } from 'libs/common/src/lib/enums/actions.enum';
 
 @Component({
-  selector: 'lfsoft-utilities-entity-grid-filter',
+  selector: 'app-entity-grid-filter',
+  templateUrl: './entity-grid-filter.component.html',
+  styleUrls: ['./entity-grid-filter.component.scss'],
+  standalone: true,
   imports: [
-    CommonModule, ReactiveFormsModule,
-    FormsModule,
-    MatButtonModule,
+    CommonModule,
+    ReactiveFormsModule,
     MatTabsModule,
     GenericFormComponent,
     GenericActionsComponent,
     TranslatePipe
   ],
-  templateUrl: './entity-grid-filter.component.html',
-  styleUrls: ['./entity-grid-filter.component.scss'],
-  standalone: true,
-  providers: [ ActionService]
+  providers: [ActionService]
 })
 export class EntityGridFilterComponent implements OnInit {
-  @Input() set filter(filter: EntityFilter) { 
-    if (!filter) return;
+  @Input() set filter(filter: EntityFilter) {
+    if (!filter) {
+      return;
+    }
+
     this._updateForm(filter);
-  };
+  }
+
   @Output() apply = new EventEmitter<EntityFilter>();
-    
+
   form: FormGroup = new FormGroup({});
-  
-  constructor(private fb: FormBuilder, private _actionService: ActionService) { 
-    this._createForm();    
+
+  constructor(private fb: FormBuilder, private _actionService: ActionService) {
+    this._createForm();
   }
 
   ngOnInit(): void {
-    this._loadSecurityActions();
+    this._actionService.setActions([
+      new Action('BUTTON.filter', EnumActionsType.actionApply, 'filter_alt', false),
+      new Action('BUTTON.clear', EnumActionsType.actionReset, 'restart_alt', false)
+    ]);
   }
-  
+
   onAction(action: EnumActionsType | EnumActions): void {
     switch (action) {
       case EnumActionsType.actionApply:
-        this._apply();        
+        this._apply();
         break;
       case EnumActionsType.actionReset:
         this._resetFilter();
@@ -58,44 +56,34 @@ export class EntityGridFilterComponent implements OnInit {
     }
   }
 
-  private _resetFilter(): void {
-    this.form.reset();
-    this._apply();
+  private _apply(): void {
+    this.apply.emit(this._mapToFilter());
   }
 
-  private _apply(): void {
-    const filter = this._mapToFilter();    
-    this.apply.emit(filter);
+  private _createForm(): void {
+    this.form = this.fb.group({
+      entity_id: [null],
+      entity_description: ['']
+    });
   }
 
   private _mapToFilter(): EntityFilter {
-    const formData = this.form.value as EntityFilter;     
+    const formData = this.form.value;
     const filter = new EntityFilter();
-    filter.id = formData.id;
-    filter.description = formData.description;
-
+    filter.entity_id = formData.entity_id ?? 0;
+    filter.entity_description = formData.entity_description ?? '';
     return filter;
   }
-  
-  private _createForm() {
-    this.form = this.fb.group({
-      id: [null],
-      description: [null]
-    });
+
+  private _resetFilter(): void {
+    this.form.reset({ entity_id: null, entity_description: '' });
+    this._apply();
   }
 
-  private _updateForm(filter: EntityFilter) {
+  private _updateForm(filter: EntityFilter): void {
     this.form.patchValue({
-      id: filter.id,
-      description: filter.description
+      entity_id: filter.entity_id || null,
+      entity_description: filter.entity_description || ''
     });
-  }
-
-  private _loadSecurityActions(): void {
-    const actions: Action[] = [
-      new Action('BUTTON.filter', EnumActionsType.actionApply, 'filter_alt', false),
-      new Action('BUTTON.clear', EnumActionsType.actionReset, 'restart_alt', false),
-    ];
-    this._actionService.setActions(actions);
   }
 }

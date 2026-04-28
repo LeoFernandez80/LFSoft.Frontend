@@ -185,7 +185,15 @@ export class UserPermissionsService {
       permissionConditions: '#|V|#',
       permitionsActions: '',
       caseId: 1
-    });
+    },
+    {
+      userRolId: EnumUserRole.VIEWER,
+      eTypeLiteralKey: EnumLiteralKeys.eModule_Entities,
+      permissionConditions: '#|V|#',
+      permitionsActions: '#|eAction_OpenUsers|#',
+      caseId: 2
+    }
+  );
   }
 
   private _inicializeUserRolFieldsMOCK(): void {
@@ -196,9 +204,19 @@ export class UserPermissionsService {
         hiddenFields: ''
       },
       {
+        userRolId: EnumUserRole.ADMIN,
+        eTypeLiteralKey: EnumLiteralKeys.eForm_Entities,
+        hiddenFields: ''
+      },
+      {
         userRolId: EnumUserRole.VIEWER,
         eTypeLiteralKey: EnumLiteralKeys.eForm_Users,
         hiddenFields: 'user_role|user_password|user_email'
+      },
+      {
+        userRolId: EnumUserRole.VIEWER,
+        eTypeLiteralKey: EnumLiteralKeys.eForm_Entities,
+        hiddenFields: 'entity_active'
       }
     );
   }

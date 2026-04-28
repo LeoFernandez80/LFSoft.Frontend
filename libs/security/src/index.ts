@@ -12,7 +12,6 @@ export * from './lib/services/url-security.service';
 // Guards
 export * from './lib/guards/auth.guard';
 
-
 //Permissions
 // Enums
 export * from './lib/permissions/enums/user-role.enum';

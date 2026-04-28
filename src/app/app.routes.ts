@@ -41,13 +41,13 @@ export const routes: Routes = [
   },
 
   // Módulos lazy cargados y protegidos
-  {
-    path: 'persons-module',
-    canActivate: [AuthGuard, PermissionGuard],
-    data: { literalKeyType: EnumLiteralKeys.eModule_Persons },
-    loadChildren: () =>
-      import('@lib/utilities').then(m => m.PersonsModule)
-  },
+  // {
+  //   path: 'persons-module',
+  //   canActivate: [AuthGuard, PermissionGuard],
+  //   data: { literalKeyType: EnumLiteralKeys.eModule_Persons },
+  //   loadChildren: () =>
+  //     import('@lib/utilities').then(m => m.PersonsModule)
+  // },
   {
     path: 'quotes-module',
     canActivate: [AuthGuard, PermissionGuard],

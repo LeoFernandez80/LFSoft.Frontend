@@ -1,18 +1,19 @@
+// Estilos para el componente entity-grid-filter
 @import 'styles/container.scss';
 @import 'styles/form.scss';
 
 .entities-filter-tab {
   @extend .container-tab-header;
-  
-  &__label{
+
+  &__label {
     @extend .container-tab-header__label;
-  }  
+  }
 }
 
 .entities-filter {
   @extend .form;
   @extend .form-container--full;
-  
+
   &__label {
     @extend .form-control-label;
   }
@@ -25,4 +26,3 @@
     @extend .form-group;
   }
 }
-

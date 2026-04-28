@@ -1,9 +1,9 @@
+// Estilos para el componente entity-form
 @import 'styles/form.scss';
 
 .entity-form {
   @extend .form;
   @extend .form-container--full;
-  padding-bottom: 30px;
   
   &__label {
     @extend .form-control-label;

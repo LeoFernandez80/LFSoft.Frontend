@@ -1,0 +1,13 @@
+<form [formGroup]="entityForm">
+  <div class="entity-data-form">
+    <div class="entity-data-form__group skeleton-field" col-span="5" *ngIf="!isHiddenField('entity_description')">
+      <label class="entity-data-form__label" for="entity_description">{{ 'LABEL.description' | translate }}</label>
+      <input id="entity_description" type="text" formControlName="entity_description" class="entity-data-form__control">
+    </div>
+
+    <div class="entity-data-form__group entity-data-form__group--checkbox" *ngIf="!isHiddenField('entity_active')">
+      <label class="entity-data-form__label" for="entity_active">{{ 'LABEL.active' | translate }}</label>
+      <input id="entity_active" type="checkbox" formControlName="entity_active" class="entity-data-form__checkbox">
+    </div>
+  </div>
+</form>

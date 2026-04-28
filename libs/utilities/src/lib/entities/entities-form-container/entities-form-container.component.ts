@@ -1,37 +1,25 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
+import { EnumMessageType, GenericLayoutComponent, GenericMessageComponent, MessagesService, TranslatePipe } from '@lib/shared';
 import { EntityFormComponent } from '../entity-form/entity-form.component';
-import { 
-  GenericLayoutComponent, 
-  GenericMessageComponent, 
-  EnumLayoutType, 
-  MessagesService, 
-  EnumMessageType 
-} from '@lib/shared';
 
 @Component({
-  selector: 'lfsoft-utilities-entities-form-container',
+  selector: 'app-entities-form-container',
   templateUrl: './entities-form-container.component.html',
   styleUrls: ['./entities-form-container.component.scss'],
   standalone: true,
-  imports: [ GenericLayoutComponent,
-      GenericMessageComponent, EntityFormComponent]
+  imports: [TranslatePipe, GenericLayoutComponent, GenericMessageComponent, EntityFormComponent],
+  providers: [MessagesService]
 })
-export class EntitiesFormContainerComponent implements OnInit, OnDestroy {
+export class EntitiesFormContainerComponent {
 
-  constructor( private _messagesService: MessagesService ) { }
+  constructor(private _messagesService: MessagesService) {}
 
-  layoutTypes = EnumLayoutType
-  ngOnInit(): void {  }
-
-  ngOnDestroy(): void {
-    // Cleanup si es necesario en el futuro
-  }
-
-  onSaveEntity(entity: any): void {
+  onSaveEntity(): void {
     this._messagesService.addMessage('MESSAGE.successSave', EnumMessageType.Info);
   }
 
-  onCancelEntity(): void {    
+  onCancelEntity(): void {
+    window.open('', '_self');
     window.close();
   }
 }

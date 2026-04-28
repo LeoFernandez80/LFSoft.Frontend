@@ -1,0 +1,16 @@
+<form [formGroup]="personForm">
+  <div class="person-data-form">
+    <div class="person-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('person_name')">
+      <label class="person-data-form__label" for="person_name">{{ 'LABEL.name' | translate }}</label>
+      <input id="person_name" type="text" formControlName="person_name" class="person-data-form__control">
+    </div>
+    <div class="person-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('person_lastName')">
+      <label class="person-data-form__label" for="person_lastName">{{ 'LABEL.lastName' | translate }}</label>
+      <input id="person_lastName" type="text" formControlName="person_lastName" class="person-data-form__control">
+    </div>
+    <div class="person-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('person_fullName')">
+      <label class="person-data-form__label" for="person_fullName">{{ 'LABEL.fullName' | translate }}</label>
+      <input id="person_fullName" type="text" formControlName="person_fullName" class="person-data-form__control">
+    </div>
+  </div>
+</form>

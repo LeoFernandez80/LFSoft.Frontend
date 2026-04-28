@@ -1,239 +1,205 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnDestroy, DestroyRef, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Entity } from '../models/entity.model';
-
-import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { MatButtonModule } from '@angular/material/button';
-import { 
-  EnumActionsType, 
-  GenericActionsComponent, 
-  ActionService, 
-  GenericFormComponent, 
-  Action, 
-  MessagesService, 
-  EnumMessageType, 
-  TranslatePipe, 
-  ModalService,
-  CONFIRM_CANCEL,
-  SkeletonDirective,
-  FormValidationsDirective
-} from '@lib/shared';
-import { EntityService } from '../services/entity.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Component, DestroyRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { EnumActions, EnumObjectMode } from '@lib/common';
+import {
+  Action,
+  ActionService,
+  CONFIRM_CANCEL,
+  EnumActionsType,
+  EnumMessageType,
+  GenericActionsComponent,
+  GenericFormComponent,
+  ISectionForm,
+  MessagesService,
+  ModalService,
+  TranslatePipe
+} from '@lib/shared';
 import { UrlSecurityService } from '@lib/security';
-import { EnumActions } from 'libs/common/src/lib/enums/actions.enum';
+import { Observable, map, of } from 'rxjs';
+import { Entity } from '../models/entity.model';
+import { HTTPServiceEntity } from '../services/entity.service';
+import { EntityDataFormComponent } from './entity-data-form/entity-data-form.component';
 
 @Component({
-  selector: 'lfsoft-utilities-entity-form',
+  selector: 'app-entity-form',
   templateUrl: './entity-form.component.html',
   styleUrls: ['./entity-form.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, GenericFormComponent, 
-    GenericActionsComponent, TranslatePipe, MatButtonModule, 
-    SkeletonDirective, FormValidationsDirective],
-  providers: [ ActionService ]
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    GenericFormComponent,
+    GenericActionsComponent,
+    TranslatePipe,
+    EntityDataFormComponent
+  ],
+  providers: [ActionService]
 })
 export class EntityFormComponent implements OnInit, OnDestroy {
-  @Input() entityId: number = 0;
+  @ViewChild('formEntityData') formEntityData!: ISectionForm;
+
+  @Input() set entity(entity: number | Entity) {
+    if (entity instanceof Entity) {
+      this.entityData = entity;
+    } else {
+      this._entityId = entity;
+    }
+  }
+
   @Output() save = new EventEmitter<Entity>();
   @Output() cancel = new EventEmitter<void>();
 
-  isLoading: boolean = true;
-  entityForm: FormGroup = new FormGroup({});
-  entity: Entity = new Entity();
-  drawerOpen = false;
+  entityData: Entity | undefined = undefined;
+
+  private _entityId: number = 0;
+  private _operation: string | undefined;
   private readonly _destroyRef = inject(DestroyRef);
-  private _operation: any;
 
-  constructor(private fb: FormBuilder, private _entityService: EntityService, private _route: ActivatedRoute, 
-              private _actionService: ActionService, private _messagesService: MessagesService, 
-              private _modalService: ModalService, private _urlSecurityService: UrlSecurityService ) {    
-    this._createForm();
-  }
-  
-  ngOnInit(): void {  
-    try {     
-      this._loadSecurityActions();
-      this._loadData();   
-    }
-    catch (error) {
-      this._messagesService.addMessage('Error loading entity data.', EnumMessageType.Error);
-    }
+  constructor(
+    private _entityService: HTTPServiceEntity,
+    private _route: ActivatedRoute,
+    private _actionService: ActionService,
+    private _messagesService: MessagesService,
+    private _modalService: ModalService,
+    private _urlSecurityService: UrlSecurityService
+  ) {}
+
+  ngOnInit(): void {
+    this._loadActions();
+    this._loadData();
   }
 
-  ngOnDestroy(): void {
-    // El DestroyRef se encarga automáticamente de cancelar todas las suscripciones
-    // que usen takeUntilDestroyed()
-  }
+  ngOnDestroy(): void {}
 
   isReadyToSave(): boolean {
-    return this.entityForm.valid && this.entityForm.dirty;
+    return !!this.entityData && this.entityData.objectMode !== EnumObjectMode.READONLY && this.formEntityData?.valid && this.formEntityData?.modified;
+  }
+
+  onEntityDataChange(): void {
+    this._enabledActions();
   }
 
   onAction(action: EnumActionsType | EnumActions): void {
     try {
       switch (action) {
-        case EnumActionsType.actionSave:
+        case EnumActions.eAction_Save:
           this._save();
           break;
-        case EnumActionsType.actionCancel:
-          this._cancel();          
+        case EnumActions.eAction_Cancel:
+          this._cancel();
           break;
-        }
-    }
-    catch (error) {
+      }
+    } catch (error) {
       this._messagesService.addMessage(error as HttpErrorResponse, EnumMessageType.Error);
     }
-  }  
+  }
 
-  private _createForm() {
-    this.entityForm = this.fb.group({
-      description: [null, [Validators.required, Validators.minLength(3)]]
-    });
-    this.entityForm.statusChanges
+  private _cancel(): void {
+    if (!this.formEntityData?.modified) {
+      this.cancel.emit();
+      return;
+    }
+
+    this._modalService.showModal(CONFIRM_CANCEL)
       .pipe(takeUntilDestroyed(this._destroyRef))
-      .subscribe(() => {
-        this._enabledActions();
+      .subscribe(action => {
+        if (action === EnumActionsType.actionAccept) {
+          this.cancel.emit();
+        }
       });
   }
 
-  private _loadData() {
-    this.isLoading = false;
-    this._loadParams().subscribe(() => {    
-      console.log("operation", this._operation);
-                    
-      switch (this._operation) {
-        case 'open':          
-          this._editEntity(this.entityId).subscribe(entity => {
-            this._updateEntity(entity);
-            this._enabledActions();
+  private _createEntityRequest(): Entity {
+    const formValues = this.formEntityData.data as Entity;
+    return { ...this.entityData, ...formValues } as Entity;
+  }
+
+  private _enabledActions(): void {
+    if (this.isReadyToSave()) {
+      this._actionService.enable(EnumActions.eAction_Save);
+    } else {
+      this._actionService.disable(EnumActions.eAction_Save);
+    }
+  }
+
+  private _loadActions(): void {
+    this._actionService.setActions([
+      new Action('BUTTON.save', EnumActions.eAction_Save, 'save', true),
+      new Action('BUTTON.cancel', EnumActions.eAction_Cancel, 'cancel', false)
+    ]);
+  }
+
+  private _loadData(): void {
+    this._loadParams().subscribe(() => {
+      if (this._entityId) {
+        this._entityService.getEntity(this._entityId)
+          .pipe(takeUntilDestroyed(this._destroyRef))
+          .subscribe({
+            next: entity => {
+              entity.objectMode = EnumObjectMode.EDITABLE;
+              this.entityData = entity;
+              this._enabledActions();
+            },
+            error: () => {
+              this._messagesService.addMessage('Error al cargar entidad', EnumMessageType.Error);
+            }
           });
-          break;
-        default: 
-          if (this.entityId <= 0) {
-            return;
-          }
-          this._editEntity(this.entityId).subscribe(entity => {                   
-            this._updateEntity(entity);
-            this._enabledActions();
-          });          
+      } else {
+        const newEntity = new Entity();
+        newEntity.objectMode = EnumObjectMode.NEW;
+        this.entityData = newEntity;
+        this._enabledActions();
       }
     });
   }
 
-  private _loadParams(): Observable<void> {    
+  private _loadParams(): Observable<void> {
     this._operation = this._route.snapshot.data['operation'];
-    
     if (this._operation === 'open') {
       return this._route.queryParamMap.pipe(
         takeUntilDestroyed(this._destroyRef),
         map(params => {
           const idParam = params.get('id');
-          
-          // Validar que el ID sea seguro
           if (!idParam || !this._urlSecurityService.isValidRouteId(idParam)) {
-            console.warn('Security: Invalid entity ID detected:', idParam);
             this._messagesService.addMessage('ID de entidad inválido', EnumMessageType.Error);
             throw new Error('Invalid entity ID');
           }
-          
-          this.entityId = Number(idParam);          
+
+          this._entityId = Number(idParam);
           return;
         })
       );
-    } else {
-      return of(void 0);
     }
-  }
 
-  private _editEntity(id: number): Observable<Entity> {
-    return this._entityService.getEntity(id);
-  }
-
-  private _updateEntity(entity: Entity): void {
-    this.entity = entity;    
-    this.entityForm.patchValue(this.entity, { emitEvent: false });
-  }
-  
-  private _cancel(): void {
-    if (!this.entityForm.dirty) {
-      this.cancel.emit();   
-      return;
-    }
-      
-    this._modalService.showModal(CONFIRM_CANCEL)
-      .pipe(takeUntilDestroyed(this._destroyRef))
-      .subscribe(action => {          
-        if (action === EnumActionsType.actionAccept) {
-          this.cancel.emit();         
-        } else if (action === EnumActionsType.actionCancel) {
-          // Usuario canceló                  
-        }
-      });   
+    return of(void 0);
   }
 
   private _save(): void {
-    try {
-      if (!this.entityForm.dirty) {
-        return;
-      }
-
-      const updatedEntity: Entity = this._mapFormToEntity();
-      
-      if (!updatedEntity.id) {
-        this._entityService.addEntity(updatedEntity).pipe(
-          takeUntilDestroyed(this._destroyRef)
-        ).subscribe(createdEntity => {
-          this.entityForm.markAsPristine();
-          this._enabledActions();
-          this.save.emit(createdEntity);
-        });
-      } else {
-        this._entityService.updateEntity(updatedEntity).pipe(
-          takeUntilDestroyed(this._destroyRef)
-        ).subscribe(updatedEntity => {
-          this.entityForm.markAsPristine();
-          this._enabledActions();
-          this.save.emit(updatedEntity);
-        }, error => {          
-          throw error;
-        });
-      }
-    } catch (error) {      
-      throw error;
+    if (!this.formEntityData?.modified) {
+      return;
     }
-  }
 
-  //#region Mapping
-  private _mapFormToEntity(): Entity {
-    const formValues = this.entityForm.value;
-    const entity: Entity = {
-      id: this.entity.id,
-      description: formValues.description
-    };
-    return entity;
-  }
-  //#endregion
+    const updatedEntity = this._createEntityRequest();
+    const saveOperation = !updatedEntity.entity_id
+      ? this._entityService.createEntity(updatedEntity)
+      : this._entityService.updateEntity(updatedEntity);
 
-  //#region Security
-  private _loadSecurityActions(): void {
-    const actions: Action[] = [
-      new Action('BUTTON.save', EnumActionsType.actionSave, 'save', false),
-      new Action('BUTTON.cancel', EnumActionsType.actionCancel, 'cancel', false)
-    ];
-    this._actionService.setActions(actions);
+    saveOperation
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: savedEntity => {
+          savedEntity.objectMode = EnumObjectMode.EDITABLE;
+          this.entityData = savedEntity;
+          this.save.emit(savedEntity);
+          this._enabledActions();
+        },
+        error: () => {
+          this._messagesService.addMessage('Error al guardar entidad', EnumMessageType.Error);
+        }
+      });
   }
-  
-  private _enabledActions() {    
-    if (this.isReadyToSave()) {
-      this._actionService.enable(EnumActionsType.actionSave);
-    } else {
-      this._actionService.disable(EnumActionsType.actionSave);
-    }
-  }
-  //#endregion
 }

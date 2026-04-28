@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EntitiesModuleRoutingModule } from './entities-module-routing.module';
 
@@ -12,7 +12,4 @@ import { EntitiesModuleRoutingModule } from './entities-module-routing.module';
   declarations: [],
   exports: []
 })
-export class EntitiesModule {
-  constructor() {
-  }
-}
+export class EntitiesModule {}

@@ -1,27 +1,16 @@
+// Estilos para el componente person-grid-filter
 @import 'styles/container.scss';
 @import 'styles/form.scss';
 
 .persons-filter-tab {
   @extend .container-tab-header;
-  
-  &__label{
-    @extend .container-tab-header__label;
-  }  
+  &__label { @extend .container-tab-header__label; }
 }
 
 .persons-filter {
   @extend .form;
   @extend .form-container--full;
-  
-  &__label {
-    @extend .form-control-label;
-  }
-
-  &__control {
-    @extend .form-control;
-  }
-
-  &__group {
-    @extend .form-group;
-  }
+  &__label  { @extend .form-control-label; }
+  &__control { @extend .form-control; }
+  &__group  { @extend .form-group; }
 }

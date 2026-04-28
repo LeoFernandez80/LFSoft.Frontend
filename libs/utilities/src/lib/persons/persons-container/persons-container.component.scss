@@ -12,16 +12,11 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
-  
 
   &__tab {
-    @extend .container-tab-header; 
-    &-label{
-      @extend .container-tab-header__label;
-    }   
-    &-button{
-      @extend .container-tab-header__button;
-    }
+    @extend .container-tab-header;
+    &-label { @extend .container-tab-header__label; }
+    &-button { @extend .container-tab-header__button; }
   }
 
   &__content {
@@ -35,5 +30,12 @@
   &__filter {
     flex: 0 0 auto;
     height: 500px;
+    overflow-y: auto;
+  }
+
+  &__grid {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
   }
 }

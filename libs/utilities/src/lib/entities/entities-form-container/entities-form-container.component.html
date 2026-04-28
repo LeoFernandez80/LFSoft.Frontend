@@ -1,9 +1,10 @@
 <lfsoft-shared-message></lfsoft-shared-message>
 
-<lfsoft-shared-layout [title]="'Entidades'" [type]="layoutTypes.layoutWithoutSidebar" class="entities-container">
-  <lfsoft-utilities-entity-form
-    formContent    
-    (save)="onSaveEntity($event)"
+<lfsoft-shared-layout [title]="'TITLE.entities' | translate">
+  <app-entity-form
+    formContent
+    [entity]="0"
+    (save)="onSaveEntity()"
     (cancel)="onCancelEntity()">
-  </lfsoft-utilities-entity-form>
+  </app-entity-form>
 </lfsoft-shared-layout>

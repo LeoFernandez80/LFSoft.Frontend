@@ -19,6 +19,8 @@ export enum EnumLiteralKeys {
     //Forms
     eForm_UsersConfig = 'eForm_UsersConfig',
     eForm_Users = 'eForm_Users',
+    eForm_Entities = 'eForm_Entities',
+    eForm_Persons = 'eForm_Persons',
     
     //Actions
     eAction_Edit = 'eAction_Edit',

@@ -1,35 +1,28 @@
 <lfsoft-shared-form [title]="'TITLE.filter' | translate">
   <div data>
-    <mat-tab-group >
-      <mat-tab >
-        <ng-template mat-tab-label >            
-          <div class="persons-filter-tab">
-            <div class="persons-filter-tab__label">
-              {{ 'TITLE.personData' | translate }}                     
-            </div>
-          </div>
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="persons-filter-tab"><div class="persons-filter-tab__label">{{ 'TITLE.persons' | translate }}</div></div>
         </ng-template>
-        <form [formGroup]="form"  >
+        <form [formGroup]="form">
           <div class="persons-filter">
-            <div class="persons-filter__group" col-span="6">
-              <label class="persons-filter__label" for="id">{{ 'number' | translate }}</label>
-              <input 
-              id="id"
-              type="number"
-              name="id"
-              formControlName="id"
-              class="persons-filter__control">
+            <div class="persons-filter__group">
+              <label class="persons-filter__label" for="person_id">{{ 'LABEL.number' | translate }}</label>
+              <input id="person_id" type="number" formControlName="person_id" class="persons-filter__control">
+            </div>
+            <div class="persons-filter__group">
+              <label class="persons-filter__label" for="person_name">{{ 'LABEL.name' | translate }}</label>
+              <input id="person_name" type="text" formControlName="person_name" class="persons-filter__control">
+            </div>
+            <div class="persons-filter__group">
+              <label class="persons-filter__label" for="person_lastName">{{ 'LABEL.lastName' | translate }}</label>
+              <input id="person_lastName" type="text" formControlName="person_lastName" class="persons-filter__control">
             </div>
           </div>
-            
         </form>
       </mat-tab>
     </mat-tab-group>
   </div>
-
-  <lfsoft-shared-actions 
-    footerContent
-    class="form-actions--footer"
-    (action)="onAction($event)">
-  </lfsoft-shared-actions>
+  <lfsoft-shared-actions footerContent (action)="onAction($event)"></lfsoft-shared-actions>
 </lfsoft-shared-form>

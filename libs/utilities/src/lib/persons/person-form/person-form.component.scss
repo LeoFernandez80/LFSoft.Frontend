@@ -1,9 +1,10 @@
+// Estilos para el componente person-form
 @import 'styles/form.scss';
 
 .person-form {
   @extend .form;
   @extend .form-container--full;
-  
+
   &__label {
     @extend .form-control-label;
   }
@@ -15,5 +16,4 @@
   &__group {
     @extend .form-group;
   }
-
 }

@@ -1,33 +1,25 @@
 <lfsoft-shared-form [title]="'TITLE.filter' | translate">
   <div data>
-    <mat-tab-group >
-      <mat-tab >
-        <ng-template mat-tab-label >            
-          <div class="entities-filter-tab">
-            <div class="entities-filter-tab__label">
-              {{ 'TITLE.entityData' | translate }}                     
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="entity-filter-tab">
+            <div class="entity-filter-tab__label">
+              {{ 'TITLE.entities' | translate }}
             </div>
           </div>
         </ng-template>
-        <form [formGroup]="form"  >
+
+        <form [formGroup]="form">
           <div class="entities-filter">
-            <div class="entities-filter__group" col-span="6">
-              <label class="entities-filter__label" for="id">{{ 'number' | translate }}</label>
-              <input 
-              id="id"
-              type="number"
-              name="id"
-              formControlName="id"
-              class="entities-filter__control">
+            <div class="entities-filter__group">
+              <label class="entities-filter__label" for="entity_id">{{ 'LABEL.number' | translate }}</label>
+              <input id="entity_id" type="number" formControlName="entity_id" class="entities-filter__control">
             </div>
-            <div class="entities-filter__group" col-span="6">
-              <label class="entities-filter__label" for="description">{{ 'description' | translate }}</label>
-              <input 
-              id="description"
-              type="text"
-              name="description"
-              formControlName="description"
-              class="entities-filter__control">
+
+            <div class="entities-filter__group">
+              <label class="entities-filter__label" for="entity_description">{{ 'LABEL.description' | translate }}</label>
+              <input id="entity_description" type="text" formControlName="entity_description" class="entities-filter__control">
             </div>
           </div>
         </form>
@@ -35,9 +27,5 @@
     </mat-tab-group>
   </div>
 
-  <lfsoft-shared-actions 
-    footerContent
-    class="form-actions--footer"
-    (action)="onAction($event)">
-  </lfsoft-shared-actions>
+  <lfsoft-shared-actions footerContent (action)="onAction($event)"></lfsoft-shared-actions>
 </lfsoft-shared-form>

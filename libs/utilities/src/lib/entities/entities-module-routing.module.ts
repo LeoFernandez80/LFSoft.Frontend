@@ -4,14 +4,14 @@ import { EntitiesContainerComponent } from './entities-container/entities-contai
 import { EntitiesFormContainerComponent } from './entities-form-container/entities-form-container.component';
 
 const routes: Routes = [
-   {
+  {
     path: 'entities/open',
     component: EntitiesFormContainerComponent,
-    data: { operation: 'open' }    
+    data: { operation: 'open' }
   },
   {
     path: 'entities',
-    component: EntitiesContainerComponent    
+    component: EntitiesContainerComponent
   }
 ];
 
@@ -19,6 +19,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class EntitiesModuleRoutingModule {
-  constructor() { }
-}
+export class EntitiesModuleRoutingModule {}
