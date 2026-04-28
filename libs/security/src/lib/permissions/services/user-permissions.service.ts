@@ -71,7 +71,7 @@ export class UserPermissionsService {
       userRolId: EnumUserRole.ADMIN,
       eTypeLiteralKey: EnumLiteralKeys.eLiteralKey_Empty,
       permissionConditions: '#|V|#',
-      permitionsActions: '#|eAction_OpenUsers|eAction_OpenEntities|#',
+      permitionsActions: '#|eAction_OpenUsers|eAction_OpenEntities|eAction_OpenPersons|#',
       caseId: 1
     },
     {
@@ -155,7 +155,7 @@ export class UserPermissionsService {
       userRolId: EnumUserRole.ADMIN,
       eTypeLiteralKey: EnumLiteralKeys.eModule_Home,
       permissionConditions: '#|V|#',
-      permitionsActions: '#|eAction_OpenUsers|eAction_OpenEntities|#',
+      permitionsActions: '#|eAction_OpenUsers|eAction_OpenEntities|eAction_OpenPersons|#',
       caseId: 1
     },
     {
@@ -217,6 +217,16 @@ export class UserPermissionsService {
         userRolId: EnumUserRole.VIEWER,
         eTypeLiteralKey: EnumLiteralKeys.eForm_Entities,
         hiddenFields: 'entity_active'
+      },
+      {
+        userRolId: EnumUserRole.ADMIN,
+        eTypeLiteralKey: EnumLiteralKeys.eForm_Persons,
+        hiddenFields: 'person_id'
+      },
+      {
+        userRolId: EnumUserRole.VIEWER,
+        eTypeLiteralKey: EnumLiteralKeys.eForm_Persons,
+        hiddenFields: 'person_id'
       }
     );
   }

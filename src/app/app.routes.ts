@@ -39,6 +39,14 @@ export const routes: Routes = [
     loadChildren: () =>
       import('@lib/utilities').then(m => m.EntitiesModule)
   },
+  // Ruta del módulo de personas desde @lib/utilities
+    {
+    path: 'persons-module',
+    canActivate: [AuthGuard, PermissionGuard],
+    data: {literalKeyType: EnumLiteralKeys.eModule_Persons },
+    loadChildren: () =>
+      import('@lib/utilities').then(m => m.PersonsModule)
+  },
 
   // Módulos lazy cargados y protegidos
   // {

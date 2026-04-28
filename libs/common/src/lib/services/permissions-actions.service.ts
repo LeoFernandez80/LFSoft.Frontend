@@ -26,6 +26,7 @@ export class PermisionsActionsService {
     this._actions.set(EnumActions.eAction_OpenQuotes, new Action('BUTTON.quotes', EnumActions.eAction_OpenQuotes, EnumActionsIcons.openQuotes, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenInvoices, new Action('BUTTON.invoices', EnumActions.eAction_OpenInvoices, EnumActionsIcons.openInvoices, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenConfig, new Action('BUTTON.config', EnumActions.eAction_OpenConfig, EnumActionsIcons.openConfig, false, EnumActionsViewType.view16x16));
+    this._actions.set(EnumActions.eAction_OpenPersons, new Action('BUTTON.persons', EnumActions.eAction_OpenPersons, EnumActionsIcons.openPersons, false, EnumActionsViewType.view16x16));
     
     this._actions.set(EnumActions.eAction_New, new Action('BUTTON.new', EnumActions.eAction_New, EnumActionsIcons.actionNew, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_Edit, new Action('BUTTON.edit', EnumActions.eAction_Edit, EnumActionsIcons.actionEdit, false, EnumActionsViewType.view16x16));

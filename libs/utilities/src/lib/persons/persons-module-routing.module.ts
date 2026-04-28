@@ -5,7 +5,7 @@ import { PersonsFormContainerComponent } from './persons-form-container/persons-
 
 const routes: Routes = [
   { path: 'person/open', component: PersonsFormContainerComponent, data: { operation: 'open' } },
-  { path: 'person', component: PersonsContainerComponent }
+  { path: 'persons', component: PersonsContainerComponent }
 ];
 
 @NgModule({

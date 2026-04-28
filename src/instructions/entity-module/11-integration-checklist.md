@@ -10,16 +10,53 @@ Listar todo lo que debe revisarse fuera del modulo local para que la implementac
 1. Exportaciones en el `index.ts` de la libreria.
 2. Registro del modulo en rutas superiores si existe un shell o modulo padre.
 3. Literales y traducciones para labels, botones, mensajes y encabezados de grilla.
-4. Claves `EnumLiteralKeys` para formulario y grilla.
-5. Integracion con `MenuesService` si la pantalla se abre desde menu.
-6. Integracion con configuracion de columnas si la plataforma la soporta.
+4. Agregar en `EnumLiteralKeys` las siguientes claves del modulo:
+   - `eModule_<EntityPlural>` — clave del modulo (pantalla / permiso de acceso)
+   - `eGrid_<EntityPlural>` — clave de la grilla
+   - `eForm_<EntitySingular>` — clave del formulario de datos
+5. Agregar en `EnumActions` la accion de apertura del modulo:
+   - `eAction_Open<EntityPlural> = 'eAction_Open<EntityPlural>'`
+6. Registrar la accion en `PermisionsActionsService._loadActions()`:
+   ```typescript
+   this._actions.set(EnumActions.eAction_Open<EntityPlural>, new Action('BUTTON.<entity-plural>', EnumActions.eAction_Open<EntityPlural>, EnumActionsIcons.open<EntityPlural>, false, EnumActionsViewType.view16x16));
+   ```
+7. Registrar la ruta en `MenuesService._inicilizeMenues()`:
+   ```typescript
+   this._menues.set(EnumActions.eAction_Open<EntityPlural>, ['<entity-plural>-module', '<entity-plural>']);
+   ```
+8. Registrar el path en `app.routes.ts`:
+   ```typescript
+   {
+     path: '<entity-plural>-module',
+     canActivate: [AuthGuard, PermissionGuard],
+     data: { literalKeyType: EnumLiteralKeys.eModule_<EntityPlural> },
+     loadChildren: () =>
+       import('@lib/<library>').then(m => m.<EntityPlural>Module)
+   }
+   ```
+9. Integracion con configuracion de columnas si la plataforma la soporta.
 
 ## Integracion de seguridad
 1. Alta de permisos para pantalla, grilla y acciones.
-2. Definicion de campos ocultos por rol.
-3. Reglas para `enabledActions(...)`.
-4. Reglas para modo readonly cuando una entidad esta lockeada.
-5. Convencion de template en secciones: `skeleton-field`, `col-span="2"` y `*ngIf="!isHiddenField('entity_description')"` (ajustado por campo).
+2. Agregar en `_inicializePermissionsUserMOCK()` de `UserPermissionsService` la entrada para ADMIN:
+   ```typescript
+   {
+     userRolId: EnumUserRole.ADMIN,
+     eTypeLiteralKey: EnumLiteralKeys.eModule_<EntityPlural>,
+     permissionConditions: '#|V|#',
+     permitionsActions: '',
+     caseId: 2
+   }
+   ```
+3. Agregar en `_inicializeUserRolFieldsMOCK()` las entradas de campos ocultos por rol:
+   ```typescript
+   { userRolId: EnumUserRole.ADMIN,   eTypeLiteralKey: EnumLiteralKeys.eForm_<EntitySingular>, hiddenFields: 'entity_id' },
+   { userRolId: EnumUserRole.VIEWER,  eTypeLiteralKey: EnumLiteralKeys.eForm_<EntitySingular>, hiddenFields: 'entity_id' }
+   ```
+   El campo `entity_id` siempre debe ocultarse por defecto para todos los roles.
+4. Reglas para `enabledActions(...)`.
+5. Reglas para modo readonly cuando una entidad esta lockeada.
+6. Convencion de template en secciones: `skeleton-field`, `col-span="2"` y `*ngIf="!isHiddenField('entity_description')"` (ajustado por campo).
 
 ## Integracion backend
 1. Endpoint base del recurso.
@@ -57,3 +94,6 @@ Listar todo lo que debe revisarse fuera del modulo local para que la implementac
 - No hay supuestos silenciosos sobre rutas, permisos o locks.
 - El equipo puede implementar sin descubrir integraciones tarde.
 - La convencion de campos en secciones de formulario queda explicitamente validada.
+- Las claves `eModule_`, `eGrid_`, `eForm_` y `eAction_Open` estan dadas de alta en los enums.
+- La ruta del modulo esta registrada en `MenuesService`.
+- ADMIN tiene permiso de acceso al modulo y el campo id esta oculto en todos los roles.

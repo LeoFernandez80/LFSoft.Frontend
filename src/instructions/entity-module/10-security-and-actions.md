@@ -44,6 +44,7 @@ Centralizar la capa transversal de permisos, acciones y bloqueos de edicion para
 - Ocultar campos por rol usando `hideFields(...)`.
 - Deshabilitar el form cuando el modo es readonly.
 - Usar `hideFields(role, <FORM_LITERAL_KEY>)` para la entidad actual.
+- El campo `entity_id` (o el campo id de la entidad) siempre debe estar oculto para todos los roles. Registrar en `_inicializeUserRolFieldsMOCK()` con `hiddenFields: 'entity_id'`.
 - En cada bloque de campo, aplicar `class="... skeleton-field"`, `col-span="2"` y `*ngIf="!isHiddenField('entity_description')"` (adaptando el nombre del campo).
 
 ## Condiciones de negocio
