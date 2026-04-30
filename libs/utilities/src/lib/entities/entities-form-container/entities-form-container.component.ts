@@ -11,7 +11,6 @@ import { EntityFormComponent } from '../entity-form/entity-form.component';
   providers: [MessagesService]
 })
 export class EntitiesFormContainerComponent {
-
   constructor(private _messagesService: MessagesService) {}
 
   onSaveEntity(): void {

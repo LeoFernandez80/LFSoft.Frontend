@@ -4,11 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EntitiesModuleRoutingModule } from './entities-module-routing.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    EntitiesModuleRoutingModule
-  ],
+  imports: [CommonModule, ReactiveFormsModule, EntitiesModuleRoutingModule],
   declarations: [],
   exports: []
 })

@@ -1,0 +1,49 @@
+<lfsoft-shared-message></lfsoft-shared-message>
+<div class="body">
+  <div class="floating-toolbar" [style.border]="'4px solid '+config.color">
+    <lfsoft-shared-actions (action)="onAction($event)"></lfsoft-shared-actions>
+  </div>
+
+  <lfsoft-shared-layout [title]="'TITLE.userRoles' | translate" class="user-roles-container">
+
+    <app-user-role-grid-filter
+      filterContent
+      class="user-roles-container__filter"
+      [filter]="filterParameters"
+      (apply)="onFilterApplied($event)">
+    </app-user-role-grid-filter>
+
+    <app-user-role-grid
+      gridContent
+      class="user-roles-container__grid"
+      (edit)="onEdit($event)"
+      (delete)="onDeleteUserRole($event)"
+      (open)="onOpenUserRole($event)"
+      (sortChange)="onSortChange($event)"
+      (scrollEndChange)="onLoadNextPage()">
+    </app-user-role-grid>
+
+    <div formContent>
+      <mat-tab-group [selectedIndex]="selectedTabIndex" [style.border]="'4px solid '+config.color">
+        <mat-tab *ngFor="let userRolId of openedUserRolesId; let i = index">
+          <ng-template mat-tab-label>
+            <div class="user-roles-container__tab" (click)="onClickTab(userRolId)">
+              <div class="user-roles-container__tab-label">
+                {{ (getUserRoleById(userRolId)?.userRolName || 'Rol') + ' (' + (getUserRoleById(userRolId)?.userRolType || '') + ')' }}
+              </div>
+              <button mat-icon-button class="user-roles-container__tab-button" (click)="onCloseTab(userRolId); $event.stopPropagation()">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+          </ng-template>
+          <app-user-role-form
+            formContent
+            [userRole]="selectedUserRoleId"
+            (save)="onSaveUserRole($event)"
+            (cancel)="onCancelUserRole()">
+          </app-user-role-form>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </lfsoft-shared-layout>
+</div>

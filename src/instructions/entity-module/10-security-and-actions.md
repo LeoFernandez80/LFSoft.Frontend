@@ -29,9 +29,17 @@ Centralizar la capa transversal de permisos, acciones y bloqueos de edicion para
 - Usar la clave de literal correspondiente al modulo y/o grilla de la entidad.
 - Enviar esas acciones a `ActionService` o `GridService`.
 
+Metodos minimos:
+- `_securityApply()`
+- `makeConditions()`
+
 ## Grilla
 - Resolver que acciones estan disponibles segun rol y condiciones.
 - Aplicar el resultado sobre `GridService.setActions(actions)`.
+
+Metodos minimos:
+- `_securityApply()`
+- `makeConditions()`
 
 ## Formulario principal
 - Habilitar o deshabilitar `Save` segun:
@@ -39,6 +47,12 @@ Centralizar la capa transversal de permisos, acciones y bloqueos de edicion para
   - validez de la seccion
   - si hubo modificaciones
 - Resolver `objectMode` cuando `open()` devuelve `accessControl`.
+
+Metodos minimos:
+- `_securityApply()`
+- `_enabledActions()`
+- `isReadyToSave()`
+- `makeConditions()`
 
 ## Secciones internas
 - Ocultar campos por rol usando `hideFields(...)`.
@@ -56,7 +70,7 @@ Centralizar la capa transversal de permisos, acciones y bloqueos de edicion para
 
 ## Archivos de referencia
 - `<entity-plural>-container.component.ts`
-- `<entity-plural>-grid.component.ts`
+- `<entity-singular>-grid.component.ts`
 - `<entity-singular>-form.component.ts`
 - `<entity-singular>-data-form.component.ts`
 

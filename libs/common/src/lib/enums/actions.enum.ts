@@ -3,6 +3,7 @@ export enum EnumActions {
     eAction_OpenArticles = 'eAction_OpenArticles',
     eAction_OpenEntities = 'eAction_OpenEntities',
     eAction_OpenUsers = 'eAction_OpenUsers',
+    eAction_OpenUserRoles = 'eAction_OpenUserRoles',
     eAction_OpenQuotes = 'eAction_OpenQuotes',
     eAction_OpenDocuments = 'eAction_OpenDocuments',
     eAction_OpenInvoices = 'eAction_OpenInvoices',

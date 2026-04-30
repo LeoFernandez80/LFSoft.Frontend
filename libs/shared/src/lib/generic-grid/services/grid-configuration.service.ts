@@ -20,7 +20,6 @@ export class GridConfigurationService {
   
   loadUserGridConfiguration(userId: string): Observable<GridConfiguration[] | null> {
     //Este metodo iria en el servicio HTTP y debería llamar a la BD para cargar la configuración del usuario por su userId, pero por ahora devuelve un mock
-    console.log("setUserGridConfiguration", userId);
     const userGridsConfigurations: GridConfiguration[] = [];
     this._mockData.forEach((value, key) => {
       if (value.userId === userId) {        
@@ -50,7 +49,6 @@ export class GridConfigurationService {
       const storedConfig = localStorage.getItem('userGridConfigurations');
       if (storedConfig) {
         this._userGridsConfigurations = JSON.parse(storedConfig);
-        console.log("getUserGridConfiguration", typeLiteralKey, this._userGridsConfigurations);
       }
       const config = this._userGridsConfigurations.find(c => c.gridTypeLiteralKey === typeLiteralKey) || null;
 
@@ -153,6 +151,45 @@ export class GridConfigurationService {
         ]
       }
       this._mockData.set(`${config2.gridTypeLiteralKey}.${config2.userId}`, config2);
+      
+      const config3: GridConfiguration = {
+        userId: "42d1037c-366e-4431-bdde-2a93b9d31f49",
+        gridConfigurationId: 3,
+        gridTypeLiteralKey: EnumLiteralKeys.eGrid_Entities,
+        gridName: 'Entity Grid',
+        gridHeaderBackgroundColor: 'var(--grid-header-primary-bg)',
+        gridHeaderTextColor: 'var(--grid-header-primary-text)',
+        gridCellBackgroundColor: 'var(--grid-primary-bg)',
+        gridCellTextColor: 'var(--grid-primary-text)',
+        gridHighlightColor: 'var(--grid-row-highlight-primary-bg)',
+        gridMouseOverColor: 'var(--grid-row-mouseover-primary-bg)',
+        gridCellActionsBackgroundColor: 'var(--grid-primary-bg)',
+        gridColumns: [
+          {
+            gridColumnId: 1,
+            gridId: 3,
+            gridColumnPosition: 1,
+            gridColumnField: 'entity_description',
+            gridColumnHeader: 'LABEL.name',
+            gridColumnAlign: 'left',
+            gridColumnSortable: true,
+            gridColumnVisible: true,        
+            gridColumnFixed: true,  
+          },
+          {
+            gridColumnId: 2,
+            gridId: 3,
+            gridColumnPosition: 2,
+            gridColumnField: 'entity_active',
+            gridColumnHeader: 'LABEL.active',
+            gridColumnAlign: 'left',
+            gridColumnSortable: true,
+            gridColumnVisible: true,        
+            gridColumnFixed: true,  
+          },
+        ]
+      }
+      this._mockData.set(`${config3.gridTypeLiteralKey}.${config3.userId}`, config3);
     }
       
 

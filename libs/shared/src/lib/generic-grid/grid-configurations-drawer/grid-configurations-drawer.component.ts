@@ -43,7 +43,6 @@ export class GridConfigurationsDrawerComponent implements OnInit {
   ) {
     this._drawerService.getConfig().subscribe(config => {
       if (config && config.data && config.data.literalKey) {
-        console.log("dsafsddasf", config);
         
         this.literalKey = config.data.literalKey;
       }
@@ -89,11 +88,8 @@ export class GridConfigurationsDrawerComponent implements OnInit {
   }
 
   private _loadConfiguration(): void {
-    console.log("literalKey", this.literalKey);
     this._gridConfigurationService.getUserGridConfiguration(this.literalKey).subscribe(config => {
-      if (config) {
-        console.log("_loadConfiguration", config);
-        
+      if (config) {        
         this.gridConfiguration = config;        
       }
     });

@@ -36,6 +36,35 @@ Describir el contenedor principal del listado y su flujo completo de trabajo con
 5. Helpers privados para abrir, cerrar, mapear y cargar datos.
 6. Bloque de seguridad.
 
+## Contrato de estado obligatorio
+Definir y documentar explicitamente:
+- ids abiertos: `opened<EntityPlural>Id: Array<number | string>`
+- seleccionado actual: `selected<EntitySingular>Id`
+- indice de tab: `selectedTabIndex`
+- cache local de abiertos: `opened<EntityPlural>`
+- filtro actual: `filterParameters`
+- configuracion visual: `config`
+- cache de grilla cargada: `_dataLoaded`
+- paginacion/sort activo: `_pageFilter`
+
+## Contrato de metodos obligatorio
+Documentar por metodo:
+1. evento disparador
+2. estado que modifica
+3. servicios que invoca
+4. errores esperados
+
+Metodos privados minimos esperados:
+- `_open<EntitySingular>(itemGrid)`
+- `_close<EntitySingular>(id)`
+- `_actionNew<EntitySingular>()`
+- `_delete<EntitySingular>(itemGrid)`
+- `_securityApply()`
+- `makeConditions()`
+- `load<EntityPlural>(pageFilter, filterParameters)`
+- `_createPageFilter()`
+- `_createFilterParameters()`
+
 ## Handlers minimos esperados
 - `onSortChange(pageFilter)`
 - `onLoadNextPage()`
@@ -74,7 +103,7 @@ Describir el contenedor principal del listado y su flujo completo de trabajo con
 
 ## Archivos de referencia
 - `<entity-plural>-container.component.ts`
-- `http-services/<entity-plural>.service.ts`
+- `http-services/<entity-singular>.service.ts`
 - `models/<entity-singular>-grid.model.ts`
 
 ## SCSS

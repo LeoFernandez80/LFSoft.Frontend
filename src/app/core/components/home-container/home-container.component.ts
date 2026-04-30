@@ -67,7 +67,6 @@ export class HomeContainerComponent  implements OnInit {
   }
 
   onAction(action: EnumActionsType | EnumActions): void {
-    console.log("on acrtion", action);
     try {
       this._menuesService.openMenu(action);
     } catch (error) {

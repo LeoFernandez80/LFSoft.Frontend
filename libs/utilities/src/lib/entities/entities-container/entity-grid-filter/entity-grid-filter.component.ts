@@ -11,25 +11,14 @@ import { EntityFilter } from '../../models/entity-filter.model';
   templateUrl: './entity-grid-filter.component.html',
   styleUrls: ['./entity-grid-filter.component.scss'],
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatTabsModule,
-    GenericFormComponent,
-    GenericActionsComponent,
-    TranslatePipe
-  ],
+  imports: [CommonModule, ReactiveFormsModule, MatTabsModule, GenericFormComponent, GenericActionsComponent, TranslatePipe],
   providers: [ActionService]
 })
 export class EntityGridFilterComponent implements OnInit {
   @Input() set filter(filter: EntityFilter) {
-    if (!filter) {
-      return;
-    }
-
+    if (!filter) return;
     this._updateForm(filter);
   }
-
   @Output() apply = new EventEmitter<EntityFilter>();
 
   form: FormGroup = new FormGroup({});
@@ -47,18 +36,12 @@ export class EntityGridFilterComponent implements OnInit {
 
   onAction(action: EnumActionsType | EnumActions): void {
     switch (action) {
-      case EnumActionsType.actionApply:
-        this._apply();
-        break;
-      case EnumActionsType.actionReset:
-        this._resetFilter();
-        break;
+      case EnumActionsType.actionApply: this._apply(); break;
+      case EnumActionsType.actionReset: this._resetFilter(); break;
     }
   }
 
-  private _apply(): void {
-    this.apply.emit(this._mapToFilter());
-  }
+  private _apply(): void { this.apply.emit(this._mapToFilter()); }
 
   private _createForm(): void {
     this.form = this.fb.group({
@@ -68,10 +51,10 @@ export class EntityGridFilterComponent implements OnInit {
   }
 
   private _mapToFilter(): EntityFilter {
-    const formData = this.form.value;
+    const f = this.form.value;
     const filter = new EntityFilter();
-    filter.entity_id = formData.entity_id ?? 0;
-    filter.entity_description = formData.entity_description ?? '';
+    filter.entity_id = f.entity_id ?? 0;
+    filter.entity_description = f.entity_description ?? '';
     return filter;
   }
 

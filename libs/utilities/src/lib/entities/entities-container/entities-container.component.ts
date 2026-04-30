@@ -4,24 +4,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Router } from '@angular/router';
-import { EnumActions } from '@lib/common';
+import { EnumActions, EnumLiteralKeys } from '@lib/common';
 import {
-  Action,
-  ActionService,
-  CONFIRM_DELETE,
-  EnumActionsType,
-  EnumMessageType,
-  GenericActionsComponent,
-  GenericLayoutComponent,
-  GenericMessageComponent,
-  GridService,
-  MessagesService,
-  ModalService,
-  PageFilter,
-  TranslatePipe
+  ActionService, CONFIRM_DELETE, EnumActionsType, EnumMessageType,
+  GenericActionsComponent, GenericLayoutComponent, GenericMessageComponent,
+  GridService, MessagesService, ModalService, PageFilter, TranslatePipe
 } from '@lib/shared';
+import { AuthService, EnumUserRole, UserPermissionsService } from '@lib/security';
 import { EntityFormComponent } from '../entity-form/entity-form.component';
-import { HTTPServiceEntity } from '../services/entity.service';
+import { HTTPServiceEntity } from '../http-services/entity.service';
 import { EntityFilter } from '../models/entity-filter.model';
 import { EntityGrid } from '../models/entity-grid.model';
 import { Entity } from '../models/entity.model';
@@ -34,16 +25,9 @@ import { EntityGridFilterComponent } from './entity-grid-filter/entity-grid-filt
   styleUrls: ['./entities-container.component.scss'],
   standalone: true,
   imports: [
-    NgFor,
-    MatTabsModule,
-    MatIconModule,
-    TranslatePipe,
-    GenericLayoutComponent,
-    GenericMessageComponent,
-    GenericActionsComponent,
-    EntityGridFilterComponent,
-    EntityGridComponent,
-    EntityFormComponent
+    NgFor, MatTabsModule, MatIconModule, TranslatePipe,
+    GenericLayoutComponent, GenericMessageComponent, GenericActionsComponent,
+    EntityGridFilterComponent, EntityGridComponent, EntityFormComponent
   ],
   providers: [Router, MessagesService, GridService]
 })
@@ -64,15 +48,21 @@ export class EntitiesContainerComponent implements OnInit, OnDestroy {
     private _gridService: GridService<EntityGrid>,
     private _messagesService: MessagesService,
     private _actionService: ActionService,
-    private _modalService: ModalService
+    private _modalService: ModalService,
+    private _authService: AuthService,
+    private _permissionsUserService: UserPermissionsService
   ) {
     this._createPageFilter();
     this._createFilterParameters();
-    this._loadActions();
   }
 
   ngOnInit(): void {
-    this.loadEntities(this._pageFilter, this.filterParameters);
+    try {
+      this._securityApply();
+      this.loadEntities(this._pageFilter, this.filterParameters);
+    } catch (error) {
+      this._messagesService.addMessage('Error al cargar la pagina', EnumMessageType.Error);
+    }
   }
 
   ngOnDestroy(): void {}
@@ -98,46 +88,35 @@ export class EntitiesContainerComponent implements OnInit, OnDestroy {
   }
 
   onAction(action: EnumActionsType | EnumActions): void {
-    if (action === EnumActions.eAction_New) {
-      this._actionNewEntity();
-    }
+    if (action === EnumActions.eAction_New) { this._actionNewEntity(); }
   }
 
   onEdit(entity: EntityGrid): void {
-    if (this.openedEntitiesId.includes(entity.entity_id)) {
-      this.selectedEntityId = entity.entity_id;
-      this.selectedTabIndex = this.openedEntitiesId.indexOf(entity.entity_id);
-      return;
+    try {
+      if (this.openedEntitiesId.includes(entity.entity_id)) {
+        this.selectedEntityId = entity.entity_id;
+        this.selectedTabIndex = this.openedEntitiesId.indexOf(entity.entity_id);
+        return;
+      }
+      const fullEntity = this._entityGridToEntity(entity);
+      this.openedEntitiesId.push(fullEntity.entity_id);
+      this._openedEntities.push(fullEntity);
+      this.selectedEntityId = fullEntity.entity_id;
+      this.selectedTabIndex = this.openedEntitiesId.indexOf(fullEntity.entity_id);
+    } catch (error) {
+      this._messagesService.addMessage('Error al editar entidad', EnumMessageType.Error);
     }
-
-    this._entityService.getEntity(entity.entity_id)
-      .pipe(takeUntilDestroyed(this._destroyRef))
-      .subscribe({
-        next: fullEntity => {
-          this.openedEntitiesId.push(fullEntity.entity_id);
-          this._openedEntities.push(fullEntity);
-          this.selectedEntityId = fullEntity.entity_id;
-          this.selectedTabIndex = this.openedEntitiesId.indexOf(fullEntity.entity_id);
-        },
-        error: () => {
-          this._messagesService.addMessage('Error al cargar entidad', EnumMessageType.Error);
-        }
-      });
   }
 
   onDeleteEntity(entity: EntityGrid): void {
-    this._modalService.showModal(CONFIRM_DELETE)
-      .pipe(takeUntilDestroyed(this._destroyRef))
-      .subscribe(action => {
-        if (action === EnumActionsType.actionAccept) {
-          this._deleteEntity(entity);
-        }
-      });
+    this._modalService.showModal(CONFIRM_DELETE).pipe(takeUntilDestroyed(this._destroyRef)).subscribe(action => {
+      if (action === EnumActionsType.actionAccept) { this._deleteEntity(entity); }
+    });
   }
 
   onOpenEntity(entity: EntityGrid): void {
     const url = this._router.serializeUrl(
-      this._router.createUrlTree(['entities-module', 'entities', 'open'], { queryParams: { id: entity.entity_id } })
+      this._router.createUrlTree(['utilities-module', 'entity', 'open'], { queryParams: { id: entity.entity_id } })
     );
     window.open(url, '_blank');
   }
@@ -166,14 +145,10 @@ export class EntitiesContainerComponent implements OnInit, OnDestroy {
   }
 
   onCancelEntity(): void {
-    if (this.selectedEntityId !== null) {
-      this._closeEntity(this.selectedEntityId);
-    }
+    if (this.selectedEntityId !== null) { this._closeEntity(this.selectedEntityId); }
   }
 
-  onCloseTab(entityId: number): void {
-    this._closeEntity(entityId);
-  }
+  onCloseTab(entityId: number): void { this._closeEntity(entityId); }
 
   onClickTab(entityId: number): void {
     this.selectedEntityId = entityId;
@@ -193,17 +168,13 @@ export class EntitiesContainerComponent implements OnInit, OnDestroy {
           this._dataLoaded = this._pageFilter.page === 1 ? response.data : [...this._dataLoaded, ...response.data];
           this._gridService.setData(this._dataLoaded);
         },
-        error: () => {
-          this._messagesService.addMessage('Error al cargar entidades', EnumMessageType.Error);
-        }
+        error: () => { this._messagesService.addMessage('Error al cargar entidades', EnumMessageType.Error); }
       });
   }
 
   private _actionNewEntity(): void {
     const newEntity = new Entity();
     newEntity.entity_id = 0;
-    newEntity.entity_description = 'Nueva entidad';
-
     this.openedEntitiesId.push(0);
     this._openedEntities.push(newEntity);
     this.selectedEntityId = 0;
@@ -215,14 +186,10 @@ export class EntitiesContainerComponent implements OnInit, OnDestroy {
     if (index !== -1) {
       this.openedEntitiesId.splice(index, 1);
       this._openedEntities.splice(index, 1);
-
-      if (this.openedEntitiesId.length > 0) {
-        this.selectedEntityId = this.openedEntitiesId[Math.max(index - 1, 0)];
-      } else {
-        this.selectedEntityId = 0;
-      }
+      this.selectedEntityId = this.openedEntitiesId.length > 0
+        ? this.openedEntitiesId[Math.max(index - 1, 0)]
+        : 0;
     }
-
     this.selectedTabIndex = this.selectedEntityId !== null ? this.openedEntitiesId.indexOf(this.selectedEntityId) : -1;
   }
 
@@ -236,31 +203,37 @@ export class EntitiesContainerComponent implements OnInit, OnDestroy {
           this._closeEntity(entity.entity_id);
           this._messagesService.addMessage('MESSAGE.successDelete', EnumMessageType.Info);
         },
-        error: () => {
-          this._messagesService.addMessage('Error al eliminar entidad', EnumMessageType.Error);
-        }
+        error: () => { this._messagesService.addMessage('Error al eliminar entidad', EnumMessageType.Error); }
       });
   }
 
-  private _createFilterParameters(): void {
-    this.filterParameters = new EntityFilter();
-  }
-
-  private _createPageFilter(): void {
-    this._pageFilter = new PageFilter();
-  }
-
-  private _loadActions(): void {
-    this._actionService.setActions([
-      new Action('BUTTON.new', EnumActions.eAction_New, 'add', false)
-    ]);
+  private _entityGridToEntity(entityGrid: EntityGrid): Entity {
+    const entity = new Entity();
+    entity.entity_id = entityGrid.entity_id;
+    entity.entity_description = entityGrid.entity_description;
+    entity.entity_active = entityGrid.entity_active;
+    return entity;
   }
 
   private _mapEntityToGrid(entity: Entity): EntityGrid {
-    const entityGrid = new EntityGrid();
-    entityGrid.entity_id = entity.entity_id;
-    entityGrid.entity_description = entity.entity_description;
-    entityGrid.entity_active = entity.entity_active;
-    return entityGrid;
+    const grid = new EntityGrid();
+    grid.entity_id = entity.entity_id;
+    grid.entity_description = entity.entity_description;
+    grid.entity_active = entity.entity_active;
+    return grid;
   }
+
+  private _securityApply(): void {
+    const actions = this._permissionsUserService.enabledActions(
+      this._authService.getCurrentUser()?.role || EnumUserRole.VIEWER,
+      EnumLiteralKeys.eModule_Entities,
+      this.makeConditions()
+    );
+    this._actionService.setActions(actions);
+  }
+
+  makeConditions(): string { return '#|V|#'; }
+
+  private _createPageFilter(): void { this._pageFilter = new PageFilter(); }
+  private _createFilterParameters(): void { this.filterParameters = new EntityFilter(); }
 }

@@ -28,6 +28,16 @@ Representa la entidad completa usada por el formulario y por operaciones CRUD.
 - No introducir transformaciones de UI en este modelo.
 - Si existe `objectMode`, lo resolvera el flujo de apertura o seguridad, no el constructor.
 
+### Plantilla de detalle obligatorio por propiedad
+Para cada propiedad documentar:
+1. nombre exacto
+2. tipo
+3. valor por defecto
+4. si participa en `create`, `update`, `grid`, `filter` y `response`
+
+Ejemplo esperado:
+- `<entity-singular>_id: number = 0` (clave primaria, usada en open/update/delete, no editable en seccion de datos).
+
 ## <entity-singular>-grid.model.ts
 ### Responsabilidad
 Representa el shape reducido que consume la grilla.
@@ -36,6 +46,10 @@ Representa el shape reducido que consume la grilla.
 - Heredar de `GridObject`.
 - Incluir solo campos visibles o utiles para acciones de listado.
 - No mezclar validaciones del formulario.
+
+### Reglas de consistencia con el contenedor
+- Cada campo del grid que se use en tabs, etiquetas o acciones debe existir aqui.
+- Si se mapea `Entity -> EntityGrid` o `EntityGrid -> Entity`, documentar reglas de transformacion.
 
 ## <entity-singular>-filter.model.ts
 ### Responsabilidad
@@ -60,6 +74,10 @@ Tipar respuestas enriquecidas que incluyan entidad, `accessControl`, validacione
 - Exponer una propiedad principal con la entidad.
 - Exponer `accessControl` nullable.
 - Exponer arreglos `validations` y `errores`.
+
+### Reglas
+- Mantener un unico modelo response compartido (`models/`).
+- No duplicar clases de response locales dentro del servicio HTTP.
 
 ## Secuencia recomendada de implementacion real
 1. Definir `<entity-singular>.model.ts`.

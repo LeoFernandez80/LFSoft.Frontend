@@ -74,6 +74,7 @@ Listar todo lo que debe revisarse fuera del modulo local para que la implementac
 2. `ConfigurationService.terminal` debe estar disponible si se usa lock.
 3. Los mensajes de error deben ser compatibles con `MessagesService`.
 4. El modulo debe compilar con la estrategia standalone + NgModule del repo.
+5. La documentacion del modulo debe incluir matriz de Inputs/Outputs y contrato de metodos por componente.
 
 ## Preguntas que deben quedar cerradas antes de implementar
 - La entidad usa lock con `open` y `close`?
@@ -84,8 +85,8 @@ Listar todo lo que debe revisarse fuera del modulo local para que la implementac
 
 ## Archivos de referencia
 - `libs/<library>/src/index.ts`
-- `http-services/<entity-plural>.service.ts`
-- `<entity-plural>-grid.component.ts`
+- `http-services/<entity-singular>.service.ts`
+- `<entity-singular>-grid.component.ts`
 - `<entity-singular>-form.component.ts`
 
 ## Checklist de salida
@@ -97,3 +98,4 @@ Listar todo lo que debe revisarse fuera del modulo local para que la implementac
 - Las claves `eModule_`, `eGrid_`, `eForm_` y `eAction_Open` estan dadas de alta en los enums.
 - La ruta del modulo esta registrada en `MenuesService`.
 - ADMIN tiene permiso de acceso al modulo y el campo id esta oculto en todos los roles.
+- Existe una matriz actualizada de variables, metodos, Inputs y Outputs por tipo de archivo del modulo.

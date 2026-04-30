@@ -4,17 +4,7 @@
 .entity-form {
   @extend .form;
   @extend .form-container--full;
-  
-  &__label {
-    @extend .form-control-label;
-  }
-
-  &__control {
-    @extend .form-control;
-  }
-
-  &__group {
-    @extend .form-group;
-  }
-
+  &__label  { @extend .form-control-label; }
+  &__control { @extend .form-control; }
+  &__group  { @extend .form-group; }
 }

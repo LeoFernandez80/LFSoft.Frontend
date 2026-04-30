@@ -98,7 +98,6 @@ export class GenericGridComponent<T> implements OnInit, AfterViewInit, OnDestroy
   }
   
   ngOnInit(): void { 
-    console.log("GENERIC GRID" ,this.literalKey);
     this._subcriptionData();
     this._subscriptionColumns();
     this._subscriptionActions();
@@ -140,7 +139,7 @@ export class GenericGridComponent<T> implements OnInit, AfterViewInit, OnDestroy
     this.open.emit(element);
   }
   
-  getCellValue(item: T, column: GridColumn<T>): string {       
+  getCellValue(item: T, column: GridColumn<T>): string {           
     const value = item[column.field];
     if (column.formatter) {
       return column.formatter(value);

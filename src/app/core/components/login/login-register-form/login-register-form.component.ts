@@ -46,7 +46,6 @@ export class LoginRegisterFormComponent implements OnInit, OnDestroy {
   }
 
   isReadyToSave(): boolean {
-    console.log(this.registerForm.valid,this.registerForm.dirty ); 
     return this.registerForm.valid && this.registerForm.dirty;
   }
 

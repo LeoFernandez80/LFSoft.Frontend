@@ -1,0 +1,37 @@
+<lfsoft-shared-form [title]="'TITLE.filter' | translate">
+  <div data>
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="user-roles-filter-tab">
+            <div class="user-roles-filter-tab__label">
+              {{ 'TITLE.userRoleData' | translate }}
+            </div>
+          </div>
+        </ng-template>
+        <form [formGroup]="form">
+          <div class="user-roles-filter">
+            <div class="user-roles-filter__group" col-span="2">
+              <label class="user-roles-filter__label" for="roleId">{{ 'LABEL.id' | translate }}</label>
+              <input id="roleId" type="text" formControlName="userRolId" class="user-roles-filter__control">
+            </div>
+            <div class="user-roles-filter__group" col-span="2">
+              <label class="user-roles-filter__label" for="roleName">{{ 'LABEL.roleName' | translate }}</label>
+              <input id="roleName" type="text" formControlName="userRolName" class="user-roles-filter__control">
+            </div>
+            <div class="user-roles-filter__group" col-span="2">
+              <label class="user-roles-filter__label" for="roleType">{{ 'LABEL.role' | translate }}</label>
+              <input id="roleType" type="text" formControlName="userRolType" class="user-roles-filter__control">
+            </div>
+          </div>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <lfsoft-shared-actions
+    footerContent
+    class="form-actions--footer"
+    (action)="onAction($event)">
+  </lfsoft-shared-actions>
+</lfsoft-shared-form>

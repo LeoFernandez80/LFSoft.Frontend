@@ -97,5 +97,12 @@ export const routes: Routes = [
     data: {literalKeyType: EnumLiteralKeys.eModule_Users },
     loadChildren: () =>
       import('@lib/users').then(m => m.UsersModule)
+  },
+  {
+    path: 'user-roles-module',
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { literalKeyType: EnumLiteralKeys.eModule_UserRoles },
+    loadChildren: () =>
+      import('@lib/security').then(m => m.UserRolesModule)
   }
 ];

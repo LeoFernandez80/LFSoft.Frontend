@@ -4,7 +4,7 @@ import { TranslatePipe } from '@lib/shared';
 
 @Component({
   selector: 'app-entity-drawer',
-  templateUrl: './entity-drawer.component.html',
+  template: '',
   styleUrls: ['./entity-drawer.component.scss'],
   standalone: true,
   imports: [CommonModule, TranslatePipe]

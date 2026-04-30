@@ -4,15 +4,8 @@ import { EntitiesContainerComponent } from './entities-container/entities-contai
 import { EntitiesFormContainerComponent } from './entities-form-container/entities-form-container.component';
 
 const routes: Routes = [
-  {
-    path: 'entities/open',
-    component: EntitiesFormContainerComponent,
-    data: { operation: 'open' }
-  },
-  {
-    path: 'entities',
-    component: EntitiesContainerComponent
-  }
+  { path: 'entity/open', component: EntitiesFormContainerComponent, data: { operation: 'open' } },
+  { path: 'entities', component: EntitiesContainerComponent }
 ];
 
 @NgModule({

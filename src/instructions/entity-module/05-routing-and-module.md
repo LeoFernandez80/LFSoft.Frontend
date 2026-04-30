@@ -27,6 +27,12 @@ Aunque el modulo sea NgModule, los componentes concretos del flujo pueden seguir
    - `path: '<entity-singular>'`
    - `component: <Entity-plural>ContainerComponent`
 
+### Contrato de rutas obligatorio
+- La ruta `open` debe incluir `data: { operation: 'open' }`.
+- El formulario principal debe leer ese valor desde `ActivatedRoute.snapshot.data`.
+- El contenedor debe abrir nueva ventana serializando URL hacia `'<entity-singular>/open'` con query param `id`.
+- Si cambia el path, actualizar contenedor, form y tests/manual checks de navegacion.
+
 ## Criterios de implementacion
 - Mantener `RouterModule.forChild(routes)`.
 - Dejar `exports: [RouterModule]`.

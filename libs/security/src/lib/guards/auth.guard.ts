@@ -50,7 +50,6 @@ export class PermissionGuard implements CanActivate {
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     // Obtener permisos requeridos de la ruta (data.literalKeyType)
     const literalKeyType = route.data['literalKeyType'] as string | undefined;
-    console.log("Checking required permissions for route:", literalKeyType);
     
     // Si no hay literalKeyType, permitir acceso (rutas hijas heredan protección del padre)
     if (!literalKeyType) {

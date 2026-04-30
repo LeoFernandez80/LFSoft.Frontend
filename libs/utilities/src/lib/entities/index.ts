@@ -11,7 +11,7 @@ export * from './models/entity-filter.model';
 export * from './models/entity-response.model';
 
 // Services
-export * from './services/entity.service';
+export * from './http-services/entity.service';
 
 // Components
 export * from './entities-container/entities-container.component';

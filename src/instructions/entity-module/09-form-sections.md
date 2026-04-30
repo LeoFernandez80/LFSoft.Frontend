@@ -18,6 +18,21 @@ Documentar como construir secciones internas del formulario siguiendo un patron 
 - Exponer `required` cuando la UI lo necesite.
 - Emitir `dataChange` al cambiar el formulario.
 
+## Contrato obligatorio de miembros
+Cada seccion principal debe declarar explicitamente:
+- `@Input() <entity-singular>: <EntitySingular> | undefined`
+- `@Input() isLoading: boolean`
+- `@Output() dataChange: EventEmitter<void>`
+- `FormGroup` principal
+- colecciones auxiliares (roles/catalogos) cuando aplica
+- arreglo de campos ocultos por permisos
+
+Getters `ISectionForm` obligatorios:
+- `get data(): <EntitySingular>`
+- `get modified(): boolean`
+- `get valid(): boolean`
+- `get required(): boolean`
+
 ## Estructura recomendada
 1. `@Input()` para recibir la entidad o fragmento correspondiente.
 2. `@Input()` para estado de carga si la vista usa skeleton.

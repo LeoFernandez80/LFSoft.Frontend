@@ -9,7 +9,7 @@ Separar y documentar la implementacion de la grilla y del filtro del listado par
 
 ## Grid component
 ### Archivo objetivo
-- `<entity-plural>-container/<entity-plural>-grid/<entity-plural>-grid.component.ts`
+- `<entity-plural>-container/<entity-singular>-grid/<entity-singular>-grid.component.ts`
 
 ### Responsabilidades
 - Definir columnas.
@@ -25,6 +25,15 @@ Separar y documentar la implementacion de la grilla y del filtro del listado par
 - `scrollEndChange`
 - `changePage`
 
+### Contrato obligatorio de Outputs (Grid)
+Documentar tipo de payload por output:
+- `edit: EventEmitter<<EntitySingular>Grid>`
+- `delete: EventEmitter<<EntitySingular>Grid>`
+- `open: EventEmitter<<EntitySingular>Grid>`
+- `sortChange: EventEmitter<PageFilter>`
+- `scrollEndChange: EventEmitter<void>`
+- `changePage: EventEmitter<PageFilter>`
+
 ### Columnas
 - Definir un set inicial minimo en `_initializeColumns()`.
 - Si existe configuracion de usuario, mapear `GridColumnConfiguration` a `GridColumn`.
@@ -32,13 +41,18 @@ Separar y documentar la implementacion de la grilla y del filtro del listado par
 
 ## Filter component
 ### Archivo objetivo
-- `<entity-plural>-container/<entity-plural>-grid-filter/<entity-plural>-grid-filter.component.ts`
+- `<entity-plural>-container/<entity-singular>-grid-filter/<entity-singular>-grid-filter.component.ts`
 
 ### Responsabilidades
 - Construir un `FormGroup` simple y reactivo.
 - Convertir el form en `<Entity-plural>Filter`.
 - Exponer acciones `apply` y `reset`.
 - Recibir el filtro actual por `@Input()` para sincronizar la UI.
+
+### Contrato obligatorio de Input/Output (Filter)
+- `@Input() filter: <EntitySingular>Filter` (setter que sincroniza formulario)
+- `@Output() apply: EventEmitter<<EntitySingular>Filter>`
+- `onAction(action)` con soporte minimo para `actionApply` y `actionReset`
 
 ### Acciones esperadas
 - `actionApply`
@@ -56,8 +70,8 @@ Separar y documentar la implementacion de la grilla y del filtro del listado par
 - Hacer que el filtro conozca detalles del servicio HTTP.
 
 ## Archivos de referencia
-- `<entity-plural>-grid.component.ts`
-- `<entity-plural>-grid-filter.component.ts`
+- `<entity-singular>-grid.component.ts`
+- `<entity-singular>-grid-filter.component.ts`
 
 ## SCSS
 

@@ -28,6 +28,7 @@ export const enum EnumActionsIcons {
     openPersons = 'person_3',
     openArticles = 'articles',
     openUsers = 'person',
+    openUserRoles = 'manage_accounts',
     openHome = 'home',
     openQuotes  = 'quotes',
     openDocuments = 'docs',

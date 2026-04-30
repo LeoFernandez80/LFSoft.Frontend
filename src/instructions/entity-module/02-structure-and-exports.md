@@ -29,6 +29,25 @@ Definir el scaffolding minimo del modulo nuevo y dejar claro que exportaciones p
    - Los componentes concretos siguen siendo standalone.
 5. Preparar la public API de la libreria en su `index.ts` para exportar modulo, routing, servicio, modelos y componentes.
 
+## Especificacion minima obligatoria por archivo
+Ademas de crear archivos, documentar estos contratos en el instructivo de la entidad:
+1. `*.module.ts` y `*-module-routing.module.ts`
+   - imports requeridos
+   - rutas requeridas
+   - metadata `data.operation` requerida para `open`
+2. `http-services/*.service.ts`
+   - metodos CRUD + `open` + `close`
+   - payload de `create`/`update`
+   - tipo de `Observable` de cada metodo
+3. `models/*.ts`
+   - propiedades con tipo y valor default
+   - reglas de `objectType`/`objectKey` cuando aplica
+4. Componentes `container/grid/filter/form/section/drawer`
+   - estado publico/privado
+   - handlers publicos
+   - helpers privados
+   - Inputs/Outputs con tipo
+
 ## Orden recomendado de creacion real
 1. Carpetas.
 2. Modelos.
@@ -50,6 +69,15 @@ Definir el scaffolding minimo del modulo nuevo y dejar claro que exportaciones p
 - Usar `<entity-singular>` para servicio, modelos, form, drawer y subformularios.
 - El subformulario principal debe ir en singular bajo `<entity-singular>-form/<entity-singular>-data-form`.
 - La ruta publica de exportacion debe seguir el mismo orden del `index.ts` de la libreria.
+
+## Convenciones de nombres (carpetas y clases)
+- Carpetas en `kebab-case` y en minusculas.
+- Servicio HTTP: archivo `http-services/<entity-singular>.service.ts`, clase `HTTPService<EntitySingular>`.
+- Contenedor principal: carpeta `<entity-plural>-container`, clase `<EntityPlural>ContainerComponent`.
+- Grilla y filtro: carpetas `<entity-singular>-grid` y `<entity-singular>-grid-filter`, clases `<EntitySingular>GridComponent` y `<EntitySingular>GridFilterComponent`.
+- Formulario: carpeta `<entity-singular>-form`, clase `<EntitySingular>FormComponent`.
+- Form container: carpeta `<entity-plural>-form-container`, clase `<EntityPlural>FormContainerComponent`.
+- Drawer: carpeta `<entity-singular>-drawer`, clase `<EntitySingular>DrawerComponent`.
 
 ## Archivos de referencia
 - `libs/<library>/src/index.ts`

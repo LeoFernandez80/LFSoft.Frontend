@@ -2,11 +2,10 @@
 @import 'styles/floating-toolbar';
 
 .body {
-    height: 100vh;
-    background: var(--container-primary-bg);
-    position: relative;
+  height: 100vh;
+  background: var(--container-primary-bg);
+  position: relative;
 }
-
 
 .entities-container {
   display: flex;
@@ -16,12 +15,8 @@
 
   &__tab {
     @extend .container-tab-header;
-    &-label {
-      @extend .container-tab-header__label;
-    }
-    &-button {
-      @extend .container-tab-header__button;
-    }
+    &-label { @extend .container-tab-header__label; }
+    &-button { @extend .container-tab-header__button; }
   }
 
   &__content {
@@ -42,5 +37,11 @@
     flex: 1 1 auto;
     min-height: 0;
     height: 100%;
+  }
+
+  &__toolbar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem 1rem;
   }
 }

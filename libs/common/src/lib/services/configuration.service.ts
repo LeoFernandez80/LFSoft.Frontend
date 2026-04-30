@@ -57,6 +57,7 @@ export class ConfigurationService {
     
     config.items = [
       { literalKey: EnumLiteralKeys.eModule_Users, color: 'RGB(255, 0, 0)' },
+      { literalKey: EnumLiteralKeys.eModule_UserRoles, color: 'RGB(180, 40, 40)' },
       { literalKey: EnumLiteralKeys.eModule_Products, color: 'RGB(0, 0, 255)' },
       { literalKey: EnumLiteralKeys.eModule_Sales, color: 'RGB(255, 0, 255)' }      
     ];
@@ -71,6 +72,7 @@ export class ConfigurationService {
     
     config2.items = [
       { literalKey: EnumLiteralKeys.eModule_Users, color: 'RGB(0, 255, 0)' },
+      { literalKey: EnumLiteralKeys.eModule_UserRoles, color: 'RGB(0, 180, 120)' },
       { literalKey: EnumLiteralKeys.eModule_Products, color: 'RGB(255, 0, 0)' },
       { literalKey: EnumLiteralKeys.eModule_Sales, color: 'RGB(255, 0, 255)' }      
     ];

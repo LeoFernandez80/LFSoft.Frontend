@@ -3,6 +3,16 @@
 ## Objetivo
 Definir el alcance de un modulo de entidad nuevo con una plantilla reutilizable para cualquier dominio (por ejemplo: `persons`) sin implementar codigo todavia. Este archivo fija nombres, responsabilidades y orden de lectura del instructivo.
 
+## Contrato de documentacion obligatoria (alineado al patron users)
+Cada archivo de instruccion del modulo debe dejar explicitado, sin ambiguedad:
+- Variables de estado (publicas y privadas) esperadas por componente/servicio.
+- Metodos publicos y privados con su responsabilidad.
+- Inputs y Outputs con tipo y uso.
+- Contratos request/response y reglas de serializacion.
+- Reglas de mantenimiento cuando se agregan campos o endpoints.
+
+Si una seccion no aplica (por ejemplo, un `NgModule` sin Inputs/Outputs), debe declararse explicitamente como "no aplica".
+
 ## Alcance incluido
 - Estructura del modulo frontend.
 - Modelos, servicio HTTP, routing, contenedores, grilla, filtro, formulario, secciones internas, seguridad, integracion y validacion.
@@ -78,6 +88,12 @@ libs/<library>/src/lib/<entity-plural>/
 7. Construir form container, form y secciones.
 8. Aplicar seguridad e integraciones.
 9. Ejecutar la validacion final.
+
+## Criterio de calidad esperado
+- Guia clara: indica que hacer, en que orden y por que.
+- Guia legible: separa responsabilidades por archivo.
+- Guia mantenible: define que actualizar cuando cambian campos/contratos.
+- Guia no ambigua: evita "etc." sin lista concreta de miembros y metodos.
 
 ## Archivos de referencia
 - El modulo equivalente ya existente dentro de la libreria destino.

@@ -20,6 +20,7 @@ export class PermisionsActionsService {
     this._actions.set(EnumActions.eAction_OpenHome, new Action('BUTTON.home', EnumActions.eAction_OpenHome, EnumActionsIcons.openHome, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenArticles, new Action('BUTTON.articles', EnumActions.eAction_OpenArticles, EnumActionsIcons.openArticles, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenUsers, new Action('BUTTON.users', EnumActions.eAction_OpenUsers, EnumActionsIcons.openUsers, false, EnumActionsViewType.view16x16));
+    this._actions.set(EnumActions.eAction_OpenUserRoles, new Action('BUTTON.userRoles', EnumActions.eAction_OpenUserRoles, EnumActionsIcons.openUserRoles, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenEntities, new Action('BUTTON.entities', EnumActions.eAction_OpenEntities, EnumActionsIcons.openEntities, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenCustomers, new Action('BUTTON.customers', EnumActions.eAction_OpenCustomers, EnumActionsIcons.openCustomers, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenDocuments, new Action('BUTTON.documents', EnumActions.eAction_OpenDocuments, EnumActionsIcons.openDocuments, false, EnumActionsViewType.view16x16));

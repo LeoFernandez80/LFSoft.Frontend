@@ -1,0 +1,9 @@
+<lfsoft-shared-message></lfsoft-shared-message>
+
+<lfsoft-shared-layout [title]="'TITLE.userRoles' | translate" [type]="layoutTypes.layoutWithoutSidebar" class="user-roles-container">
+  <app-user-role-form
+    formContent
+    (save)="onSaveUserRole($event)"
+    (cancel)="onCancelUserRole()">
+  </app-user-role-form>
+</lfsoft-shared-layout>

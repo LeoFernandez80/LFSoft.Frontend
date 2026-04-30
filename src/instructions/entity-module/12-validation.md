@@ -11,6 +11,7 @@ Definir la validacion final del modulo una vez implementado, con foco en un comp
 2. La libreria exporta correctamente modulo, servicio, modelos y componentes.
 3. El routing resuelve listado y apertura externa.
 4. El modulo no rompe otras pantallas relacionadas.
+5. La documentacion del modulo describe variables, metodos, Inputs y Outputs de forma consistente con el codigo.
 
 ## Validacion del listado
 1. La pantalla principal navega correctamente.
@@ -61,3 +62,4 @@ Definir la validacion final del modulo una vez implementado, con foco en un comp
 - El flujo de listado, formulario, seguridad e integracion esta cubierto.
 - Se puede validar el modulo sin improvisar casos de prueba.
 - Los riesgos residuales quedan identificados al final de la implementacion.
+- Los contratos documentados (estado, metodos, inputs/outputs, endpoints) coinciden con la implementacion real del modulo de referencia.

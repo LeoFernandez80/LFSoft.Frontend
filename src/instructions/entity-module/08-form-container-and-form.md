@@ -18,6 +18,11 @@ Definir el flujo de edicion principal de la entidad, separando claramente el con
 - Responder a `save` y `cancel`.
 - Cerrar la ventana cuando corresponda.
 
+### Contrato minimo esperado
+- Propiedad `layoutTypes` para tipo de layout si aplica.
+- Metodo `onSave<EntitySingular>(entity: any | <EntitySingular>)` para mensaje de exito.
+- Metodo `onCancel<EntitySingular>()` para cerrar ventana externa.
+
 ## <Entity-singular>FormComponent
 ### Archivo objetivo
 - `<entity-singular>-form/<entity-singular>-form.component.ts`
@@ -30,6 +35,17 @@ Definir el flujo de edicion principal de la entidad, separando claramente el con
 5. Determinar `objectMode` segun seguridad o lock devuelto por backend.
 6. Coordinar acciones `save` y `cancel`.
 7. Emitir eventos al contenedor padre.
+
+### Contrato obligatorio de Input/Output y estado
+- `@Input() <entity-singular>: number | string | <EntitySingular>`
+- `@Output() save: EventEmitter<<EntitySingular>>`
+- `@Output() cancel: EventEmitter<void>`
+- `@ViewChild` de la seccion principal (`ISectionForm`) para validar `valid/modified/data`.
+
+Estado privado minimo esperado:
+- `_<entity-singular>Id`
+- `_operation`
+- `_destroyRef`
 
 ## Flujo de carga recomendado
 1. Aplicar seguridad.

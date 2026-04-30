@@ -46,6 +46,7 @@ export class MenuesService {
     this._menues.set(EnumActions.eAction_OpenDocuments, ['documents-module', 'documents']);
     this._menues.set(EnumActions.eAction_OpenInvoices, ['invoices-module', 'invoices']);
     this._menues.set(EnumActions.eAction_OpenUsers, ['users-module', 'users']); 
+    this._menues.set(EnumActions.eAction_OpenUserRoles, ['user-roles-module', 'user-role']);
     this._menues.set(EnumActions.eAction_Logout, ['logout']);
     
 

@@ -9,22 +9,27 @@ export enum EnumLiteralKeys {
     eModule_Quotes = 'eModule_Quotes',
     eModule_Persons = 'eModule_Persons',
     eModule_Users = 'eModule_Users',
+    eModule_UserRoles = 'eModule_UserRoles',
     eModule_Entities = 'eModule_Entities',
     eModule_Sales = 'eModule_Sales',
     eModule_Products = 'eModule_Products',
 
     //Grids
     eGrid_Users = 'eGrid_Users',
+    eGrid_Entities = 'eGrid_Entities',
+    eGrid_UserRoles = 'eGrid_UserRoles',
     
     //Forms
     eForm_UsersConfig = 'eForm_UsersConfig',
     eForm_Users = 'eForm_Users',
+    eForm_UserRole = 'eForm_UserRole',
     eForm_Entities = 'eForm_Entities',
     eForm_Persons = 'eForm_Persons',
     
     //Actions
     eAction_Edit = 'eAction_Edit',
     eAction_OpenUsers = 'eAction_OpenUsers',
+    eAction_OpenUserRoles = 'eAction_OpenUserRoles',
     eAction_Save = 'eAction_Save',
     eAction_Cancel = 'eAction_Cancel',
 

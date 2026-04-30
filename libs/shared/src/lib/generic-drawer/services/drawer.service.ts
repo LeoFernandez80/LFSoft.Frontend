@@ -13,9 +13,7 @@ export class DrawerService {
     private _data = new BehaviorSubject<any>(null);
 
     show(config?: Partial<DrawerConfig>): void {
-        const drawerConfig = new DrawerConfig(config);
-        console.log("show", drawerConfig);
-        
+        const drawerConfig = new DrawerConfig(config);        
         this._config.next(drawerConfig);
         this._data.next(drawerConfig.data);
         this._isVisible.next(true);

@@ -1,0 +1,15 @@
+<lfsoft-shared-form [title]="'TITLE.userRoleData' | translate">
+
+  <div data>
+    <app-user-role-data-form
+      #formUserRoleData
+      [userRole]="userRoleData"
+      (dataChange)="onUserRoleDataChange()">
+    </app-user-role-data-form>
+  </div>
+
+  <lfsoft-shared-actions
+    footerContent
+    (action)="onAction($event)">
+  </lfsoft-shared-actions>
+</lfsoft-shared-form>

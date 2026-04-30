@@ -1,0 +1,27 @@
+<form [formGroup]="userRoleForm" [lfsoftSkeleton]="isLoading" [lfsoftFormValidations]="userRoleForm">
+  <div class="user-role-data-form">
+    <div class="user-role-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('userRolId')">
+      <label class="user-role-data-form__label" for="userRolId">{{ 'LABEL.id' | translate }}</label>
+      <input id="userRolId" type="text" formControlName="userRolId" class="user-role-data-form__control">
+    </div>
+
+    <div class="user-role-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('userRolName')">
+      <label class="user-role-data-form__label" for="userRolName">{{ 'LABEL.roleName' | translate }}</label>
+      <input id="userRolName" type="text" formControlName="userRolName" class="user-role-data-form__control">
+    </div>
+
+    <div class="user-role-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('userRolType')">
+      <label class="user-role-data-form__label" for="userRolType">{{ 'LABEL.role' | translate }}</label>
+      <select id="userRolType" formControlName="userRolType" class="user-role-data-form__control">
+        <option *ngFor="let roleOption of userRoles" [value]="roleOption">
+          {{ 'ENUM.USER_ROLE.' + roleOption | translate }}
+        </option>
+      </select>
+    </div>
+
+    <div class="user-role-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('userRolDescription')">
+      <label class="user-role-data-form__label" for="userRolDescription">{{ 'LABEL.description' | translate }}</label>
+      <input id="userRolDescription" type="text" formControlName="userRolDescription" class="user-role-data-form__control">
+    </div>
+  </div>
+</form>

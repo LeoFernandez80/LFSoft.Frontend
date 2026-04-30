@@ -5,19 +5,12 @@ import { PageFilter, PaginatedList } from '@lib/shared';
 import { UserFilter } from '../models/user-filter.model';
 import { UserGrid } from '../models/user-grid.model';
 import { User } from '../models/user.model';
-import { AccessControl, ConfigurationService, Terminal } from '@lib/common';
+import { ConfigurationService, Terminal } from '@lib/common';
 import { EnumUserRole } from '@lib/security';
 import { environment } from 'src/environments/environment';
+import { UserResponse } from '../models/user-response.model';
 
-
- class HTTPResponseUser  {  
-  user: User = new User();
-  accessControl:AccessControl | null = null;
-  validations: string[] = [];
-  errores: string[] = [];
-}
-
-class HTTPRequestUser  {  
+class HTTPRequestUser {
   user: User = new User();
   terminal: Terminal | null = null;
 }
@@ -26,9 +19,9 @@ class HTTPRequestUser  {
   providedIn: 'root'
 })
 export class HTTPServiceUser {
-  private _configurationService = inject(ConfigurationService);
-  private http = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}/users`;
+  private readonly _configurationService = inject(ConfigurationService);
+  private readonly http = inject(HttpClient);
+  private readonly apiUrl = `${environment.apiUrl}/users`;
 
 
   // GET ALL (paginado y filtrado)
@@ -42,8 +35,8 @@ export class HTTPServiceUser {
     });
   }
   // GET BY ID
-  getUser(id: number): Observable<HTTPResponseUser> {
-    return this.http.get<HTTPResponseUser>(`${this.apiUrl}/${id}`, {
+  getUser(id: number): Observable<UserResponse> {
+    return this.http.get<UserResponse>(`${this.apiUrl}/${id}`, {
       headers: this.getHeaders()
     }).pipe(
       catchError(error => {
@@ -54,8 +47,8 @@ export class HTTPServiceUser {
   }
 
   // GET BY ID
-  open(id: number): Observable<HTTPResponseUser> {
-    return this.http.get<HTTPResponseUser>(`${this.apiUrl}/${id}/open`, {
+  open(id: number): Observable<UserResponse> {
+    return this.http.get<UserResponse>(`${this.apiUrl}/${id}/open`, {
       headers: this.getHeaders(),
       params: {
         terminalId: this._configurationService.terminal.terminalId,
@@ -63,14 +56,14 @@ export class HTTPServiceUser {
       }
     }).pipe(
       catchError(error => {
-        console.error('Error fetching user:', error);
+        console.error('Error opening user:', error);
         return throwError(() => error);
       })
     );
   }
 
   // GET BY USERNAME
-  getUserByUserName(userName: string): Observable<User> {
+  getUserByUsername(userName: string): Observable<User> {
     return this.http.get<User>(`${this.apiUrl}/by-username/${userName}`, {
       headers: this.getHeaders()
     }).pipe(
@@ -79,6 +72,11 @@ export class HTTPServiceUser {
         return throwError(() => error);
       })
     );
+  }
+
+  // Kept for backward compatibility with existing call sites.
+  getUserByUserName(userName: string): Observable<User> {
+    return this.getUserByUsername(userName);
   }
 
   // CREATE
@@ -122,7 +120,6 @@ export class HTTPServiceUser {
       } as User,
       terminal: this._configurationService.terminal
     };
-    console.log('FE updateUser - Enviando:', userRq);
     
     return this.http.put<User>(`${this.apiUrl}/${user.user_id}`, userRq, {
       headers: this.getHeaders()
