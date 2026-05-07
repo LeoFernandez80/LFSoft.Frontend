@@ -41,7 +41,7 @@ export class ParidadGridFilterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._securityApply();
+    this._loadSecurityActions();
   }
 
   onAction(action: EnumActionsType | EnumActions): void {
@@ -78,7 +78,7 @@ export class ParidadGridFilterComponent implements OnInit {
     });
   }
 
-  private _securityApply(): void {
+  private _loadSecurityActions(): void {
     const actions: Action[] = [
       new Action('BUTTON.filter', EnumActionsType.actionApply, 'filter_alt', false),
       new Action('BUTTON.clear', EnumActionsType.actionReset, 'restart_alt', false)

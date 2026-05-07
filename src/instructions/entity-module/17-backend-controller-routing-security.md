@@ -1,7 +1,7 @@
 # 17 Backend Controller Routing Security
 
 ## Objetivo
-Definir el controller del modulo con rutas y seguridad consistentes con el patron de `users`.
+Definir el controller del modulo con rutas y seguridad consistentes con el patron estandar del repositorio.
 
 ## Dependencias
 - Pasos 14, 15 y 16 finalizados.

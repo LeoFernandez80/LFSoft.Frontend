@@ -65,7 +65,7 @@ Listar todo lo que debe revisarse fuera del modulo local para que la implementac
 5. Reglas para modo readonly cuando una entidad esta lockeada.
 6. Convencion de template en secciones: `skeleton-field`, `col-span="2"` y `*ngIf="!isHiddenField('entity_description')"` (ajustado por campo).
 7. Validar que el contenedor inyecte `UserPermissionsService`, `AuthService` y `MenuesService` y que `_securityApply()` no cree `Action[]` manuales.
-8. Validar que `onAction(action)` siga el patron de `users-container`: alta local con `EnumActions.eAction_New` y resto por `MenuesService.openMenu(action)`.
+8. Validar que `onAction(action)` use `EnumActions.eAction_New` para alta local y el resto por `MenuesService.openMenu(action)`.
 
 ## Integracion backend
 1. Endpoint base del recurso.
@@ -109,7 +109,7 @@ Listar todo lo que debe revisarse fuera del modulo local para que la implementac
 - ADMIN tiene permiso de acceso al modulo y el campo id esta oculto en todos los roles.
 - Existe una matriz actualizada de variables, metodos, Inputs y Outputs por tipo de archivo del modulo.
 - Si el modulo debe aparecer en Home, la accion de apertura esta dada de alta en permisos de Home y se renderiza en UI.
-- El contenedor no hardcodea acciones ni navegacion; replica el comportamiento de seguridad y dispatch de `users-container`.
+- El contenedor no hardcodea acciones ni navegacion.
 
 ## Regla de cierre obligatoria
 No se considera completa la implementacion si falta cualquiera de estos puntos:
@@ -119,4 +119,4 @@ No se considera completa la implementacion si falta cualquiera de estos puntos:
 4. Registro en `MenuesService._inicilizeMenues()`.
 5. Permisos en `UserPermissionsService` para modulo, grilla y formulario.
 6. Lectura y aplicacion de configuracion visual del modulo (`ConfigurationService` + `config.color` en template).
-7. Seguridad del contenedor alineada a `users-container` sin `new Action(...)` manuales ni navegacion hardcodeada por accion.
+7. Seguridad del contenedor sin `new Action(...)` manuales ni navegacion hardcodeada por accion.

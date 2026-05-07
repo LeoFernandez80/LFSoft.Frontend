@@ -43,6 +43,6 @@ Definir una validacion final del modulo backend para asegurar que el patron impl
 3. El frontend puede consumir contratos sin adaptadores extra.
 
 ## Definition of done
-- Existe modulo backend completo, reusable y alineado al patron de users.
+- Existe modulo backend completo, reusable y alineado al patron estandar del repositorio.
 - El flujo CRUD + open/close esta implementado y validado.
 - Los contratos estan estables para escalar a nuevas entidades.

@@ -1,7 +1,7 @@
 # 13 Backend Overview
 
 ## Objetivo
-Definir el plan de implementacion backend de un modulo de entidad siguiendo los patrones usados en `libs/users` (controller + service + dto + entity + module + export), pero en formato generico para cualquier dominio.
+Definir el plan de implementacion backend de un modulo de entidad siguiendo el patron estandar del repositorio (controller + service + dto + entity + module + export) para cualquier dominio.
 
 ## Alcance incluido
 - Estructura de carpetas y archivos del modulo backend.
@@ -73,4 +73,4 @@ libs/<domain>/src/index.ts
 ## Checklist de salida
 - Existe un plan backend completo y ordenado.
 - El plan es reutilizable para cualquier entidad.
-- La convencion de `users` queda reflejada en formato generico.
+- El plan es reproducible sin dependencia de un modulo de referencia concreto.

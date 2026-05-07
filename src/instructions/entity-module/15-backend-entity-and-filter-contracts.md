@@ -1,7 +1,7 @@
 # 15 Backend Entity And Filter Contracts
 
 ## Objetivo
-Definir los contratos base de dominio (`entity`) y de busqueda (`filter`) siguiendo la convencion usada en `users`.
+Definir los contratos base de dominio (`entity`) y de busqueda (`filter`) siguiendo la convencion estandar del repositorio.
 
 ## Dependencias
 - Paso 14 finalizado.
@@ -16,7 +16,7 @@ Todos los campos deben usar el prefijo `<entity-singular>_`. Ver regla completa 
 ## Contrato de entidad
 - Crear clase `<EntitySingular>` con los campos de lectura/escritura de negocio.
 - **Todos los campos con prefijo `<entity-singular>_`**: `entity_id`, `entity_description`, `entity_isActive`, `entity_createdAt`, `entity_updatedAt`.
-- Si la entidad tiene enums (como `Role` en users), tiparlos con enum compartido o de Prisma.
+- Si la entidad tiene enums propios, tiparlos con enum compartido o de Prisma.
 - Ejemplo minimo:
   ```typescript
   export class <EntitySingular> {

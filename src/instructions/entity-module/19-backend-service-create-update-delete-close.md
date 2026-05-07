@@ -1,7 +1,7 @@
 # 19 Backend Service Create Update Delete Close
 
 ## Objetivo
-Definir create, update, delete y close del service con las mismas convenciones de robustez usadas en `users`.
+Definir create, update, delete y close del service con las convenciones de robustez estandar del repositorio.
 
 ## Dependencias
 - Paso 18 finalizado.

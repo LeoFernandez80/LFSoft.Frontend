@@ -28,7 +28,6 @@ Centralizar la capa transversal de permisos, acciones y bloqueos de edicion para
 - Calcular acciones habilitadas para el listado.
 - Usar la clave de literal correspondiente al modulo y/o grilla de la entidad.
 - Enviar esas acciones a `ActionService` o `GridService`.
-- El patron obligatorio es el de `users-container.component.ts`, no una variante simplificada.
 
 Implementacion obligatoria en contenedor:
 ```typescript
@@ -88,7 +87,7 @@ Metodos minimos:
 
 ## Riesgos comunes
 - Habilitar `Save` solo por validacion y olvidar el estado `modified`.
-- Resolver acciones del contenedor con arrays manuales y producir un comportamiento distinto al de `users`.
+- Resolver acciones del contenedor con arrays manuales en lugar de `enabledActions(...)`, produciendo permisos inconsistentes entre modulos.
 
 ## Archivos de referencia
 - `<entity-plural>-container.component.ts`
@@ -103,7 +102,7 @@ Metodos minimos:
 - El modo readonly por lock remoto queda contemplado.
 - La visibilidad de campos se resuelve por permisos con la literal key de formulario de la entidad.
 - Los campos de secciones aplican `skeleton-field`, `col-span="2"` y condicion `*ngIf` con `isHiddenField(...)`.
-- La seguridad del contenedor replica exactamente el flujo de `users-container`: `enabledActions(...)`, rol actual desde `AuthService`, `makeConditions()`, `ActionService.setActions(...)` y dispatch restante por `MenuesService.openMenu(action)`.
+- La seguridad del contenedor implementa: `enabledActions(...)`, rol actual desde `AuthService`, `makeConditions()`, `ActionService.setActions(...)` y dispatch restante por `MenuesService.openMenu(action)`.
 
 ## Regla de finalizacion
 El modulo no puede marcarse como terminado si falta alguno de estos puntos:
@@ -111,4 +110,4 @@ El modulo no puede marcarse como terminado si falta alguno de estos puntos:
 2. `EnumLiteralKeys.eGrid_<EntityPlural>` usado en seguridad de grilla y en `literalKey` del grid.
 3. `EnumLiteralKeys.eForm_<EntitySingular>` usado en seguridad del formulario y `hideFields(...)`.
 4. Alta de permisos para ADMIN en modulo, grilla y formulario.
-5. `_securityApply()` del contenedor sin arrays manuales de `Action` y alineado al patron de `users-container`.
+5. `_securityApply()` del contenedor sin arrays manuales de `Action`, usando `enabledActions(...)` con el rol actual y `makeConditions()`.

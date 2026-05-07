@@ -1,7 +1,7 @@
 # 16 Backend Request Response Contracts
 
 ## Objetivo
-Definir contratos de entrada y salida para operaciones de apertura y persistencia, usando la misma forma estructural del modulo users.
+Definir contratos de entrada y salida para operaciones de apertura y persistencia, siguiendo la forma estructural estandar del repositorio.
 
 ## Dependencias
 - Paso 15 finalizado.

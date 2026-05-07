@@ -3,7 +3,7 @@
 ## Objetivo
 Definir el alcance de un modulo de entidad nuevo con una plantilla reutilizable para cualquier dominio (por ejemplo: `persons`) sin implementar codigo todavia. Este archivo fija nombres, responsabilidades y orden de lectura del instructivo.
 
-## Contrato de documentacion obligatoria (alineado al patron users)
+## Contrato de documentacion obligatoria
 Cada archivo de instruccion del modulo debe dejar explicitado, sin ambiguedad:
 - Variables de estado (publicas y privadas) esperadas por componente/servicio.
 - Metodos publicos y privados con su responsabilidad.
