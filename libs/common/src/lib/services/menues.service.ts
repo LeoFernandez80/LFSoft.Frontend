@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { DrawerService, EnumActionsType, UrlService } from '@lib/shared';
 import { EnumActions } from '../enums/actions.enum';
 
@@ -7,7 +7,7 @@ import { EnumActions } from '../enums/actions.enum';
 })
 export class MenuesService {
 
-  private _menues: Map<EnumActionsType | EnumActions, string[]>; // Mapa para almacenar los menús y sus rutas
+  private _menues: Map<EnumActionsType | EnumActions, string[]>; // Mapa para almacenar los menÃºs y sus rutas
   
   constructor(private _UrlService: UrlService, private _drawerService: DrawerService) { 
     this._menues = new Map<EnumActionsType | EnumActions, string[]>();
@@ -38,19 +38,26 @@ export class MenuesService {
   private _inicilizeMenues(): void {
     this._menues.set(EnumActions.eAction_Login, ['login']);
     this._menues.set(EnumActions.eAction_OpenHome, ['home']);
+    this._menues.set(EnumActions.eAction_Logout, ['logout']);
+    
+    //Basic Configuration
+    this._menues.set(EnumActions.eAction_OpenBasicConfiguration, ['basic-configuration-module', 'dashboard']);
+    this._menues.set(EnumActions.eAction_OpenParidades, ['paridades-module', 'paridades']);
     this._menues.set(EnumActions.eAction_OpenEntities, ['entities-module', 'entities']);
+    this._menues.set(EnumActions.eAction_OpenCompanies, ['companies-module', 'companies']);
     this._menues.set(EnumActions.eAction_OpenPersons, ['persons-module', 'persons']);
+    
+    //Users and Permissions
+    this._menues.set(EnumActions.eAction_OpenUsersAndSecurity, ['users-module', 'dashboard']);
+    this._menues.set(EnumActions.eAction_OpenUsers, ['users-module', 'users']); 
+    this._menues.set(EnumActions.eAction_OpenUserRoles, ['user-roles-module', 'user-role']);
+    
+    //Modules
     this._menues.set(EnumActions.eAction_OpenCustomers, ['customers-module', 'customers']);
     this._menues.set(EnumActions.eAction_OpenArticles, ['articles-module', 'articles']);
     this._menues.set(EnumActions.eAction_OpenQuotes, ['quotes-module', 'quotes']);
     this._menues.set(EnumActions.eAction_OpenDocuments, ['documents-module', 'documents']);
     this._menues.set(EnumActions.eAction_OpenInvoices, ['invoices-module', 'invoices']);
-    this._menues.set(EnumActions.eAction_OpenUsers, ['users-module', 'users']); 
-    this._menues.set(EnumActions.eAction_OpenUserRoles, ['user-roles-module', 'user-role']);
-    this._menues.set(EnumActions.eAction_Logout, ['logout']);
-    
-
-    this._menues.set( EnumActionsType.openUsers, ['users-module', 'users']); 
-
   }
 }
+

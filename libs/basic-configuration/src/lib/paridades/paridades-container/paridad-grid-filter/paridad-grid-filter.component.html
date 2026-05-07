@@ -1,0 +1,26 @@
+<lfsoft-shared-form [title]="'TITLE.filter' | translate">
+  <div data>
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="paridades-filter-tab">
+            <div class="paridades-filter-tab__label">
+              {{ 'TITLE.paridadData' | translate }}
+            </div>
+          </div>
+        </ng-template>
+        <form [formGroup]="form">
+          <div class="paridades-filter">
+            <div class="paridades-filter__group" col-span="6">
+              <label class="paridades-filter__label" for="paridad_fecha">{{ 'LABEL.paridad_fecha' | translate }}</label>
+              <input id="paridad_fecha" type="date" formControlName="paridad_fecha" class="paridades-filter__control">
+            </div>
+          </div>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <div actions>
+    <lfsoft-shared-actions (action)="onAction($event)"></lfsoft-shared-actions>
+  </div>
+</lfsoft-shared-form>

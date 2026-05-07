@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { Action, EnumActionsStyle, EnumActionsType, EnumActionsViewType } from '@lib/shared';
 import { EnumActionsIcons } from 'libs/shared/src/lib/generic-actions/enums/actions-icons.enums';
 import { EnumActions } from '../enums/actions.enum';
@@ -16,18 +16,22 @@ export class PermisionsActionsService {
   private _loadActions(): void {
     //Ver si es necesario tener el enum de icons de acciones separado
 
-    //Crear todas las acciones aquí
+    //Crear todas las acciones aquÃ­
     this._actions.set(EnumActions.eAction_OpenHome, new Action('BUTTON.home', EnumActions.eAction_OpenHome, EnumActionsIcons.openHome, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenArticles, new Action('BUTTON.articles', EnumActions.eAction_OpenArticles, EnumActionsIcons.openArticles, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenUsers, new Action('BUTTON.users', EnumActions.eAction_OpenUsers, EnumActionsIcons.openUsers, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenUserRoles, new Action('BUTTON.userRoles', EnumActions.eAction_OpenUserRoles, EnumActionsIcons.openUserRoles, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenEntities, new Action('BUTTON.entities', EnumActions.eAction_OpenEntities, EnumActionsIcons.openEntities, false, EnumActionsViewType.view16x16));
+    this._actions.set(EnumActions.eAction_OpenCompanies, new Action('BUTTON.companies', EnumActions.eAction_OpenCompanies, EnumActionsIcons.openCompanies, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenCustomers, new Action('BUTTON.customers', EnumActions.eAction_OpenCustomers, EnumActionsIcons.openCustomers, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenDocuments, new Action('BUTTON.documents', EnumActions.eAction_OpenDocuments, EnumActionsIcons.openDocuments, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenQuotes, new Action('BUTTON.quotes', EnumActions.eAction_OpenQuotes, EnumActionsIcons.openQuotes, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenInvoices, new Action('BUTTON.invoices', EnumActions.eAction_OpenInvoices, EnumActionsIcons.openInvoices, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenConfig, new Action('BUTTON.config', EnumActions.eAction_OpenConfig, EnumActionsIcons.openConfig, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenPersons, new Action('BUTTON.persons', EnumActions.eAction_OpenPersons, EnumActionsIcons.openPersons, false, EnumActionsViewType.view16x16));
+    this._actions.set(EnumActions.eAction_OpenParidades, new Action('BUTTON.paridades', EnumActions.eAction_OpenParidades, EnumActionsIcons.openParidades, false, EnumActionsViewType.view16x16));
+    this._actions.set(EnumActions.eAction_OpenBasicConfiguration, new Action('BUTTON.basicConfiguration', EnumActions.eAction_OpenBasicConfiguration, EnumActionsIcons.openBasicConfiguration, false, EnumActionsViewType.view16x16));
+    this._actions.set(EnumActions.eAction_OpenUsersAndSecurity, new Action('BUTTON.usersAndPermissions', EnumActions.eAction_OpenUsersAndSecurity, EnumActionsIcons.openUsersAndSecurity, false, EnumActionsViewType.view16x16));
     
     this._actions.set(EnumActions.eAction_New, new Action('BUTTON.new', EnumActions.eAction_New, EnumActionsIcons.actionNew, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_Edit, new Action('BUTTON.edit', EnumActions.eAction_Edit, EnumActionsIcons.actionEdit, false, EnumActionsViewType.view16x16));
@@ -37,7 +41,8 @@ export class PermisionsActionsService {
     this._actions.set(EnumActions.eAction_Cancel, new Action('BUTTON.cancel', EnumActions.eAction_Cancel, EnumActionsIcons.actionCancel, false, EnumActionsViewType.viewFooter,EnumActionsStyle.primary));
   }
   
-  getAction(actionEnum: EnumActions): Action {
-    return this._actions.get(actionEnum)!;
+  getAction(actionEnum: EnumActions): Action | undefined {
+    return this._actions.get(actionEnum);
   }
 }
+

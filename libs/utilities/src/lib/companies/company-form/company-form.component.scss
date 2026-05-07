@@ -1,0 +1,14 @@
+﻿// Estilos para el componente company-form
+@import 'styles/form.scss';
+
+.company-form {
+  @extend .form;
+  @extend .form-container--full;
+  &__label  { @extend .form-control-label; }
+  &__control { @extend .form-control; }
+  &__group  { @extend .form-group; }
+}
+
+
+
+

@@ -28,6 +28,27 @@ Centralizar la capa transversal de permisos, acciones y bloqueos de edicion para
 - Calcular acciones habilitadas para el listado.
 - Usar la clave de literal correspondiente al modulo y/o grilla de la entidad.
 - Enviar esas acciones a `ActionService` o `GridService`.
+- El patron obligatorio es el de `users-container.component.ts`, no una variante simplificada.
+
+Implementacion obligatoria en contenedor:
+```typescript
+private _securityApply(): void {
+  const actions = this._permissionsUserService.enabledActions(
+    this._authService.getCurrentUser()?.role || EnumUserRole.VIEWER,
+    EnumLiteralKeys.eModule_<EntityPlural>,
+    this.makeConditions()
+  );
+
+  this._actionService.setActions(actions);
+}
+```
+
+Reglas estrictas:
+- Inyectar `UserPermissionsService`, `AuthService` y `MenuesService` en el contenedor.
+- `makeConditions()` debe existir aunque inicialmente retorne `'#|V|#'`.
+- `onAction(action)` debe manejar solo `EnumActions.eAction_New` como caso local y delegar cualquier otra accion a `MenuesService.openMenu(action)`.
+- No construir `new Action(...)` manualmente en `_securityApply()`.
+- No navegar con `UrlService`, `Router.navigate` o `switch` de acciones hardcodeadas cuando la accion ya existe en permisos + menus.
 
 Metodos minimos:
 - `_securityApply()`
@@ -67,6 +88,7 @@ Metodos minimos:
 
 ## Riesgos comunes
 - Habilitar `Save` solo por validacion y olvidar el estado `modified`.
+- Resolver acciones del contenedor con arrays manuales y producir un comportamiento distinto al de `users`.
 
 ## Archivos de referencia
 - `<entity-plural>-container.component.ts`
@@ -81,3 +103,12 @@ Metodos minimos:
 - El modo readonly por lock remoto queda contemplado.
 - La visibilidad de campos se resuelve por permisos con la literal key de formulario de la entidad.
 - Los campos de secciones aplican `skeleton-field`, `col-span="2"` y condicion `*ngIf` con `isHiddenField(...)`.
+- La seguridad del contenedor replica exactamente el flujo de `users-container`: `enabledActions(...)`, rol actual desde `AuthService`, `makeConditions()`, `ActionService.setActions(...)` y dispatch restante por `MenuesService.openMenu(action)`.
+
+## Regla de finalizacion
+El modulo no puede marcarse como terminado si falta alguno de estos puntos:
+1. `EnumLiteralKeys.eModule_<EntityPlural>` usado en seguridad del contenedor.
+2. `EnumLiteralKeys.eGrid_<EntityPlural>` usado en seguridad de grilla y en `literalKey` del grid.
+3. `EnumLiteralKeys.eForm_<EntitySingular>` usado en seguridad del formulario y `hideFields(...)`.
+4. Alta de permisos para ADMIN en modulo, grilla y formulario.
+5. `_securityApply()` del contenedor sin arrays manuales de `Action` y alineado al patron de `users-container`.

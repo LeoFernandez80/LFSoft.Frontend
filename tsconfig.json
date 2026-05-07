@@ -24,7 +24,8 @@
       "@lib/purchases": ["libs/purchases/src/index.ts"],
       "@lib/articles": ["libs/articles/src/index.ts"],
       "@lib/users": ["libs/users/src/index.ts"],
-      "@lib/common": ["libs/common/src/index.ts"]
+      "@lib/common": ["libs/common/src/index.ts"],
+      "@lib/basic-configuration": ["libs/basic-configuration/src/index.ts"]
     }
   },
   "angularCompilerOptions": {

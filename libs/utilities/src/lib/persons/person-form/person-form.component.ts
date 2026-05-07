@@ -4,12 +4,12 @@ import { Component, DestroyRef, EventEmitter, Input, OnDestroy, OnInit, Output, 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { EnumActions, EnumObjectMode } from '@lib/common';
+import { EnumActions, EnumLiteralKeys, EnumObjectMode } from '@lib/common';
 import {
   Action, ActionService, CONFIRM_CANCEL, EnumActionsType, EnumMessageType,
   GenericActionsComponent, GenericFormComponent, ISectionForm, MessagesService, ModalService, TranslatePipe
 } from '@lib/shared';
-import { UrlSecurityService } from '@lib/security';
+import { AuthService, EnumUserRole, UrlSecurityService, UserPermissionsService } from '@lib/security';
 import { Observable, map, of } from 'rxjs';
 import { Person } from '../models/person.model';
 import { HTTPServicePerson } from '../http-services/person.service';
@@ -34,6 +34,7 @@ export class PersonFormComponent implements OnInit, OnDestroy {
   @Output() cancel = new EventEmitter<void>();
 
   personData: Person | undefined = undefined;
+
   private _personId: number = 0;
   private _operation: string | undefined;
   private readonly _destroyRef = inject(DestroyRef);
@@ -44,15 +45,23 @@ export class PersonFormComponent implements OnInit, OnDestroy {
     private _actionService: ActionService,
     private _messagesService: MessagesService,
     private _modalService: ModalService,
-    private _urlSecurityService: UrlSecurityService
+    private _urlSecurityService: UrlSecurityService,
+    private _authService: AuthService,
+    private _permissionsUserService: UserPermissionsService
   ) {}
 
-  ngOnInit(): void { this._loadActions(); this._loadData(); }
+  ngOnInit(): void {
+    this._securityApply();
+    this._loadData();
+  }
+
   ngOnDestroy(): void {}
 
   isReadyToSave(): boolean {
-    return !!this.personData && this.personData.objectMode !== EnumObjectMode.READONLY
-      && this.formPersonData?.valid && this.formPersonData?.modified;
+    return !!this.personData
+      && this.personData.objectMode !== EnumObjectMode.READONLY
+      && this.formPersonData?.valid
+      && this.formPersonData?.modified;
   }
 
   onPersonDataChange(): void { this._enabledActions(); }
@@ -63,7 +72,9 @@ export class PersonFormComponent implements OnInit, OnDestroy {
         case EnumActions.eAction_Save: this._save(); break;
         case EnumActions.eAction_Cancel: this._cancel(); break;
       }
-    } catch (error) { this._messagesService.addMessage(error as HttpErrorResponse, EnumMessageType.Error); }
+    } catch (error) {
+      this._messagesService.addMessage(error as HttpErrorResponse, EnumMessageType.Error);
+    }
   }
 
   private _cancel(): void {
@@ -82,20 +93,41 @@ export class PersonFormComponent implements OnInit, OnDestroy {
     else { this._actionService.disable(EnumActions.eAction_Save); }
   }
 
-  private _loadActions(): void {
-    this._actionService.setActions([
-      new Action('BUTTON.save', EnumActions.eAction_Save, 'save', true),
-      new Action('BUTTON.cancel', EnumActions.eAction_Cancel, 'cancel', false)
-    ]);
+  private _securityApply(): void {
+    const actions = this._permissionsUserService.enabledActions(
+      this._authService.getCurrentUser()?.role || EnumUserRole.VIEWER,
+      EnumLiteralKeys.eForm_Persons,
+      this.makeConditions()
+    );
+    this._actionService.setActions(actions);
   }
+
+  makeConditions(): string { return '#|V|#'; }
 
   private _loadData(): void {
     this._loadParams().subscribe(() => {
       if (this._personId) {
-        this._personService.getPerson(this._personId).pipe(takeUntilDestroyed(this._destroyRef)).subscribe({
-          next: person => { person.objectMode = EnumObjectMode.EDITABLE; this.personData = person; this._enabledActions(); },
-          error: () => { this._messagesService.addMessage('Error al cargar persona', EnumMessageType.Error); }
-        });
+        if (this._operation === 'open') {
+          this._personService.open(this._personId).pipe(takeUntilDestroyed(this._destroyRef)).subscribe({
+            next: response => {
+              response.person.objectMode = this._authService.getCurrentUser()?.role === EnumUserRole.VIEWER
+                ? EnumObjectMode.READONLY
+                : EnumObjectMode.EDITABLE;
+              this.personData = response.person;
+              this._enabledActions();
+            },
+            error: () => { this._messagesService.addMessage('Error al abrir entidad', EnumMessageType.Error); }
+          });
+        } else {
+          this._personService.getPerson(this._personId).pipe(takeUntilDestroyed(this._destroyRef)).subscribe({
+            next: response => {
+              response.person.objectMode = EnumObjectMode.EDITABLE;
+              this.personData = response.person;
+              this._enabledActions();
+            },
+            error: () => { this._messagesService.addMessage('Error al cargar entidad', EnumMessageType.Error); }
+          });
+        }
       } else {
         const newPerson = new Person();
         newPerson.objectMode = EnumObjectMode.NEW;
@@ -113,7 +145,7 @@ export class PersonFormComponent implements OnInit, OnDestroy {
         map(params => {
           const idParam = params.get('id');
           if (!idParam || !this._urlSecurityService.isValidRouteId(idParam)) {
-            this._messagesService.addMessage('ID de persona inválido', EnumMessageType.Error);
+            this._messagesService.addMessage('ID de entidad invalido', EnumMessageType.Error);
             throw new Error('Invalid person ID');
           }
           this._personId = Number(idParam);
@@ -125,10 +157,12 @@ export class PersonFormComponent implements OnInit, OnDestroy {
 
   private _save(): void {
     if (!this.formPersonData?.modified) return;
+
     const updatedPerson = this._createPersonRequest();
     const saveOperation = !updatedPerson.person_id
       ? this._personService.createPerson(updatedPerson)
       : this._personService.updatePerson(updatedPerson);
+
     saveOperation.pipe(takeUntilDestroyed(this._destroyRef)).subscribe({
       next: savedPerson => {
         savedPerson.objectMode = EnumObjectMode.EDITABLE;
@@ -136,7 +170,7 @@ export class PersonFormComponent implements OnInit, OnDestroy {
         this.save.emit(savedPerson);
         this._enabledActions();
       },
-      error: () => { this._messagesService.addMessage('Error al guardar persona', EnumMessageType.Error); }
+      error: () => { this._messagesService.addMessage('Error al guardar entidad', EnumMessageType.Error); }
     });
   }
 }

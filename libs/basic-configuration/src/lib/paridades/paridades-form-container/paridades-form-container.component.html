@@ -1,0 +1,8 @@
+<lfsoft-shared-message></lfsoft-shared-message>
+<lfsoft-shared-layout [title]="'TITLE.paridades' | translate" class="paridades-container">
+  <app-paridad-form
+    formContent
+    (save)="onSaveParidad($event)"
+    (cancel)="onCancelParidad()">
+  </app-paridad-form>
+</lfsoft-shared-layout>

@@ -28,10 +28,12 @@ export class ConfigurationService {
 
   loadUserConfiguration(userId: string): Observable<Configuration | null> {
     //Este metodo iria en el servicio HTTP y debería llamar a la BD para cargar la configuración del usuario por su userId, pero por ahora devuelve un mock
+    
     const config = this._configurationMOCK.find(c => c.userId === userId) || null;
     if (config) {
       //localStorage.setItem('config', JSON.stringify(config));
     }
+    console.log("load config", userId, config);
     return of(config);
   }
 
@@ -48,7 +50,7 @@ export class ConfigurationService {
 
   private _loadConfigurationMOCK(): void {
     const config = new Configuration();
-    config.userId = '2e614b5f-e87a-4c29-abe5-97a27be4dbb6';
+    config.userId = '42d1037c-366e-4431-bdde-2a93b9d31f49';
     config.terminalId = 'terminal1';
     config.terminalName = 'Administracion 1';
     config.invoicePath = 'c:/invoices';
@@ -58,6 +60,11 @@ export class ConfigurationService {
     config.items = [
       { literalKey: EnumLiteralKeys.eModule_Users, color: 'RGB(255, 0, 0)' },
       { literalKey: EnumLiteralKeys.eModule_UserRoles, color: 'RGB(180, 40, 40)' },
+      { literalKey: EnumLiteralKeys.eModule_Entities, color: 'RGB(0, 255, 0)' },
+      { literalKey: EnumLiteralKeys.eModule_Companies, color: 'RGB(0, 128, 128)' },
+      { literalKey: EnumLiteralKeys.eModule_Persons, color: 'RGB(0, 50, 50)' },
+      { literalKey: EnumLiteralKeys.eModule_Paridades, color: 'RGB(100, 120, 128)' },
+
       { literalKey: EnumLiteralKeys.eModule_Products, color: 'RGB(0, 0, 255)' },
       { literalKey: EnumLiteralKeys.eModule_Sales, color: 'RGB(255, 0, 255)' }      
     ];
@@ -73,6 +80,11 @@ export class ConfigurationService {
     config2.items = [
       { literalKey: EnumLiteralKeys.eModule_Users, color: 'RGB(0, 255, 0)' },
       { literalKey: EnumLiteralKeys.eModule_UserRoles, color: 'RGB(0, 180, 120)' },
+      { literalKey: EnumLiteralKeys.eModule_Companies, color: 'RGB(0, 128, 128)' },
+      { literalKey: EnumLiteralKeys.eModule_Persons, color: 'RGB(0, 50, 50)' },
+      { literalKey: EnumLiteralKeys.eModule_Paridades, color: 'RGB(100, 120, 128)' },
+      { literalKey: EnumLiteralKeys.eModule_Entities, color: 'RGB(0, 255, 0)' },
+
       { literalKey: EnumLiteralKeys.eModule_Products, color: 'RGB(255, 0, 0)' },
       { literalKey: EnumLiteralKeys.eModule_Sales, color: 'RGB(255, 0, 255)' }      
     ];

@@ -1,0 +1,45 @@
+﻿<lfsoft-shared-form [title]="'TITLE.filter' | translate">
+  <div data>
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="company-filter-tab">
+            <div class="company-filter-tab__label">
+              {{ 'TITLE.companies' | translate }}
+            </div>
+          </div>
+        </ng-template>
+
+        <form [formGroup]="form">
+          <div class="companies-filter">
+            <div class="companies-filter__group">
+              <label class="companies-filter__label" for="company_id">{{ 'LABEL.number' | translate }}</label>
+              <input id="company_id" type="number" formControlName="company_id" class="companies-filter__control">
+            </div>
+
+            <div class="companies-filter__group">
+              <label class="companies-filter__label" for="company_razonSocial">{{ 'LABEL.razonSocial' | translate }}</label>
+              <input id="company_razonSocial" type="text" formControlName="company_razonSocial" class="companies-filter__control">
+            </div>
+
+            <div class="companies-filter__group">
+              <label class="companies-filter__label" for="company_tipo">{{ 'LABEL.type' | translate }}</label>
+              <input id="company_tipo" type="text" formControlName="company_tipo" class="companies-filter__control">
+            </div>
+
+            <div class="companies-filter__group">
+              <label class="companies-filter__label" for="company_estado">{{ 'LABEL.status' | translate }}</label>
+              <input id="company_estado" type="text" formControlName="company_estado" class="companies-filter__control">
+            </div>
+          </div>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <lfsoft-shared-actions footerContent (action)="onAction($event)"></lfsoft-shared-actions>
+</lfsoft-shared-form>
+
+
+
+

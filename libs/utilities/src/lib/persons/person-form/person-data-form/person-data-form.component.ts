@@ -25,6 +25,7 @@ export class PersonDataFormComponent implements OnInit, ISectionForm {
 
   personForm: FormGroup = new FormGroup({});
   hiddenFields: string[] = [];
+
   private _person: Person | undefined;
 
   get data(): Person { return this._personFormToPerson(); }
@@ -44,7 +45,7 @@ export class PersonDataFormComponent implements OnInit, ISectionForm {
     });
   }
 
-  public isHiddenField(fieldName: string): boolean { return this.hiddenFields.includes(fieldName); }
+  isHiddenField(fieldName: string): boolean { return this.hiddenFields.includes(fieldName); }
 
   private _loadHiddenFields(): Observable<null> {
     return timer(1).pipe(map(() => {
@@ -56,16 +57,28 @@ export class PersonDataFormComponent implements OnInit, ISectionForm {
 
   private _createForm(): void {
     this.personForm = this.fb.group({
+      person_id: [null],
       person_name: ['', [Validators.required, Validators.minLength(2)]],
-      person_lastName: ['', [Validators.required, Validators.minLength(2)]],
-      person_fullName: ['']
+      person_lastname: ['', [Validators.required, Validators.minLength(2)]],
+      person_nickname: [''],
+      person_fullname: [''],
+      person_active: [true],
+      person_maritalStatus: ['']
     });
-    this.personForm.valueChanges.subscribe(() => { this.dataChange.emit(); });
+    this.personForm.valueChanges.subscribe(() => {
+      const name = (this.personForm.get('person_name')?.value || '').trim();
+      const lastname = (this.personForm.get('person_lastname')?.value || '').trim();
+      const fullname = `${name} ${lastname}`.trim();
+      if (this.personForm.get('person_fullname')?.value !== fullname) {
+        this.personForm.patchValue({ person_fullname: fullname }, { emitEvent: false });
+      }
+      this.dataChange.emit();
+    });
   }
 
   private _personFormToPerson(): Person {
     this._person = { ...this._person, ...this.personForm.value } as Person;
-    return this._person;
+    return this._person!;
   }
 
   private _updatePerson(person: Person): void {

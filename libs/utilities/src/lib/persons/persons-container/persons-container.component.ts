@@ -4,12 +4,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Router } from '@angular/router';
-import { EnumActions } from '@lib/common';
+import { ConfigurationItem, ConfigurationService, EnumActions, EnumLiteralKeys } from '@lib/common';
 import {
-  Action, ActionService, CONFIRM_DELETE, EnumActionsType, EnumMessageType,
+  ActionService, CONFIRM_DELETE, EnumActionsType, EnumMessageType,
   GenericActionsComponent, GenericLayoutComponent, GenericMessageComponent,
   GridService, MessagesService, ModalService, PageFilter, TranslatePipe
 } from '@lib/shared';
+import { AuthService, EnumUserRole, UserPermissionsService } from '@lib/security';
 import { PersonFormComponent } from '../person-form/person-form.component';
 import { HTTPServicePerson } from '../http-services/person.service';
 import { PersonFilter } from '../models/person-filter.model';
@@ -23,9 +24,11 @@ import { PersonGridFilterComponent } from './person-grid-filter/person-grid-filt
   templateUrl: './persons-container.component.html',
   styleUrls: ['./persons-container.component.scss'],
   standalone: true,
-  imports: [NgFor, MatTabsModule, MatIconModule, TranslatePipe, GenericLayoutComponent,
-    GenericMessageComponent, GenericActionsComponent, PersonGridFilterComponent,
-    PersonGridComponent, PersonFormComponent],
+  imports: [
+    NgFor, MatTabsModule, MatIconModule, TranslatePipe,
+    GenericLayoutComponent, GenericMessageComponent, GenericActionsComponent,
+    PersonGridFilterComponent, PersonGridComponent, PersonFormComponent
+  ],
   providers: [Router, MessagesService, GridService]
 })
 export class PersonsContainerComponent implements OnInit, OnDestroy {
@@ -33,6 +36,7 @@ export class PersonsContainerComponent implements OnInit, OnDestroy {
   selectedPersonId: number = 0;
   selectedTabIndex: number = -1;
   filterParameters: PersonFilter = new PersonFilter();
+  config: ConfigurationItem = new ConfigurationItem();
 
   private _dataLoaded: PersonGrid[] = [];
   private _openedPersons: Person[] = [];
@@ -45,14 +49,25 @@ export class PersonsContainerComponent implements OnInit, OnDestroy {
     private _gridService: GridService<PersonGrid>,
     private _messagesService: MessagesService,
     private _actionService: ActionService,
-    private _modalService: ModalService
+    private _modalService: ModalService,
+    private _authService: AuthService,
+    private _permissionsUserService: UserPermissionsService,
+    private _configurationService: ConfigurationService
   ) {
     this._createPageFilter();
     this._createFilterParameters();
-    this._loadActions();
+    this._setSubscriptions();
   }
 
-  ngOnInit(): void { this.loadPersons(this._pageFilter, this.filterParameters); }
+  ngOnInit(): void {
+    try {
+      this._securityApply();
+      this.loadPersons(this._pageFilter, this.filterParameters);
+    } catch (error) {
+      this._messagesService.addMessage('Error al cargar la pagina', EnumMessageType.Error);
+    }
+  }
+
   ngOnDestroy(): void {}
 
   onSortChange(pageFilter: PageFilter): void {
@@ -80,20 +95,20 @@ export class PersonsContainerComponent implements OnInit, OnDestroy {
   }
 
   onEdit(person: PersonGrid): void {
-    if (this.openedPersonsId.includes(person.person_id)) {
-      this.selectedPersonId = person.person_id;
-      this.selectedTabIndex = this.openedPersonsId.indexOf(person.person_id);
-      return;
+    try {
+      if (this.openedPersonsId.includes(person.person_id)) {
+        this.selectedPersonId = person.person_id;
+        this.selectedTabIndex = this.openedPersonsId.indexOf(person.person_id);
+        return;
+      }
+      const fullPerson = this._personGridToPerson(person);
+      this.openedPersonsId.push(fullPerson.person_id);
+      this._openedPersons.push(fullPerson);
+      this.selectedPersonId = fullPerson.person_id;
+      this.selectedTabIndex = this.openedPersonsId.indexOf(fullPerson.person_id);
+    } catch (error) {
+      this._messagesService.addMessage('Error al editar entidad', EnumMessageType.Error);
     }
-    this._personService.getPerson(person.person_id).pipe(takeUntilDestroyed(this._destroyRef)).subscribe({
-      next: fullPerson => {
-        this.openedPersonsId.push(fullPerson.person_id);
-        this._openedPersons.push(fullPerson);
-        this.selectedPersonId = fullPerson.person_id;
-        this.selectedTabIndex = this.openedPersonsId.indexOf(fullPerson.person_id);
-      },
-      error: () => { this._messagesService.addMessage('Error al cargar persona', EnumMessageType.Error); }
-    });
   }
 
   onDeletePerson(person: PersonGrid): void {
@@ -104,7 +119,7 @@ export class PersonsContainerComponent implements OnInit, OnDestroy {
 
   onOpenPerson(person: PersonGrid): void {
     const url = this._router.serializeUrl(
-      this._router.createUrlTree(['utilities-module', 'person', 'open'], { queryParams: { id: person.person_id } })
+      this._router.createUrlTree(['persons-module', 'person', 'open'], { queryParams: { id: person.person_id } })
     );
     window.open(url, '_blank');
   }
@@ -149,20 +164,20 @@ export class PersonsContainerComponent implements OnInit, OnDestroy {
   }
 
   loadPersons(pageFilter: PageFilter, filterParameters: PersonFilter): void {
-    this._personService.getPersons(pageFilter, filterParameters).pipe(takeUntilDestroyed(this._destroyRef)).subscribe({
-      next: response => {
-        this._dataLoaded = this._pageFilter.page === 1 ? response.data : [...this._dataLoaded, ...response.data];
-        this._gridService.setData(this._dataLoaded);
-      },
-      error: () => { this._messagesService.addMessage('Error al cargar personas', EnumMessageType.Error); }
-    });
+    this._personService.getPersons(pageFilter, filterParameters)
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: response => {
+          this._dataLoaded = this._pageFilter.page === 1 ? response.data : [...this._dataLoaded, ...response.data];
+          this._gridService.setData(this._dataLoaded);
+        },
+        error: () => { this._messagesService.addMessage('Error al cargar entidades', EnumMessageType.Error); }
+      });
   }
 
   private _actionNewPerson(): void {
     const newPerson = new Person();
     newPerson.person_id = 0;
-    newPerson.person_name = 'Nueva persona';
-
     this.openedPersonsId.push(0);
     this._openedPersons.push(newPerson);
     this.selectedPersonId = 0;
@@ -174,48 +189,72 @@ export class PersonsContainerComponent implements OnInit, OnDestroy {
     if (index !== -1) {
       this.openedPersonsId.splice(index, 1);
       this._openedPersons.splice(index, 1);
-
-      if (this.openedPersonsId.length > 0) {
-        this.selectedPersonId = this.openedPersonsId[Math.max(index - 1, 0)];
-      } else {
-        this.selectedPersonId = 0;
-      }
+      this.selectedPersonId = this.openedPersonsId.length > 0
+        ? this.openedPersonsId[Math.max(index - 1, 0)]
+        : 0;
     }
     this.selectedTabIndex = this.selectedPersonId !== null ? this.openedPersonsId.indexOf(this.selectedPersonId) : -1;
   }
 
   private _deletePerson(person: PersonGrid): void {
-    this._personService.deletePerson(person.person_id).pipe(takeUntilDestroyed(this._destroyRef)).subscribe({
-      next: () => {
-        this._dataLoaded = this._dataLoaded.filter(item => item.person_id !== person.person_id);
-        this._gridService.setData(this._dataLoaded);
-        this._closePerson(person.person_id);
-        this._messagesService.addMessage('MESSAGE.successDelete', EnumMessageType.Info);
-      },
-      error: () => { this._messagesService.addMessage('Error al eliminar persona', EnumMessageType.Error); }
-    });
+    this._personService.deletePerson(person.person_id)
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: () => {
+          this._dataLoaded = this._dataLoaded.filter(item => item.person_id !== person.person_id);
+          this._gridService.setData(this._dataLoaded);
+          this._closePerson(person.person_id);
+          this._messagesService.addMessage('MESSAGE.successDelete', EnumMessageType.Info);
+        },
+        error: () => { this._messagesService.addMessage('Error al eliminar entidad', EnumMessageType.Error); }
+      });
   }
 
-  private _createFilterParameters(): void {
-    this.filterParameters = new PersonFilter();
-  }
-
-  private _createPageFilter(): void {
-    this._pageFilter = new PageFilter();
-  }
-
-  private _loadActions(): void {
-    this._actionService.setActions([
-      new Action('BUTTON.new', EnumActions.eAction_New, 'add', false)
-    ]);
+  private _personGridToPerson(personGrid: PersonGrid): Person {
+    const person = new Person();
+    person.person_id = personGrid.person_id;
+    person.person_name = personGrid.person_name;
+    person.person_lastname = personGrid.person_lastname;
+    person.person_nickname = personGrid.person_nickname;
+    person.person_fullname = personGrid.person_fullname;
+    person.person_active = personGrid.person_active;
+    person.person_maritalStatus = personGrid.person_maritalStatus;
+    return person;
   }
 
   private _mapPersonToGrid(person: Person): PersonGrid {
-    const personGrid = new PersonGrid();
-    personGrid.person_id = person.person_id;
-    personGrid.person_name = person.person_name;
-    personGrid.person_lastName = person.person_lastName;
-    personGrid.person_fullName = person.person_fullName;
-    return personGrid;
+    const grid = new PersonGrid();
+    grid.person_id = person.person_id;
+    grid.person_name = person.person_name;
+    grid.person_lastname = person.person_lastname;
+    grid.person_nickname = person.person_nickname;
+    grid.person_fullname = person.person_fullname;
+    grid.person_active = person.person_active;
+    grid.person_maritalStatus = person.person_maritalStatus;
+    return grid;
   }
+
+  private _securityApply(): void {
+    const actions = this._permissionsUserService.enabledActions(
+      this._authService.getCurrentUser()?.role || EnumUserRole.VIEWER,
+      EnumLiteralKeys.eModule_Persons,
+      this.makeConditions()
+    );
+    this._actionService.setActions(actions);
+  }
+
+  makeConditions(): string { return '#|V|#'; }
+
+  private _setSubscriptions(): void {
+    this._configurationService.getConfiguration()
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe(config => {
+        if (config) {
+          this.config = config.items.find(c => c.literalKey === EnumLiteralKeys.eModule_Persons) || new ConfigurationItem();
+        }
+      });
+  }
+
+  private _createPageFilter(): void { this._pageFilter = new PageFilter(); }
+  private _createFilterParameters(): void { this.filterParameters = new PersonFilter(); }
 }

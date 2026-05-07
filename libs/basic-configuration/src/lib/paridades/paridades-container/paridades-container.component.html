@@ -1,0 +1,50 @@
+<div class="body">
+  <div class="floating-toolbar" [style.border]="'4px solid ' + config.color">
+    <lfsoft-shared-actions (action)="onAction($event)"></lfsoft-shared-actions>
+  </div>
+
+  <lfsoft-shared-message></lfsoft-shared-message>
+  <lfsoft-shared-layout [title]="'TITLE.paridades' | translate" class="paridades-container">
+
+    <app-paridad-grid-filter
+      filterContent
+      class="paridades-container__filter"
+      [filter]="filterParameters"
+      (apply)="onFilterApplied($event)">
+    </app-paridad-grid-filter>
+
+    <app-paridad-grid
+      gridContent
+      class="paridades-container__grid"
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)"
+      (open)="onOpen($event)"
+      (sortChange)="onSortChange($event)"
+      (scrollEndChange)="onLoadNextPage()">
+    </app-paridad-grid>
+
+    <div formContent>
+      <mat-tab-group [style.border]="'4px solid ' + config.color">
+        <mat-tab *ngFor="let fecha of openedParidasId; let i = index">
+          <ng-template mat-tab-label>
+            <div class="paridades-container__tab" (click)="onClickTab(fecha)">
+              <div class="paridades-container__tab-label">
+                {{ getParidadByFecha(fecha)?.paridad_fecha || 'Paridad' }}
+              </div>
+              <button mat-icon-button class="paridades-container__tab-button" (click)="onCloseTab(fecha); $event.stopPropagation()">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+          </ng-template>
+          <app-paridad-form
+            formContent
+            [paridad]="getParidadByFecha(fecha)"
+            (save)="onSave($event)"
+            (cancel)="onCancel()">
+          </app-paridad-form>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+
+  </lfsoft-shared-layout>
+</div>

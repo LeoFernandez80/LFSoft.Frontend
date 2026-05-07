@@ -15,12 +15,17 @@ import { PersonFilter } from '../../models/person-filter.model';
   providers: [ActionService]
 })
 export class PersonGridFilterComponent implements OnInit {
-  @Input() set filter(filter: PersonFilter) { if (!filter) return; this._updateForm(filter); }
+  @Input() set filter(filter: PersonFilter) {
+    if (!filter) return;
+    this._updateForm(filter);
+  }
   @Output() apply = new EventEmitter<PersonFilter>();
 
   form: FormGroup = new FormGroup({});
 
-  constructor(private fb: FormBuilder, private _actionService: ActionService) { this._createForm(); }
+  constructor(private fb: FormBuilder, private _actionService: ActionService) {
+    this._createForm();
+  }
 
   ngOnInit(): void {
     this._actionService.setActions([
@@ -42,7 +47,8 @@ export class PersonGridFilterComponent implements OnInit {
     this.form = this.fb.group({
       person_id: [null],
       person_name: [''],
-      person_lastName: ['']
+      person_lastname: [''],
+      person_nickname: ['']
     });
   }
 
@@ -51,12 +57,13 @@ export class PersonGridFilterComponent implements OnInit {
     const filter = new PersonFilter();
     filter.person_id = f.person_id ?? 0;
     filter.person_name = f.person_name ?? '';
-    filter.person_lastName = f.person_lastName ?? '';
+    filter.person_lastname = f.person_lastname ?? '';
+    filter.person_nickname = f.person_nickname ?? '';
     return filter;
   }
 
   private _resetFilter(): void {
-    this.form.reset({ person_id: null, person_name: '', person_lastName: '' });
+    this.form.reset({ person_id: null, person_name: '', person_lastname: '', person_nickname: '' });
     this._apply();
   }
 
@@ -64,7 +71,8 @@ export class PersonGridFilterComponent implements OnInit {
     this.form.patchValue({
       person_id: filter.person_id || null,
       person_name: filter.person_name || '',
-      person_lastName: filter.person_lastName || ''
+      person_lastname: filter.person_lastname || '',
+      person_nickname: filter.person_nickname || ''
     });
   }
 }

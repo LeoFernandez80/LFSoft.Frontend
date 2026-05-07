@@ -1,7 +1,12 @@
-export enum EnumActions {
-    eAction_OpenHome = 'eAction_ViewHome',
+﻿export enum EnumActions {
+    eAction_OpenHome = 'eAction_OpenHome',
+    eAction_OpenBasicConfiguration = 'eAction_OpenBasicConfiguration',
+    eAction_OpenUsersAndSecurity = 'eAction_OpenUsersAndSecurity',
+    eAction_OpenConfig = 'eAction_OpenConfig',
+
     eAction_OpenArticles = 'eAction_OpenArticles',
     eAction_OpenEntities = 'eAction_OpenEntities',
+    eAction_OpenCompanies = 'eAction_OpenCompanies',
     eAction_OpenUsers = 'eAction_OpenUsers',
     eAction_OpenUserRoles = 'eAction_OpenUserRoles',
     eAction_OpenQuotes = 'eAction_OpenQuotes',
@@ -9,7 +14,7 @@ export enum EnumActions {
     eAction_OpenInvoices = 'eAction_OpenInvoices',
     eAction_OpenCustomers = 'eAction_OpenCustomers',
     eAction_OpenPersons = 'eAction_OpenPersons',
-    eAction_OpenConfig = 'eAction_OpenConfig',
+    eAction_OpenParidades = 'eAction_OpenParidades',
     
     eAction_New = 'eAction_New',
     eAction_Edit = 'eAction_Edit',

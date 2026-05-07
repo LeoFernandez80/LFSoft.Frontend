@@ -47,6 +47,18 @@ Definir y documentar explicitamente:
 - cache de grilla cargada: `_dataLoaded`
 - paginacion/sort activo: `_pageFilter`
 
+Regla estricta de literal key en contenedor:
+- El contenedor debe resolver acciones con `EnumLiteralKeys.eModule_<EntityPlural>` en `_securityApply()`.
+- `_securityApply()` debe seguir exactamente el patron de `users-container`: `UserPermissionsService.enabledActions(currentRole, EnumLiteralKeys.eModule_<EntityPlural>, this.makeConditions())` y luego `ActionService.setActions(actions)`.
+- Queda prohibido construir manualmente `Action[]` dentro de `_securityApply()` aunque el modulo tenga pocas acciones.
+- El contenedor debe inyectar `UserPermissionsService`, `AuthService` y `MenuesService` cuando aplique seguridad de acciones globales.
+- `onAction(action)` debe resolver `EnumActions.eAction_New` con handler local y delegar el resto a `MenuesService.openMenu(action)` igual que en `users-container`.
+- El contenedor debe declarar `config: ConfigurationItem = new ConfigurationItem()`.
+- El contenedor debe inyectar `ConfigurationService` y crear `_setSubscriptions()` con `getConfiguration().pipe(takeUntilDestroyed(this._destroyRef))`.
+- En `_setSubscriptions()`, la configuracion del modulo debe buscarse por `config.items.find(c => c.literalKey === EnumLiteralKeys.eModule_<EntityPlural>)`.
+- El constructor debe invocar `_setSubscriptions()`.
+- El template del contenedor debe aplicar `config.color` en elementos visuales del modulo (por ejemplo toolbar flotante y/o borde de `mat-tab-group`).
+
 ## Contrato de metodos obligatorio
 Documentar por metodo:
 1. evento disparador
@@ -61,6 +73,7 @@ Metodos privados minimos esperados:
 - `_delete<EntitySingular>(itemGrid)`
 - `_securityApply()`
 - `makeConditions()`
+- `_setSubscriptions()`
 - `load<EntityPlural>(pageFilter, filterParameters)`
 - `_createPageFilter()`
 - `_createFilterParameters()`
@@ -95,11 +108,14 @@ Metodos privados minimos esperados:
 - Al guardar, actualizar tambien el cache de grilla si la entidad ya estaba cargada.
 - La apertura en nueva ventana debe construir una URL serializada y usar `window.open`.
 - El borrado debe pasar por modal de confirmacion.
+- La seguridad del toolbar/listado no puede ser declarativa ni hardcodeada: debe salir del servicio de permisos del proyecto usando el rol actual y `makeConditions()`.
+- El comportamiento de referencia para seguridad y despacho de acciones es el de `users-container.component.ts`; cualquier diferencia debe justificarse explicitamente como requisito del modulo, no como decision del generador.
 
 ## Riesgos comunes
 - Perder sincronizacion entre `openedEntitiesId` y el arreglo de entidades abiertas.
 - No reiniciar pagina al aplicar filtro u ordenar.
 - Abrir multiples tabs para la misma entidad.
+- Hardcodear acciones del contenedor y saltear `enabledActions(...)`, dejando permisos distintos entre modulos.
 
 ## Archivos de referencia
 - `<entity-plural>-container.component.ts`
@@ -160,3 +176,8 @@ El archivo `.scss` del contenedor **no usa CSS plano**. Importa los tokens de es
 - El flujo de tabs, carga, filtro y acciones esta documentado.
 - La apertura en nueva ventana y el borrado tienen su comportamiento resuelto.
 - El guardado contempla actualizar la grilla cargada.
+- El contenedor aplica seguridad con `eModule_<EntityPlural>` y no con literal keys genericas o hardcodeadas.
+- `_securityApply()` usa `UserPermissionsService.enabledActions(...)` + `AuthService.getCurrentUser()?.role` + `ActionService.setActions(...)` con la misma secuencia de `users-container`.
+- `onAction()` usa `EnumActions.eAction_New` para alta local y delega el resto a `MenuesService.openMenu(action)`; no se aceptan `switch` con navegacion hardcodeada por modulo.
+- El contenedor lee configuracion por `ConfigurationService.getConfiguration()` y resuelve `config` con `eModule_<EntityPlural>`.
+- El template aplica `config.color` en al menos un contenedor visual del modulo (recomendado: toolbar y tabs).

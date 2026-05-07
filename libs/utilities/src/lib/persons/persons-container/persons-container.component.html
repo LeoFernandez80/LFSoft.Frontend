@@ -1,33 +1,41 @@
 <lfsoft-shared-message></lfsoft-shared-message>
 
 <lfsoft-shared-layout [title]="'TITLE.persons' | translate" class="persons-container">
-  <app-person-grid-filter filterContent class="persons-container__filter"
-    [filter]="filterParameters" (apply)="onFilterApplied($event)">
+  <app-person-grid-filter
+    filterContent
+    class="persons-container__filter"
+    [filter]="filterParameters"
+    (apply)="onFilterApplied($event)">
   </app-person-grid-filter>
 
-  <app-person-grid gridContent class="persons-container__grid"
-    (edit)="onEdit($event)" (delete)="onDeletePerson($event)" (open)="onOpenPerson($event)"
-    (sortChange)="onSortChange($event)" (scrollEndChange)="onLoadNextPage()">
+  <app-person-grid
+    gridContent
+    class="persons-container__grid"
+    (edit)="onEdit($event)"
+    (delete)="onDeletePerson($event)"
+    (open)="onOpenPerson($event)"
+    (sortChange)="onSortChange($event)"
+    (scrollEndChange)="onLoadNextPage()">
   </app-person-grid>
 
   <div formContent>
-    <div class="persons-container__toolbar">
-      <lfsoft-shared-actions (action)="onAction($event)"></lfsoft-shared-actions>
-    </div>
-    <mat-tab-group [selectedIndex]="selectedTabIndex">
+    <mat-tab-group [selectedIndex]="selectedTabIndex" [style.border]="'4px solid ' + config.color">
       <mat-tab *ngFor="let personId of openedPersonsId">
         <ng-template mat-tab-label>
           <div class="persons-container__tab" (click)="onClickTab(personId)">
             <div class="persons-container__tab-label">
-              {{ getPersonById(personId)?.person_fullName || ('TITLE.persons' | translate) }}
+              {{ getPersonById(personId)?.person_fullname || ('TITLE.persons' | translate) }}
             </div>
             <button mat-icon-button class="persons-container__tab-button" (click)="onCloseTab(personId); $event.stopPropagation()">
               <mat-icon>close</mat-icon>
             </button>
           </div>
         </ng-template>
-        <app-person-form [person]="getPersonById(personId) || personId"
-          (save)="onSavePerson($event)" (cancel)="onCancelPerson()">
+
+        <app-person-form
+          [person]="getPersonById(personId) || personId"
+          (save)="onSavePerson($event)"
+          (cancel)="onCancelPerson()">
         </app-person-form>
       </mat-tab>
     </mat-tab-group>

@@ -9,8 +9,7 @@ import { UsersModuleRoutingModule } from './users-module-routing.module';
     ReactiveFormsModule,
     UsersModuleRoutingModule
   ],
-  declarations: [
-    
+  declarations: [   
   ],
   exports: [],
 })

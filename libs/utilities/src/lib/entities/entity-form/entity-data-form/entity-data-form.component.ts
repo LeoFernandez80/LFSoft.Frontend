@@ -57,6 +57,7 @@ export class EntityDataFormComponent implements OnInit, ISectionForm {
 
   private _createForm(): void {
     this.entityForm = this.fb.group({
+        entity_id: [null],
       entity_description: ['', [Validators.required, Validators.minLength(3)]],
       entity_active: [true]
     });

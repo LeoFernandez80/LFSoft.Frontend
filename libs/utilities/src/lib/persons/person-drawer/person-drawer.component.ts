@@ -4,7 +4,7 @@ import { TranslatePipe } from '@lib/shared';
 
 @Component({
   selector: 'app-person-drawer',
-  templateUrl: './person-drawer.component.html',
+  template: '',
   styleUrls: ['./person-drawer.component.scss'],
   standalone: true,
   imports: [CommonModule, TranslatePipe]

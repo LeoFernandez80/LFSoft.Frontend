@@ -1,7 +1,13 @@
 <div class="person-grid__container">
-  <lfsoft-shared-grid [literalKey]="literalKey" [infiniteScroll]="true"
-    [itemHeight]="48" [pageSize]="5"
-    (scrollEnd)="onLoadNextPage()" (sortChange)="onSortChange($event)"
-    (edit)="onEdit($event)" (delete)="onDelete($event)" (open)="onOpen($event)">
+  <lfsoft-shared-grid
+    [literalKey]="literalKey"
+    [infiniteScroll]="true"
+    [itemHeight]="48"
+    [pageSize]="5"
+    (scrollEnd)="onLoadNextPage()"
+    (sortChange)="onSortChange($event)"
+    (edit)="onEdit($event)"
+    (delete)="onDelete($event)"
+    (open)="onOpen($event)">
   </lfsoft-shared-grid>
 </div>

@@ -1,4 +1,4 @@
-import { EnumActionsStyle } from "./actions-styles.enums";
+﻿import { EnumActionsStyle } from "./actions-styles.enums";
 import { EnumActionsType } from "./actions-type.enums";
 import { EnumActionsViewType } from "./actions-view-type.enums";
 
@@ -25,6 +25,7 @@ export const enum EnumActionsIcons {
 
     openConfig = 'settings',
     openEntities = 'data_object',
+    openCompanies = 'business',
     openPersons = 'person_3',
     openArticles = 'articles',
     openUsers = 'person',
@@ -33,5 +34,9 @@ export const enum EnumActionsIcons {
     openQuotes  = 'quotes',
     openDocuments = 'docs',
     openInvoices = 'invoices',
-    openCustomers = 'person_2'
+    openCustomers = 'person_2',
+    openParidades = 'currency_exchange',
+    openBasicConfiguration = 'build',
+    openUsersAndSecurity = 'security',
 }
+

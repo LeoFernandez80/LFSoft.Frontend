@@ -39,6 +39,12 @@ Documentar tipo de payload por output:
 - Si existe configuracion de usuario, mapear `GridColumnConfiguration` a `GridColumn`.
 - Mantener traducciones y estilos alineados al sistema de diseno del repositorio.
 
+### Regla estricta de literal key (Grid)
+- Declarar `readonly literalKey: EnumLiteralKeys = EnumLiteralKeys.eGrid_<EntityPlural>` en el componente de grilla.
+- La lectura de configuracion debe usar esa clave: `getUserGridConfiguration(this.literalKey)`.
+- El template de la grilla debe propagar la clave al grid generico: `[literalKey]="literalKey"`.
+- La seguridad de acciones de grilla debe resolverse con `EnumLiteralKeys.eGrid_<EntityPlural>`.
+
 ## Filter component
 ### Archivo objetivo
 - `<entity-plural>-container/<entity-singular>-grid-filter/<entity-singular>-grid-filter.component.ts`
@@ -118,3 +124,4 @@ Importar los tokens de estilo compartidos y usar `@extend`:
 - El filtro tiene definido su formulario y sus acciones.
 - La comunicacion con el contenedor esta desacoplada.
 - La configuracion opcional de columnas por usuario esta contemplada.
+- La literal key de grilla (`eGrid_<EntityPlural>`) esta aplicada en TS, seguridad y template.

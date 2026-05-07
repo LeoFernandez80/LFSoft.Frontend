@@ -1,7 +1,9 @@
 <form [formGroup]="entityForm">
   <div class="entity-data-form">
     <div class="entity-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('entity_id')">
-      <!-- campo oculto, no se renderiza en la vista -->
+        <label class="entity-data-form__label" for="entity_id">{{ 'LABEL.id' | translate }}</label>
+      <label for="entity_id" formControlName="entity_id" class="entity-data-form__control"></label>
+
     </div>
 
     <div class="entity-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('entity_description')">

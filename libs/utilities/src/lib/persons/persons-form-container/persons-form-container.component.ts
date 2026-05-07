@@ -13,6 +13,12 @@ import { PersonFormComponent } from '../person-form/person-form.component';
 export class PersonsFormContainerComponent {
   constructor(private _messagesService: MessagesService) {}
 
-  onSavePerson(): void { this._messagesService.addMessage('MESSAGE.successSave', EnumMessageType.Info); }
-  onCancelPerson(): void { window.open('', '_self'); window.close(); }
+  onSavePerson(): void {
+    this._messagesService.addMessage('MESSAGE.successSave', EnumMessageType.Info);
+  }
+
+  onCancelPerson(): void {
+    window.open('', '_self');
+    window.close();
+  }
 }

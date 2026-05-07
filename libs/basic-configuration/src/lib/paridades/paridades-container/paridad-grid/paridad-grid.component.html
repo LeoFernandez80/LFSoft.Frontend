@@ -1,0 +1,12 @@
+<div class="paridad-grid__container">
+  <lfsoft-shared-grid
+    [infiniteScroll]="true"
+    [itemHeight]="48"
+    (scrollEnd)="onLoadNextPage()"
+    [pageSize]="15"
+    (sortChange)="onSortChange($event)"
+    (edit)="onEdit($event)"
+    (delete)="onDelete($event)"
+    (open)="onOpen($event)">
+  </lfsoft-shared-grid>
+</div>

@@ -1,5 +1,10 @@
 <lfsoft-shared-message></lfsoft-shared-message>
+
 <lfsoft-shared-layout [title]="'TITLE.persons' | translate">
-  <app-person-form formContent [person]="0" (save)="onSavePerson()" (cancel)="onCancelPerson()">
+  <app-person-form
+    formContent
+    [person]="0"
+    (save)="onSavePerson()"
+    (cancel)="onCancelPerson()">
   </app-person-form>
 </lfsoft-shared-layout>

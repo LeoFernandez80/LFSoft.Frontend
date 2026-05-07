@@ -59,7 +59,10 @@ export class GenericActionsComponent implements OnInit, OnDestroy {
   
   ngOnInit(): void { 
     this._subscriptions.push(this._actionsService.getActions().subscribe(actions => {      
-      this.actions = actions.filter(action => {
+      this.actions = actions.filter((action): action is Action => {
+        if (!action) {
+          return false;
+        }
         if (!action.permisions || action.permisions.length === 0) {
           return true;
         }

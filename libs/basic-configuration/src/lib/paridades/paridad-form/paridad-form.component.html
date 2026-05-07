@@ -1,0 +1,62 @@
+<lfsoft-shared-form [title]="'TITLE.paridadData' | translate">
+  <div data>
+    <form [formGroup]="paridadForm" [lfsoftSkeleton]="isLoading" [lfsoftFormValidations]="paridadForm">
+      <div class="paridad-form">
+
+        <div class="paridad-form__group skeleton-field" col-span="2">
+          <label class="paridad-form__label" for="paridad_fechaCorrespondeA">{{ 'LABEL.paridad_fechaCorrespondeA' | translate }}</label>
+          <input
+            id="paridad_fechaCorrespondeA"
+            type="date"
+            formControlName="paridad_fechaCorrespondeA"
+            class="paridad-form__control">
+        </div>
+
+        <div class="paridad-form__group skeleton-field" col-span="2">
+          <label class="paridad-form__label" for="paridad_dolar">{{ 'LABEL.paridad_dolar' | translate }}</label>
+          <input
+            id="paridad_dolar"
+            type="number"
+            step="0.0001"
+            formControlName="paridad_dolar"
+            class="paridad-form__control">
+        </div>
+
+        <div class="paridad-form__group skeleton-field" col-span="2">
+          <label class="paridad-form__label" for="paridad_dolarDivisa">{{ 'LABEL.paridad_dolarDivisa' | translate }}</label>
+          <input
+            id="paridad_dolarDivisa"
+            type="number"
+            step="0.0001"
+            formControlName="paridad_dolarDivisa"
+            class="paridad-form__control">
+        </div>
+        <div class="paridad-form__group skeleton-field" col-span="2">
+        </div>
+        <div class="paridad-form__group skeleton-field" col-span="2">
+          <label class="paridad-form__label" for="paridad_euro">{{ 'LABEL.paridad_euro' | translate }}</label>
+          <input
+            id="paridad_euro"
+            type="number"
+            step="0.0001"
+            formControlName="paridad_euro"
+            class="paridad-form__control">
+        </div>
+
+        <div class="paridad-form__group skeleton-field" col-span="2">
+          <label class="paridad-form__label" for="paridad_euroDivisa">{{ 'LABEL.paridad_euroDivisa' | translate }}</label>
+          <input
+            id="paridad_euroDivisa"
+            type="number"
+            step="0.0001"
+            formControlName="paridad_euroDivisa"
+            class="paridad-form__control">
+        </div>
+
+      </div>
+    </form>
+  </div>
+  <div footerContent>
+    <lfsoft-shared-actions (action)="onAction($event)"></lfsoft-shared-actions>
+  </div>
+</lfsoft-shared-form>

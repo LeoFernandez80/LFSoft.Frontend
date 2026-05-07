@@ -4,7 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Router } from '@angular/router';
-import { EnumActions, EnumLiteralKeys } from '@lib/common';
+import { ConfigurationItem, ConfigurationService, EnumActions, EnumLiteralKeys } from '@lib/common';
 import {
   ActionService, CONFIRM_DELETE, EnumActionsType, EnumMessageType,
   GenericActionsComponent, GenericLayoutComponent, GenericMessageComponent,
@@ -36,6 +36,7 @@ export class EntitiesContainerComponent implements OnInit, OnDestroy {
   selectedEntityId: number = 0;
   selectedTabIndex: number = -1;
   filterParameters: EntityFilter = new EntityFilter();
+  config: ConfigurationItem = new ConfigurationItem();
 
   private _dataLoaded: EntityGrid[] = [];
   private _openedEntities: Entity[] = [];
@@ -50,10 +51,12 @@ export class EntitiesContainerComponent implements OnInit, OnDestroy {
     private _actionService: ActionService,
     private _modalService: ModalService,
     private _authService: AuthService,
-    private _permissionsUserService: UserPermissionsService
+    private _permissionsUserService: UserPermissionsService,
+    private _configurationService: ConfigurationService
   ) {
     this._createPageFilter();
     this._createFilterParameters();
+    this._setSubscriptions();
   }
 
   ngOnInit(): void {
@@ -233,6 +236,16 @@ export class EntitiesContainerComponent implements OnInit, OnDestroy {
   }
 
   makeConditions(): string { return '#|V|#'; }
+
+  private _setSubscriptions(): void {
+    this._configurationService.getConfiguration()
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe(config => {
+        if (config) {
+          this.config = config.items.find(c => c.literalKey === EnumLiteralKeys.eModule_Entities) || new ConfigurationItem();
+        }
+      });
+  }
 
   private _createPageFilter(): void { this._pageFilter = new PageFilter(); }
   private _createFilterParameters(): void { this.filterParameters = new EntityFilter(); }

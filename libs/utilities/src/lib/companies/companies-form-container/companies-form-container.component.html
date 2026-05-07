@@ -1,0 +1,14 @@
+﻿<lfsoft-shared-message></lfsoft-shared-message>
+
+<lfsoft-shared-layout [title]="'TITLE.companies' | translate">
+  <app-company-form
+    formContent
+    [company]="0"
+    (save)="onSaveCompany()"
+    (cancel)="onCancelCompany()">
+  </app-company-form>
+</lfsoft-shared-layout>
+
+
+
+

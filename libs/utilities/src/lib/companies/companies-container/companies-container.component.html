@@ -1,0 +1,47 @@
+﻿<lfsoft-shared-message></lfsoft-shared-message>
+
+<lfsoft-shared-layout [title]="'TITLE.companies' | translate" class="companies-container">
+  <app-company-grid-filter
+    filterContent
+    class="companies-container__filter"
+    [filter]="filterParameters"
+    (apply)="onFilterApplied($event)">
+  </app-company-grid-filter>
+
+  <app-company-grid
+    gridContent
+    class="companies-container__grid"
+    (edit)="onEdit($event)"
+    (delete)="onDeleteCompany($event)"
+    (open)="onOpenCompany($event)"
+    (sortChange)="onSortChange($event)"
+    (scrollEndChange)="onLoadNextPage()">
+  </app-company-grid>
+
+  <div formContent>
+    <mat-tab-group [selectedIndex]="selectedTabIndex" [style.border]="'4px solid ' + config.color">
+      <mat-tab *ngFor="let companyId of openedCompaniesId">
+        <ng-template mat-tab-label>
+          <div class="companies-container__tab" (click)="onClickTab(companyId)">
+            <div class="companies-container__tab-label">
+              {{ getCompanyById(companyId)?.company_razonSocial || ('TITLE.companies' | translate) }}
+            </div>
+            <button mat-icon-button class="companies-container__tab-button" (click)="onCloseTab(companyId); $event.stopPropagation()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        </ng-template>
+
+        <app-company-form
+          [company]="getCompanyById(companyId) || companyId"
+          (save)="onSaveCompany($event)"
+          (cancel)="onCancelCompany()">
+        </app-company-form>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</lfsoft-shared-layout>
+
+
+
+

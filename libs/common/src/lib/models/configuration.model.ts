@@ -15,5 +15,5 @@ export class Configuration {
 
 export class ConfigurationItem {
   literalKey: EnumLiteralKeys = EnumLiteralKeys.eLiteralKey_Empty;
-  color: string = 'RGB(255, 0, 0)';
+  color: string = 'RGB(0, 0, 0)';
 }

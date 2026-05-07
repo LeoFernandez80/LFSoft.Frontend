@@ -2,7 +2,7 @@
 @import 'styles/container.scss';
 @import 'styles/form.scss';
 
-.persons-filter-tab {
+.person-filter-tab {
   @extend .container-tab-header;
   &__label { @extend .container-tab-header__label; }
 }

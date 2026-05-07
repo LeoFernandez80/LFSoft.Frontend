@@ -1,0 +1,33 @@
+﻿<form [formGroup]="companyForm">
+  <div class="company-data-form">
+    <div class="company-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('company_id')">
+        <label class="company-data-form__label" for="company_id">{{ 'LABEL.id' | translate }}</label>
+      <input id="company_id" type="number" formControlName="company_id" class="company-data-form__control" readonly>
+
+    </div>
+
+    <div class="company-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('company_razonSocial')">
+      <label class="company-data-form__label" for="company_razonSocial">{{ 'LABEL.razonSocial' | translate }}</label>
+      <input id="company_razonSocial" type="text" formControlName="company_razonSocial" class="company-data-form__control">
+    </div>
+
+    <div class="company-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('company_tipo')">
+      <label class="company-data-form__label" for="company_tipo">{{ 'LABEL.type' | translate }}</label>
+      <input id="company_tipo" type="text" formControlName="company_tipo" class="company-data-form__control">
+    </div>
+
+    <div class="company-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('company_estado')">
+      <label class="company-data-form__label" for="company_estado">{{ 'LABEL.status' | translate }}</label>
+      <input id="company_estado" type="text" formControlName="company_estado" class="company-data-form__control">
+    </div>
+
+    <div class="company-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('company_observacion')">
+      <label class="company-data-form__label" for="company_observacion">{{ 'LABEL.observacion' | translate }}</label>
+      <input id="company_observacion" type="text" formControlName="company_observacion" class="company-data-form__control">
+    </div>
+  </div>
+</form>
+
+
+
+

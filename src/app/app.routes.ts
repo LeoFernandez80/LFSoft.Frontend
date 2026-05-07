@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+﻿import { Routes } from '@angular/router';
 import { AuthGuard, PermissionGuard } from '@lib/security';
 import { LoginContainerComponent } from './core/components/login/login-container/login-container.component';
 import { LogoutComponent } from './core/components/logout/logout.component';
@@ -9,7 +9,7 @@ import { LoginRegisterFormComponent } from './core/components/login/login-regist
 import { EnumLiteralKeys } from 'libs/common/src/lib/enums/literal-keys.enum';
 
 export const routes: Routes = [
-  // Ruta principal del módulo de login
+  // Ruta principal del mÃ³dulo de login
   {
     path: 'login',
     component: LoginContainerComponent
@@ -18,7 +18,7 @@ export const routes: Routes = [
     path: 'logout',
     component: LogoutComponent
   },
-  // Ruta principal del módulo principal
+  // Ruta principal del mÃ³dulo principal
   {
     path: 'home',
     component: App
@@ -31,7 +31,7 @@ export const routes: Routes = [
     path: '',
     component: App
   },
-  // Ruta del módulo de entidades desde @lib/utilities
+  // Ruta del mÃ³dulo de entidades desde @lib/utilities
     {
     path: 'entities-module',
     canActivate: [AuthGuard, PermissionGuard],
@@ -39,7 +39,14 @@ export const routes: Routes = [
     loadChildren: () =>
       import('@lib/utilities').then(m => m.EntitiesModule)
   },
-  // Ruta del módulo de personas desde @lib/utilities
+    {
+      path: 'companies-module',
+      canActivate: [AuthGuard, PermissionGuard],
+      data: {literalKeyType: EnumLiteralKeys.eModule_Companies },
+      loadChildren: () =>
+        import('@lib/utilities').then(m => m.CompaniesModule)
+    },
+  // Ruta del mÃ³dulo de personas desde @lib/utilities
     {
     path: 'persons-module',
     canActivate: [AuthGuard, PermissionGuard],
@@ -47,8 +54,28 @@ export const routes: Routes = [
     loadChildren: () =>
       import('@lib/utilities').then(m => m.PersonsModule)
   },
-
-  // Módulos lazy cargados y protegidos
+{
+      path: 'paridades-module',
+      canActivate: [AuthGuard, PermissionGuard],
+      data: {literalKeyType: EnumLiteralKeys.eModule_Paridades },
+      loadChildren: () =>
+        import('@lib/basic-configuration').then(m => m.ParidadesModule)
+    },
+    {
+      path: 'basic-configuration-module',
+      canActivate: [AuthGuard, PermissionGuard],
+      data: {literalKeyType: EnumLiteralKeys.eModule_BasicConfiguration },
+      loadChildren: () =>
+        import('@lib/basic-configuration').then(m => m.BasicConfigurationDashboardModule)
+    },
+    {
+      path: 'users-module',
+      canActivate: [AuthGuard, PermissionGuard],
+      data: {literalKeyType: EnumLiteralKeys.eModule_UsersAndSecurity },
+      loadChildren: () =>
+        import('@lib/users').then(m => m.UsersDashboardModule)
+    },
+  // MÃ³dulos lazy cargados y protegidos
   // {
   //   path: 'persons-module',
   //   canActivate: [AuthGuard, PermissionGuard],
@@ -106,3 +133,4 @@ export const routes: Routes = [
       import('@lib/security').then(m => m.UserRolesModule)
   }
 ];
+

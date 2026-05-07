@@ -336,8 +336,7 @@ export class UsersContainerComponent implements OnInit, OnDestroy {
     this._configurationService.getConfiguration()
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe(config => {
-        if (config) {  
-
+        if (config) {
           this.config = config.items.find(c => c.literalKey === 'eModule_Users') || new ConfigurationItem();
         }
       });

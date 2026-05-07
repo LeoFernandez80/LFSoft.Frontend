@@ -39,12 +39,19 @@ Definir la validacion final del modulo una vez implementado, con foco en un comp
 2. Los campos ocultos respetan el rol actual.
 3. Una entidad lockeada abre en modo readonly.
 4. El cierre de lock se ejecuta al cancelar o cerrar cuando corresponde.
+5. El contenedor usa `EnumLiteralKeys.eModule_<EntityPlural>` para resolver acciones.
+6. La grilla usa `EnumLiteralKeys.eGrid_<EntityPlural>` en seguridad y en `[literalKey]` del template.
+7. El formulario y secciones usan `EnumLiteralKeys.eForm_<EntitySingular>` para acciones y `hideFields(...)`.
 
 ## Validacion de integracion
 1. Los endpoints usados por el servicio responden con el contrato esperado.
 2. La serializacion del filtro coincide con lo esperado por backend.
 3. Las traducciones y literales resuelven textos visibles.
 4. La configuracion de grilla por usuario no rompe el render inicial.
+5. El container lee configuracion de modulo con `ConfigurationService.getConfiguration()` y `EnumLiteralKeys.eModule_<EntityPlural>`.
+6. La UI del container aplica `config.color` en elementos visuales (por ejemplo toolbar/tabs) sin errores en primer render.
+7. La accion `eAction_Open<EntityPlural>` existe en `PermisionsActionsService` y abre ruta valida en `MenuesService`.
+8. Si aplica Home, el usuario ADMIN visualiza el acceso al modulo desde Home.
 
 ## Evidencia recomendada
 - Captura de compilacion exitosa.

@@ -38,4 +38,10 @@
     min-height: 0;
     height: 100%;
   }
+
+  &__toolbar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem 1rem;
+  }
 }

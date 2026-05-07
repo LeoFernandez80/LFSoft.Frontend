@@ -1,0 +1,15 @@
+﻿<lfsoft-shared-form [title]="'TITLE.companies' | translate">
+  <div data>
+    <app-company-data-form
+      #formCompanyData
+      [company]="companyData"
+      (dataChange)="onCompanyDataChange()">
+    </app-company-data-form>
+  </div>
+
+  <lfsoft-shared-actions footerContent (action)="onAction($event)"></lfsoft-shared-actions>
+</lfsoft-shared-form>
+
+
+
+
