@@ -1,0 +1,45 @@
+﻿@import 'styles/container.scss';
+@import 'styles/floating-toolbar';
+
+.body {
+  height: 100vh;
+  background: var(--container-primary-bg);
+  position: relative;
+}
+
+.actividades-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+
+  &__tab {
+    @extend .container-tab-header;
+    &-label {
+      @extend .container-tab-header__label;
+    }
+    &-button {
+      @extend .container-tab-header__button;
+    }
+  }
+
+  &__content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  &__filter {
+    flex: 0 0 auto;
+    height: 500px;
+    overflow-y: auto;
+  }
+
+  &__grid {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+  }
+}

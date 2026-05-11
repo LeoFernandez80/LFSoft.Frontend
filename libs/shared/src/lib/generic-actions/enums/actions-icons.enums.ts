@@ -36,7 +36,12 @@ export const enum EnumActionsIcons {
     openInvoices = 'invoices',
     openCustomers = 'person_2',
     openParidades = 'currency_exchange',
+    openActividades = 'construction',
+    openAlicuotasIva = 'request_quote',
+    openUnidadesMedida = 'straighten',
+    openFamilias = 'category',
     openBasicConfiguration = 'build',
     openUsersAndSecurity = 'security',
+    openGrupos = 'group',
 }
 

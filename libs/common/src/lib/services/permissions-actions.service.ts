@@ -18,20 +18,27 @@ export class PermisionsActionsService {
 
     //Crear todas las acciones aquÃ­
     this._actions.set(EnumActions.eAction_OpenHome, new Action('BUTTON.home', EnumActions.eAction_OpenHome, EnumActionsIcons.openHome, false, EnumActionsViewType.view16x16));
-    this._actions.set(EnumActions.eAction_OpenArticles, new Action('BUTTON.articles', EnumActions.eAction_OpenArticles, EnumActionsIcons.openArticles, false, EnumActionsViewType.view16x16));
-    this._actions.set(EnumActions.eAction_OpenUsers, new Action('BUTTON.users', EnumActions.eAction_OpenUsers, EnumActionsIcons.openUsers, false, EnumActionsViewType.view16x16));
-    this._actions.set(EnumActions.eAction_OpenUserRoles, new Action('BUTTON.userRoles', EnumActions.eAction_OpenUserRoles, EnumActionsIcons.openUserRoles, false, EnumActionsViewType.view16x16));
+    this._actions.set(EnumActions.eAction_OpenBasicConfiguration, new Action('BUTTON.basicConfiguration', EnumActions.eAction_OpenBasicConfiguration, EnumActionsIcons.openBasicConfiguration, false, EnumActionsViewType.view16x16));
+    this._actions.set(EnumActions.eAction_OpenPersons, new Action('BUTTON.persons', EnumActions.eAction_OpenPersons, EnumActionsIcons.openPersons, false, EnumActionsViewType.view16x16));
+    this._actions.set(EnumActions.eAction_OpenParidades, new Action('BUTTON.paridades', EnumActions.eAction_OpenParidades, EnumActionsIcons.openParidades, false, EnumActionsViewType.view16x16));
+    this._actions.set(EnumActions.eAction_OpenFamilias, new Action('BUTTON.familias', EnumActions.eAction_OpenFamilias, EnumActionsIcons.openFamilias, false, EnumActionsViewType.view16x16));
+    this._actions.set(EnumActions.eAction_OpenAlicuotasIva, new Action('BUTTON.alicuotasIva', EnumActions.eAction_OpenAlicuotasIva, EnumActionsIcons.openAlicuotasIva, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenEntities, new Action('BUTTON.entities', EnumActions.eAction_OpenEntities, EnumActionsIcons.openEntities, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenCompanies, new Action('BUTTON.companies', EnumActions.eAction_OpenCompanies, EnumActionsIcons.openCompanies, false, EnumActionsViewType.view16x16));
+    this._actions.set(EnumActions.eAction_OpenUnidadesMedida, new Action('BUTTON.unidadesMedida', EnumActions.eAction_OpenUnidadesMedida, EnumActionsIcons.openUnidadesMedida, false, EnumActionsViewType.view16x16));
+    this._actions.set(EnumActions.eAction_OpenActividades, new Action('BUTTON.actividades', EnumActions.eAction_OpenActividades, EnumActionsIcons.openActividades, false, EnumActionsViewType.view16x16));
+    this._actions.set(EnumActions.eAction_OpenGrupos, new Action('BUTTON.grupos', EnumActions.eAction_OpenGrupos, EnumActionsIcons.openGrupos, false, EnumActionsViewType.view16x16));
+
+    this._actions.set(EnumActions.eAction_OpenUsersAndSecurity, new Action('BUTTON.usersAndPermissions', EnumActions.eAction_OpenUsersAndSecurity, EnumActionsIcons.openUsersAndSecurity, false, EnumActionsViewType.view16x16));
+    this._actions.set(EnumActions.eAction_OpenUserRoles, new Action('BUTTON.userRoles', EnumActions.eAction_OpenUserRoles, EnumActionsIcons.openUserRoles, false, EnumActionsViewType.view16x16));
+    this._actions.set(EnumActions.eAction_OpenUsers, new Action('BUTTON.users', EnumActions.eAction_OpenUsers, EnumActionsIcons.openUsers, false, EnumActionsViewType.view16x16));
+    
+    this._actions.set(EnumActions.eAction_OpenArticles, new Action('BUTTON.articles', EnumActions.eAction_OpenArticles, EnumActionsIcons.openArticles, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenCustomers, new Action('BUTTON.customers', EnumActions.eAction_OpenCustomers, EnumActionsIcons.openCustomers, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenDocuments, new Action('BUTTON.documents', EnumActions.eAction_OpenDocuments, EnumActionsIcons.openDocuments, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenQuotes, new Action('BUTTON.quotes', EnumActions.eAction_OpenQuotes, EnumActionsIcons.openQuotes, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenInvoices, new Action('BUTTON.invoices', EnumActions.eAction_OpenInvoices, EnumActionsIcons.openInvoices, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_OpenConfig, new Action('BUTTON.config', EnumActions.eAction_OpenConfig, EnumActionsIcons.openConfig, false, EnumActionsViewType.view16x16));
-    this._actions.set(EnumActions.eAction_OpenPersons, new Action('BUTTON.persons', EnumActions.eAction_OpenPersons, EnumActionsIcons.openPersons, false, EnumActionsViewType.view16x16));
-    this._actions.set(EnumActions.eAction_OpenParidades, new Action('BUTTON.paridades', EnumActions.eAction_OpenParidades, EnumActionsIcons.openParidades, false, EnumActionsViewType.view16x16));
-    this._actions.set(EnumActions.eAction_OpenBasicConfiguration, new Action('BUTTON.basicConfiguration', EnumActions.eAction_OpenBasicConfiguration, EnumActionsIcons.openBasicConfiguration, false, EnumActionsViewType.view16x16));
-    this._actions.set(EnumActions.eAction_OpenUsersAndSecurity, new Action('BUTTON.usersAndPermissions', EnumActions.eAction_OpenUsersAndSecurity, EnumActionsIcons.openUsersAndSecurity, false, EnumActionsViewType.view16x16));
     
     this._actions.set(EnumActions.eAction_New, new Action('BUTTON.new', EnumActions.eAction_New, EnumActionsIcons.actionNew, false, EnumActionsViewType.view16x16));
     this._actions.set(EnumActions.eAction_Edit, new Action('BUTTON.edit', EnumActions.eAction_Edit, EnumActionsIcons.actionEdit, false, EnumActionsViewType.view16x16));

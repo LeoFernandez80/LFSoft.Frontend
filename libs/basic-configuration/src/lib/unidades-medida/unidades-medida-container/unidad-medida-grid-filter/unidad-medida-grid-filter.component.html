@@ -1,0 +1,34 @@
+<lfsoft-shared-form [title]="'TITLE.filter' | translate">
+  <div data>
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="unidades-medida-filter-tab">
+            <div class="unidades-medida-filter-tab__label">
+              {{ 'TITLE.unidadMedidaData' | translate }}
+            </div>
+          </div>
+        </ng-template>
+        <form [formGroup]="form">
+          <div class="unidades-medida-filter">
+            <div class="unidades-medida-filter__group" col-span="2">
+              <label class="unidades-medida-filter__label" for="unidadMedida_codigo">{{ 'LABEL.codigo' | translate }}</label>
+              <input id="unidadMedida_codigo" type="number" formControlName="unidadMedida_codigo" class="unidades-medida-filter__control">
+            </div>
+
+            <div class="unidades-medida-filter__group" col-span="2">
+              <label class="unidades-medida-filter__label" for="unidadMedida_descripcion">{{ 'LABEL.descripcion' | translate }}</label>
+              <input id="unidadMedida_descripcion" type="text" formControlName="unidadMedida_descripcion" class="unidades-medida-filter__control">
+            </div>
+
+            <div class="unidades-medida-filter__group" col-span="2">
+              <label class="unidades-medida-filter__label" for="unidadMedida_abreviatura">{{ 'LABEL.abreviatura' | translate }}</label>
+              <input id="unidadMedida_abreviatura" type="text" formControlName="unidadMedida_abreviatura" class="unidades-medida-filter__control">
+            </div>
+          </div>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <lfsoft-shared-actions footerContent (action)="onAction($event)"></lfsoft-shared-actions>
+</lfsoft-shared-form>

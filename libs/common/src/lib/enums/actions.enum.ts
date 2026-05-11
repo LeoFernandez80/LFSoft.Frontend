@@ -15,6 +15,11 @@
     eAction_OpenCustomers = 'eAction_OpenCustomers',
     eAction_OpenPersons = 'eAction_OpenPersons',
     eAction_OpenParidades = 'eAction_OpenParidades',
+    eAction_OpenActividades = 'eAction_OpenActividades',
+    eAction_OpenAlicuotasIva = 'eAction_OpenAlicuotasIva',
+    eAction_OpenUnidadesMedida = 'eAction_OpenUnidadesMedida',
+    eAction_OpenFamilias = 'eAction_OpenFamilias',
+    eAction_OpenGrupos = 'eAction_OpenGrupos',
     
     eAction_New = 'eAction_New',
     eAction_Edit = 'eAction_Edit',

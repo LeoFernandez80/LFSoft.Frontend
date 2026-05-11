@@ -1,0 +1,31 @@
+<lfsoft-shared-form [title]="'TITLE.filter' | translate">
+  <div data>
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="familias-filter-tab">
+            <div class="familias-filter-tab__label">
+              {{ 'TITLE.familias' | translate }}
+            </div>
+          </div>
+        </ng-template>
+
+        <form [formGroup]="form">
+          <div class="familias-filter">
+            <div class="familias-filter__group">
+              <label class="familias-filter__label" for="familia_codigo">{{ 'LABEL.familia_codigo' | translate }}</label>
+              <input id="familia_codigo" type="number" formControlName="familia_codigo" class="familias-filter__control">
+            </div>
+
+            <div class="familias-filter__group">
+              <label class="familias-filter__label" for="familia_descripcion">{{ 'LABEL.familia_descripcion' | translate }}</label>
+              <input id="familia_descripcion" type="text" formControlName="familia_descripcion" class="familias-filter__control">
+            </div>
+          </div>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <lfsoft-shared-actions footerContent (action)="onAction($event)"></lfsoft-shared-actions>
+</lfsoft-shared-form>

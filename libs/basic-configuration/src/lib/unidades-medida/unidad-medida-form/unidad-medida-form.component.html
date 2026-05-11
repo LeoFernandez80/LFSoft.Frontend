@@ -1,0 +1,11 @@
+<lfsoft-shared-form [title]="'TITLE.unidadMedidaData' | translate">
+  <div data>
+    <app-unidad-medida-data-form
+      #formUnidadMedidaData
+      [unidadMedida]="unidadMedidaData"
+      (dataChange)="onUnidadMedidaDataChange()">
+    </app-unidad-medida-data-form>
+  </div>
+
+  <lfsoft-shared-actions footerContent (action)="onAction($event)"></lfsoft-shared-actions>
+</lfsoft-shared-form>

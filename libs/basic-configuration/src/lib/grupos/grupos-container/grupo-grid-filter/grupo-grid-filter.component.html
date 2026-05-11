@@ -1,0 +1,36 @@
+﻿<lfsoft-shared-form [title]="'TITLE.filter' | translate">
+  <div data>
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="grupos-filter-tab">
+            <div class="grupos-filter-tab__label">
+              {{ 'TITLE.grupo' | translate }}
+            </div>
+          </div>
+        </ng-template>
+
+        <form [formGroup]="form">
+          <div class="grupo-filter">
+            <div class="grupo-filter__group">
+              <label class="grupo-filter__label" for="grupo_codigo">{{ 'LABEL.number' | translate }}</label>
+              <input id="grupo_codigo" type="number" formControlName="grupo_codigo" class="grupo-filter__control">
+            </div>
+
+            <div class="grupo-filter__group">
+              <label class="grupo-filter__label" for="grupo_descripcion">{{ 'LABEL.grupo_descripcion' | translate }}</label>
+              <input id="grupo_descripcion" type="text" formControlName="grupo_descripcion" class="grupo-filter__control">
+            </div>
+
+            <div class="grupo-filter__group">
+              <label class="grupo-filter__label" for="grupo_familiaCodigo">{{ 'LABEL.grupo_familiaCodigo' | translate }}</label>
+              <input id="grupo_familiaCodigo" type="number" formControlName="grupo_familiaCodigo" class="grupo-filter__control">
+            </div>
+          </div>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <lfsoft-shared-actions footerContent (action)="onAction($event)"></lfsoft-shared-actions>
+</lfsoft-shared-form>

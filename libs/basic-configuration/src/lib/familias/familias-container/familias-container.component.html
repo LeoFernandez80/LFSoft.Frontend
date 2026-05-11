@@ -1,0 +1,49 @@
+<div class="body">
+  <div class="floating-toolbar" [style.border]="'4px solid ' + config.color">
+    <lfsoft-shared-actions (action)="onAction($event)"></lfsoft-shared-actions>
+  </div>
+
+  <lfsoft-shared-message></lfsoft-shared-message>
+
+  <lfsoft-shared-layout [title]="'TITLE.familias' | translate" class="familias-container">
+    <app-familia-grid-filter
+      filterContent
+      class="familias-container__filter"
+      [filter]="filterParameters"
+      (apply)="onFilterApplied($event)">
+    </app-familia-grid-filter>
+
+    <app-familia-grid
+      gridContent
+      class="familias-container__grid"
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)"
+      (open)="onOpen($event)"
+      (sortChange)="onSortChange($event)"
+      (scrollEndChange)="onLoadNextPage()">
+    </app-familia-grid>
+
+    <div formContent>
+      <mat-tab-group [selectedIndex]="selectedTabIndex" [style.border]="'4px solid ' + config.color">
+        <mat-tab *ngFor="let familiaId of openedFamiliasId">
+          <ng-template mat-tab-label>
+            <div class="familias-container__tab" (click)="onClickTab(familiaId)">
+              <div class="familias-container__tab-label">
+                {{ getFamiliaById(familiaId)?.familia_descripcion || ('TITLE.familias' | translate) }}
+              </div>
+              <button mat-icon-button class="familias-container__tab-button" (click)="onCloseTab(familiaId); $event.stopPropagation()">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+          </ng-template>
+
+          <app-familia-form
+            [familia]="getFamiliaById(familiaId) || familiaId"
+            (save)="onSave($event)"
+            (cancel)="onCancel()">
+          </app-familia-form>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </lfsoft-shared-layout>
+</div>

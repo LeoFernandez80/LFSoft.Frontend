@@ -1,0 +1,13 @@
+<form [formGroup]="familiaForm">
+  <div class="familia-data-form">
+    <div class="familia-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('familia_codigo')">
+      <label class="familia-data-form__label" for="familia_codigo">{{ 'LABEL.familia_codigo' | translate }}</label>
+      <label for="familia_codigo" formControlName="familia_codigo" class="familia-data-form__control"></label>
+    </div>
+
+    <div class="familia-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('familia_descripcion')">
+      <label class="familia-data-form__label" for="familia_descripcion">{{ 'LABEL.familia_descripcion' | translate }}</label>
+      <input id="familia_descripcion" type="text" formControlName="familia_descripcion" class="familia-data-form__control">
+    </div>
+  </div>
+</form>

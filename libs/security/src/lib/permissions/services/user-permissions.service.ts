@@ -84,7 +84,7 @@ export class UserPermissionsService {
         userRolId: EnumUserRole.VIEWER,
         eTypeLiteralKey: EnumLiteralKeys.eModule_BasicConfiguration,
         permissionConditions: '#|V|#',
-        permitionsActions: '#|eAction_OpenEntities|eAction_OpenCompanies|eAction_OpenPersons|#',
+        permitionsActions: '#|eAction_OpenEntities|eAction_OpenCompanies|eAction_OpenPersons|eAction_OpenFamilias|#',
         caseId: 1
       },
     //Entities
@@ -155,6 +155,50 @@ export class UserPermissionsService {
       permitionsActions: '#|eAction_Cancel|#',
       caseId: 1
     },
+    //UnidadesMedida
+    {
+      userRolId: EnumUserRole.VIEWER,
+      eTypeLiteralKey: EnumLiteralKeys.eModule_UnidadesMedida,
+      permissionConditions: '#|V|#',
+      permitionsActions: '',
+      caseId: 2
+    },
+    {
+      userRolId: EnumUserRole.VIEWER,
+      eTypeLiteralKey: EnumLiteralKeys.eGrid_UnidadesMedida,
+      permissionConditions: '#|V|#',
+      permitionsActions: '#|eAction_Open|#',
+      caseId: 1
+    },
+    {
+      userRolId: EnumUserRole.VIEWER,
+      eTypeLiteralKey: EnumLiteralKeys.eForm_UnidadesMedida,
+      permissionConditions: '#|V|#',
+      permitionsActions: '#|eAction_Cancel|#',
+      caseId: 1
+    },
+    //Familias
+    {
+      userRolId: EnumUserRole.VIEWER,
+      eTypeLiteralKey: EnumLiteralKeys.eModule_Familias,
+      permissionConditions: '#|V|#',
+      permitionsActions: '',
+      caseId: 2
+    },
+    {
+      userRolId: EnumUserRole.VIEWER,
+      eTypeLiteralKey: EnumLiteralKeys.eGrid_Familias,
+      permissionConditions: '#|V|#',
+      permitionsActions: '#|eAction_Edit|#',
+      caseId: 1
+    },
+    {
+      userRolId: EnumUserRole.VIEWER,
+      eTypeLiteralKey: EnumLiteralKeys.eForm_Familia,
+      permissionConditions: '#|V|#',
+      permitionsActions: '#|eAction_Cancel|#',
+      caseId: 1
+    },
     );
   }
 
@@ -164,7 +208,7 @@ export class UserPermissionsService {
         userRolId: EnumUserRole.ADMIN,
         eTypeLiteralKey: EnumLiteralKeys.eModule_BasicConfiguration,
         permissionConditions: '#|V|#',
-        permitionsActions: '#|eAction_OpenHome|eAction_OpenParidades|eAction_OpenEntities|eAction_OpenCompanies|eAction_OpenPersons|#',
+        permitionsActions: '#|eAction_OpenHome|eAction_OpenParidades|eAction_OpenUnidadesMedida|eAction_OpenEntities|eAction_OpenCompanies|eAction_OpenPersons|eAction_OpenFamilias|eAction_OpenGrupos|eAction_OpenActividades|#',
         caseId: 1
       },
 
@@ -255,6 +299,95 @@ export class UserPermissionsService {
       {
         userRolId: EnumUserRole.ADMIN,
         eTypeLiteralKey: EnumLiteralKeys.eForm_Paridades,
+        permissionConditions: '#|V|#',
+        permitionsActions: '#|eAction_Save|eAction_Cancel|#',
+        caseId: 1
+      },
+      //UnidadesMedida
+      {
+        userRolId: EnumUserRole.ADMIN,
+        eTypeLiteralKey: EnumLiteralKeys.eModule_UnidadesMedida,
+        permissionConditions: '#|V|#',
+        permitionsActions: '#|eAction_OpenBasicConfiguration|eAction_New|#',
+        caseId: 2
+      },
+      {
+        userRolId: EnumUserRole.ADMIN,
+        eTypeLiteralKey: EnumLiteralKeys.eGrid_UnidadesMedida,
+        permissionConditions: '#|V|#',
+        permitionsActions: '#|eAction_Edit|eAction_Delete|eAction_Open|#',
+        caseId: 1
+      },
+      {
+        userRolId: EnumUserRole.ADMIN,
+        eTypeLiteralKey: EnumLiteralKeys.eForm_UnidadesMedida,
+        permissionConditions: '#|V|#',
+        permitionsActions: '#|eAction_Save|eAction_Cancel|#',
+        caseId: 1
+      },
+      //Familias
+      {
+        userRolId: EnumUserRole.ADMIN,
+        eTypeLiteralKey: EnumLiteralKeys.eModule_Familias,
+        permissionConditions: '#|V|#',
+        permitionsActions: '#|eAction_OpenBasicConfiguration|eAction_New|#',
+        caseId: 2
+      },
+      {
+        userRolId: EnumUserRole.ADMIN,
+        eTypeLiteralKey: EnumLiteralKeys.eGrid_Familias,
+        permissionConditions: '#|V|#',
+        permitionsActions: '#|eAction_Edit|eAction_Delete|eAction_Open|#',
+        caseId: 1
+      },
+      {
+        userRolId: EnumUserRole.ADMIN,
+        eTypeLiteralKey: EnumLiteralKeys.eForm_Familia,
+        permissionConditions: '#|V|#',
+        permitionsActions: '#|eAction_Save|eAction_Cancel|#',
+        caseId: 1
+      },
+      //Grupos
+      {
+        userRolId: EnumUserRole.ADMIN,
+        eTypeLiteralKey: EnumLiteralKeys.eModule_Grupos,
+        permissionConditions: '#|V|#',
+        permitionsActions: '#|eAction_OpenBasicConfiguration|eAction_New|#',
+        caseId: 2
+      },
+      {
+        userRolId: EnumUserRole.ADMIN,
+        eTypeLiteralKey: EnumLiteralKeys.eGrid_Grupos,
+        permissionConditions: '#|V|#',
+        permitionsActions: '#|eAction_Edit|eAction_Delete|eAction_Open|#',
+        caseId: 1
+      },
+      {
+        userRolId: EnumUserRole.ADMIN,
+        eTypeLiteralKey: EnumLiteralKeys.eForm_Grupo,
+        permissionConditions: '#|V|#',
+        permitionsActions: '#|eAction_Save|eAction_Cancel|#',
+        caseId: 1
+      },
+
+      //Actividades
+      {
+        userRolId: EnumUserRole.ADMIN,
+        eTypeLiteralKey: EnumLiteralKeys.eModule_Actividades,
+        permissionConditions: '#|V|#',
+        permitionsActions: '#|eAction_OpenBasicConfiguration|eAction_New|#',
+        caseId: 2
+      },
+      {
+        userRolId: EnumUserRole.ADMIN,
+        eTypeLiteralKey: EnumLiteralKeys.eGrid_Actividades,
+        permissionConditions: '#|V|#',
+        permitionsActions: '#|eAction_Edit|eAction_Delete|eAction_Open|#',
+        caseId: 1
+      },
+      {
+        userRolId: EnumUserRole.ADMIN,
+        eTypeLiteralKey: EnumLiteralKeys.eForm_Actividad,
         permissionConditions: '#|V|#',
         permitionsActions: '#|eAction_Save|eAction_Cancel|#',
         caseId: 1
@@ -455,6 +588,26 @@ export class UserPermissionsService {
         userRolId: EnumUserRole.VIEWER,
         eTypeLiteralKey: EnumLiteralKeys.eForm_Paridades,
         hiddenFields: 'paridad_fecha'
+      },
+      {
+        userRolId: EnumUserRole.ADMIN,
+        eTypeLiteralKey: EnumLiteralKeys.eForm_Familia,
+        hiddenFields: 'familia_codigo'
+      },
+      {
+        userRolId: EnumUserRole.VIEWER,
+        eTypeLiteralKey: EnumLiteralKeys.eForm_Familia,
+        hiddenFields: 'familia_codigo'
+      },
+      {
+        userRolId: EnumUserRole.ADMIN,
+        eTypeLiteralKey: EnumLiteralKeys.eForm_UnidadesMedida,
+        hiddenFields: 'unidadMedida_codigo'
+      },
+      {
+        userRolId: EnumUserRole.VIEWER,
+        eTypeLiteralKey: EnumLiteralKeys.eForm_UnidadesMedida,
+        hiddenFields: 'unidadMedida_codigo'
       }
     );
   }

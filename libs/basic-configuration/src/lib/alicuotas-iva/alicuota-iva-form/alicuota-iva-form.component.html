@@ -1,0 +1,10 @@
+<lfsoft-shared-form [title]="'TITLE.alicuotaIvaData' | translate">
+  <div data>
+    <app-alicuota-iva-data-form
+      #formAlicuotaIvaData
+      [alicuotaIva]="alicuotaIvaData"
+      (dataChange)="onAlicuotaIvaDataChange()">
+    </app-alicuota-iva-data-form>
+  </div>
+  <lfsoft-shared-actions footerContent (action)="onAction($event)"></lfsoft-shared-actions>
+</lfsoft-shared-form>

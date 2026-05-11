@@ -1,0 +1,49 @@
+﻿<div class="body">
+  <div class="floating-toolbar" [style.border]="'4px solid ' + config.color">
+    <lfsoft-shared-actions (action)="onAction($event)"></lfsoft-shared-actions>
+  </div>
+
+  <lfsoft-shared-message></lfsoft-shared-message>
+
+  <lfsoft-shared-layout [title]="'TITLE.grupos' | translate" class="grupos-container">
+    <app-grupo-grid-filter
+      filterContent
+      class="grupos-container__filter"
+      [filter]="filterParameters"
+      (apply)="onFilterApplied($event)">
+    </app-grupo-grid-filter>
+
+    <app-grupo-grid
+      gridContent
+      class="grupos-container__grid"
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)"
+      (open)="onOpen($event)"
+      (sortChange)="onSortChange($event)"
+      (scrollEndChange)="onLoadNextPage()">
+    </app-grupo-grid>
+
+    <div formContent>
+      <mat-tab-group [selectedIndex]="selectedTabIndex" [style.border]="'4px solid ' + config.color">
+        <mat-tab *ngFor="let grupoId of openedGruposId">
+          <ng-template mat-tab-label>
+            <div class="grupos-container__tab" (click)="onClickTab(grupoId)">
+              <div class="grupos-container__tab-label">
+                {{ getGrupoById(grupoId)?.grupo_descripcion || ('TITLE.grupos' | translate) }}
+              </div>
+              <button mat-icon-button class="grupos-container__tab-button" (click)="onCloseTab(grupoId); $event.stopPropagation()">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+          </ng-template>
+
+          <app-grupo-form
+            [grupo]="getGrupoById(grupoId) || grupoId"
+            (save)="onSave($event)"
+            (cancel)="onCancel()">
+          </app-grupo-form>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </lfsoft-shared-layout>
+</div>

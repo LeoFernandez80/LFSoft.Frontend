@@ -1,0 +1,9 @@
+<lfsoft-shared-message></lfsoft-shared-message>
+<lfsoft-shared-layout [title]="'TITLE.unidadesMedida' | translate" class="unidades-medida-container">
+  <app-unidad-medida-form
+    formContent
+    [unidadMedida]="unidadMedidaId"
+    (save)="onSaveUnidadMedida($event)"
+    (cancel)="onCancelUnidadMedida()">
+  </app-unidad-medida-form>
+</lfsoft-shared-layout>

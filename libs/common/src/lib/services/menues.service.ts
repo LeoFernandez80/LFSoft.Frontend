@@ -43,9 +43,14 @@ export class MenuesService {
     //Basic Configuration
     this._menues.set(EnumActions.eAction_OpenBasicConfiguration, ['basic-configuration-module', 'dashboard']);
     this._menues.set(EnumActions.eAction_OpenParidades, ['paridades-module', 'paridades']);
+    this._menues.set(EnumActions.eAction_OpenAlicuotasIva, ['alicuotas-iva-module', 'alicuotas-iva']);
+    this._menues.set(EnumActions.eAction_OpenFamilias, ['familias-module', 'familias']);
     this._menues.set(EnumActions.eAction_OpenEntities, ['entities-module', 'entities']);
     this._menues.set(EnumActions.eAction_OpenCompanies, ['companies-module', 'companies']);
     this._menues.set(EnumActions.eAction_OpenPersons, ['persons-module', 'persons']);
+    this._menues.set(EnumActions.eAction_OpenUnidadesMedida, ['unidades-medida-module', 'unidades-medida']);
+    this._menues.set(EnumActions.eAction_OpenGrupos, ['grupos-module', 'grupos']);
+    this._menues.set(EnumActions.eAction_OpenActividades, ['actividades-module', 'actividades']);
     
     //Users and Permissions
     this._menues.set(EnumActions.eAction_OpenUsersAndSecurity, ['users-module', 'dashboard']);

@@ -1,0 +1,23 @@
+<form [formGroup]="grupoForm">
+  <div class="grupo-data-form">
+    <div class="grupo-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('grupo_codigo')">
+      <label class="grupo-data-form__label" for="grupo_codigo">{{ 'LABEL.id' | translate }}</label>
+      <input id="grupo_codigo" type="number" formControlName="grupo_codigo" class="grupo-data-form__control" readonly>
+    </div>
+
+    <div class="grupo-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('grupo_descripcion')">
+      <label class="grupo-data-form__label" for="grupo_descripcion">{{ 'LABEL.grupo_descripcion' | translate }}</label>
+      <input id="grupo_descripcion" type="text" formControlName="grupo_descripcion" class="grupo-data-form__control">
+    </div>
+
+    <div class="grupo-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('grupo_familiaCodigo')">
+      <label class="grupo-data-form__label" for="grupo_familiaCodigo">{{ 'LABEL.grupo_familiaCodigo' | translate }}</label>
+      <input id="grupo_familiaCodigo" type="number" formControlName="grupo_familiaCodigo" class="grupo-data-form__control">
+    </div>
+
+    <div class="grupo-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('grupo_isActive')">
+      <label class="grupo-data-form__label" for="grupo_isActive">{{ 'LABEL.active' | translate }}</label>
+      <input id="grupo_isActive" type="checkbox" formControlName="grupo_isActive" class="grupo-data-form__checkbox">
+    </div>
+  </div>
+</form>

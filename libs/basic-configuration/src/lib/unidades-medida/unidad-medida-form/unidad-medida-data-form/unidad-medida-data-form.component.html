@@ -1,0 +1,23 @@
+<form [formGroup]="unidadMedidaForm">
+  <div class="unidad-medida-data-form">
+    <!-- <div class="unidad-medida-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('unidadMedida_codigo')">
+      <label class="unidad-medida-data-form__label" for="unidadMedida_codigo">{{ 'LABEL.id' | translate }}</label>
+      <label for="unidadMedida_codigo" formControlName="unidadMedida_codigo" class="unidad-medida-data-form__control"></label>
+    </div> -->
+
+    <div class="unidad-medida-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('unidadMedida_descripcion')">
+      <label class="unidad-medida-data-form__label" for="unidadMedida_descripcion">{{ 'LABEL.descripcion' | translate }}</label>
+      <input id="unidadMedida_descripcion" type="text" formControlName="unidadMedida_descripcion" class="unidad-medida-data-form__control">
+    </div>
+
+    <div class="unidad-medida-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('unidadMedida_abreviatura')">
+      <label class="unidad-medida-data-form__label" for="unidadMedida_abreviatura">{{ 'LABEL.abreviatura' | translate }}</label>
+      <input id="unidadMedida_abreviatura" type="text" formControlName="unidadMedida_abreviatura" class="unidad-medida-data-form__control">
+    </div>
+
+    <div class="unidad-medida-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('unidadMedida_activo')">
+      <label class="unidad-medida-data-form__label" for="unidadMedida_activo">{{ 'LABEL.active' | translate }}</label>
+      <input id="unidadMedida_activo" type="checkbox" formControlName="unidadMedida_activo" class="unidad-medida-data-form__checkbox">
+    </div>
+  </div>
+</form>

@@ -1,0 +1,50 @@
+<div class="body">
+  <div class="floating-toolbar" [style.border]="'4px solid ' + config.color">
+    <lfsoft-shared-actions (action)="onAction($event)"></lfsoft-shared-actions>
+  </div>
+
+  <lfsoft-shared-message></lfsoft-shared-message>
+  <lfsoft-shared-layout [title]="'TITLE.alicuotasIva' | translate" class="alicuotas-iva-container">
+
+    <app-alicuota-iva-grid-filter
+      filterContent
+      class="alicuotas-iva-container__filter"
+      [filter]="filterParameters"
+      (apply)="onFilterApplied($event)">
+    </app-alicuota-iva-grid-filter>
+
+    <app-alicuota-iva-grid
+      gridContent
+      class="alicuotas-iva-container__grid"
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)"
+      (open)="onOpen($event)"
+      (sortChange)="onSortChange($event)"
+      (scrollEndChange)="onLoadNextPage()">
+    </app-alicuota-iva-grid>
+
+    <div formContent>
+      <mat-tab-group [selectedIndex]="selectedTabIndex" [style.border]="'4px solid ' + config.color">
+        <mat-tab *ngFor="let codigo of openedAlicuotasIvaId">
+          <ng-template mat-tab-label>
+            <div class="alicuotas-iva-container__tab" (click)="onClickTab(codigo)">
+              <div class="alicuotas-iva-container__tab-label">
+                {{ getAlicuotaIvaByCodigo(codigo)?.alicuotaIva_descripcion || ('TITLE.alicuotasIva' | translate) }}
+              </div>
+              <button mat-icon-button class="alicuotas-iva-container__tab-button" (click)="onCloseTab(codigo); $event.stopPropagation()">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+          </ng-template>
+
+          <app-alicuota-iva-form
+            [alicuotaIva]="getAlicuotaIvaByCodigo(codigo) || codigo"
+            (save)="onSave($event)"
+            (cancel)="onCancel()">
+          </app-alicuota-iva-form>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+
+  </lfsoft-shared-layout>
+</div>

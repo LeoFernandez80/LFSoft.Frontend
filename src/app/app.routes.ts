@@ -32,13 +32,20 @@ export const routes: Routes = [
     component: App
   },
   // Ruta del mÃ³dulo de entidades desde @lib/utilities
+  {
+    path: 'basic-configuration-module',
+    canActivate: [AuthGuard, PermissionGuard],
+    data: {literalKeyType: EnumLiteralKeys.eModule_BasicConfiguration },
+    loadChildren: () =>
+      import('@lib/basic-configuration').then(m => m.BasicConfigurationDashboardModule)
+  },
     {
     path: 'entities-module',
     canActivate: [AuthGuard, PermissionGuard],
     data: {literalKeyType: EnumLiteralKeys.eModule_Entities },
     loadChildren: () =>
       import('@lib/utilities').then(m => m.EntitiesModule)
-  },
+    },
     {
       path: 'companies-module',
       canActivate: [AuthGuard, PermissionGuard],
@@ -46,15 +53,14 @@ export const routes: Routes = [
       loadChildren: () =>
         import('@lib/utilities').then(m => m.CompaniesModule)
     },
-  // Ruta del mÃ³dulo de personas desde @lib/utilities
     {
     path: 'persons-module',
     canActivate: [AuthGuard, PermissionGuard],
     data: {literalKeyType: EnumLiteralKeys.eModule_Persons },
     loadChildren: () =>
       import('@lib/utilities').then(m => m.PersonsModule)
-  },
-{
+    },
+    {
       path: 'paridades-module',
       canActivate: [AuthGuard, PermissionGuard],
       data: {literalKeyType: EnumLiteralKeys.eModule_Paridades },
@@ -62,27 +68,57 @@ export const routes: Routes = [
         import('@lib/basic-configuration').then(m => m.ParidadesModule)
     },
     {
-      path: 'basic-configuration-module',
+      path: 'familias-module',
       canActivate: [AuthGuard, PermissionGuard],
-      data: {literalKeyType: EnumLiteralKeys.eModule_BasicConfiguration },
+      data: {literalKeyType: EnumLiteralKeys.eModule_Familias },
       loadChildren: () =>
-        import('@lib/basic-configuration').then(m => m.BasicConfigurationDashboardModule)
+        import('@lib/basic-configuration').then(m => m.FamiliasModule)
     },
     {
-      path: 'users-module',
+      path: 'unidades-medida-module',
       canActivate: [AuthGuard, PermissionGuard],
-      data: {literalKeyType: EnumLiteralKeys.eModule_UsersAndSecurity },
+      data: { literalKeyType: EnumLiteralKeys.eModule_UnidadesMedida },
       loadChildren: () =>
-        import('@lib/users').then(m => m.UsersDashboardModule)
+        import('@lib/basic-configuration').then(m => m.UnidadesMedidaModule)
     },
-  // MÃ³dulos lazy cargados y protegidos
-  // {
-  //   path: 'persons-module',
-  //   canActivate: [AuthGuard, PermissionGuard],
-  //   data: { literalKeyType: EnumLiteralKeys.eModule_Persons },
-  //   loadChildren: () =>
-  //     import('@lib/utilities').then(m => m.PersonsModule)
-  // },
+    {
+      path: 'actividades-module',
+      canActivate: [AuthGuard, PermissionGuard],
+      data: {literalKeyType: EnumLiteralKeys.eModule_Actividades },
+      loadChildren: () =>
+        import('@lib/basic-configuration').then(m => m.ActividadesModule)
+    },
+    {
+      path: 'grupos-module',
+      canActivate: [AuthGuard, PermissionGuard],
+      data: {literalKeyType: EnumLiteralKeys.eModule_Grupos },
+      loadChildren: () =>
+        import('@lib/basic-configuration').then(m => m.GruposModule)
+    },
+    
+    
+    // {
+    //   path: 'users-module',
+    //   canActivate: [AuthGuard, PermissionGuard],
+    //   data: {literalKeyType: EnumLiteralKeys.eModule_UsersAndSecurity },
+    //   loadChildren: () =>
+    //     import('@lib/users').then(m => m.UsersDashboardModule)
+    // },
+      {
+        path: 'users-module',
+        canActivate: [AuthGuard, PermissionGuard],
+        data: {literalKeyType: EnumLiteralKeys.eModule_Users },
+        loadChildren: () =>
+          import('@lib/users').then(m => m.UsersModule)
+      },
+      {
+        path: 'user-roles-module',
+        canActivate: [AuthGuard, PermissionGuard],
+        data: { literalKeyType: EnumLiteralKeys.eModule_UserRoles },
+        loadChildren: () =>
+          import('@lib/security').then(m => m.UserRolesModule)
+      },   
+
   {
     path: 'quotes-module',
     canActivate: [AuthGuard, PermissionGuard],
@@ -118,19 +154,5 @@ export const routes: Routes = [
     loadChildren: () =>
       import('@lib/sales').then(m => m.CustomersModule)
   },
-  {
-    path: 'users-module',
-    canActivate: [AuthGuard, PermissionGuard],
-    data: {literalKeyType: EnumLiteralKeys.eModule_Users },
-    loadChildren: () =>
-      import('@lib/users').then(m => m.UsersModule)
-  },
-  {
-    path: 'user-roles-module',
-    canActivate: [AuthGuard, PermissionGuard],
-    data: { literalKeyType: EnumLiteralKeys.eModule_UserRoles },
-    loadChildren: () =>
-      import('@lib/security').then(m => m.UserRolesModule)
-  }
 ];
 

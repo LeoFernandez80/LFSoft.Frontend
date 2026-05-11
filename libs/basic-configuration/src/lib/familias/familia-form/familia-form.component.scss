@@ -1,0 +1,10 @@
+// Estilos para el componente familia-form
+@import 'styles/form.scss';
+
+.familia-form {
+  @extend .form;
+  @extend .form-container--full;
+  &__label  { @extend .form-control-label; }
+  &__control { @extend .form-control; }
+  &__group  { @extend .form-group; }
+}

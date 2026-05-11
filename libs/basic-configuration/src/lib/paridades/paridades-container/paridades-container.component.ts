@@ -41,6 +41,7 @@ import { ParidadFormComponent } from '../paridad-form/paridad-form.component';
 export class ParidadesContainerComponent implements OnInit, OnDestroy {
   openedParidasId: string[] = [];
   selectedParidadId: string | null = null;
+  selectedTabIndex: number = -1;
   filterParameters: ParidadFilter = new ParidadFilter();
   config: ConfigurationItem = new ConfigurationItem();
 
@@ -111,42 +112,30 @@ export class ParidadesContainerComponent implements OnInit, OnDestroy {
   }
 
   onAction(action: EnumActionsType | EnumActions): void {
-    switch (action) {
-      case EnumActions.eAction_New:
-        try {
-          this._actionNewParidad();
-        } catch (error) {
-          this._messagesService.addMessage('Error al crear paridad', EnumMessageType.Error);
-        }
-        break;
-      default:
-        try {
-          this._menuesService.openMenu(action);
-        } catch (error) {
-          this._messagesService.addMessage('ERROR.actionExecute', EnumMessageType.Error);
-        }
-        break;
+    if (action === EnumActions.eAction_New) {
+      this._actionNewParidad();
+      return;
     }
+    this._menuesService.openMenu(action);
   }
 
   onEdit(item: ParidadGrid): void {
     try {
+      // 1. Verificar si ya está abierta
       if (this.openedParidasId.includes(item.paridad_fecha)) {
+        // Solo cambiar la pestaña seleccionada
         this.selectedParidadId = item.paridad_fecha;
+        this.selectedTabIndex = this.openedParidasId.indexOf(item.paridad_fecha);
         return;
       }
-      this._paridadService.getParidad(item.paridad_fecha)
-        .pipe(takeUntilDestroyed(this._destroyRef))
-        .subscribe({
-          next: (response) => {
-            this.openedParidasId.push(item.paridad_fecha);
-            this._openedParidades.push(response.paridad);
-            this.selectedParidadId = item.paridad_fecha;
-          },
-          error: () => {
-            this._messagesService.addMessage('Error al cargar paridad', EnumMessageType.Error);
-          }
-        });
+      
+      // 2. Agregar a las colecciones
+      this.openedParidasId.push(item.paridad_fecha);
+      this._openedParidades.push(this._paridadGridToParidad(item));
+      
+      // 3. Seleccionar la nueva pestaña
+      this.selectedParidadId = item.paridad_fecha;
+      this.selectedTabIndex = this.openedParidasId.indexOf(item.paridad_fecha);
     } catch (error) {
       this._messagesService.addMessage('Error al editar paridad', EnumMessageType.Error);
     }
@@ -175,16 +164,35 @@ export class ParidadesContainerComponent implements OnInit, OnDestroy {
   }
 
   onSave(paridad: Paridad): void {
-    const index = this.openedParidasId.indexOf(paridad.paridad_fecha);
-    if (index !== -1) {
-      this._openedParidades[index] = paridad;
+    // 1. Actualizar o agregar en pestañas abiertas
+    const openedIndex = this.openedParidasId.indexOf(paridad.paridad_fecha);
+    if (openedIndex !== -1) {
+      // Si ya existe, actualizar en su posición
+      this._openedParidades[openedIndex] = paridad;
+      this.openedParidasId[openedIndex] = paridad.paridad_fecha;
+    } else {
+      // Si no existe, agregar al final
+      this.openedParidasId.push(paridad.paridad_fecha);
+      this._openedParidades.push(paridad);
     }
-    const indexData = this._dataLoaded.findIndex(p => p.paridad_fecha === paridad.paridad_fecha);
-    if (indexData !== -1) {
-      this._dataLoaded[indexData] = this._mapParidadToGrid(paridad);
+
+    // 2. Actualizar o agregar en grilla
+    const gridIndex = this._dataLoaded.findIndex(item => item.paridad_fecha === paridad.paridad_fecha);
+    if (gridIndex !== -1) {
+      // Si ya existe en grilla, actualizar en su posición
+      this._dataLoaded[gridIndex] = this._paridadToParidadGrid(paridad);
+    } else {
+      // Si no existe en grilla, agregar al principio
+      this._dataLoaded = [this._paridadToParidadGrid(paridad), ...this._dataLoaded];
     }
+
+    // 3. Notificar al GridService y al usuario
     this._gridService.setData(this._dataLoaded);
     this._messagesService.addMessage('MESSAGE.successSave', EnumMessageType.Info);
+    
+    // 4. Mantener seleccionada la pestaña actual
+    this.selectedParidadId = paridad.paridad_fecha;
+    this.selectedTabIndex = this.openedParidasId.indexOf(paridad.paridad_fecha);
   }
 
   onCancel(): void {
@@ -207,6 +215,7 @@ export class ParidadesContainerComponent implements OnInit, OnDestroy {
 
   onClickTab(fecha: string): void {
     this.selectedParidadId = fecha;
+    this.selectedTabIndex = this.openedParidasId.indexOf(fecha);
   }
 
   getParidadByFecha(fecha: string): Paridad | undefined {
@@ -217,23 +226,15 @@ export class ParidadesContainerComponent implements OnInit, OnDestroy {
   loadParidades(pageFilter: PageFilter, filterParameters: ParidadFilter): void {
     this._paridadService.getParidades(pageFilter, filterParameters)
       .pipe(takeUntilDestroyed(this._destroyRef))
-      .subscribe(response => {
-        this._dataLoaded = [...this._dataLoaded, ...response.data];
-        this._gridService.setData(this._dataLoaded);
+      .subscribe({
+        next: response => {
+          this._dataLoaded = this._pageFilter.page === 1 ? response.data : [...this._dataLoaded, ...response.data];
+          this._gridService.setData(this._dataLoaded);
+        },
+        error: () => {
+          this._messagesService.addMessage('Error al cargar paridades', EnumMessageType.Error);
+        }
       });
-  }
-
-  private _closeParidad(fecha: string): void {
-    const index = this.openedParidasId.indexOf(fecha);
-    if (index !== -1) {
-      this.openedParidasId.splice(index, 1);
-      this._openedParidades.splice(index, 1);
-      if (this.openedParidasId.length > 0) {
-        this.selectedParidadId = this.openedParidasId[Math.max(index - 1, 0)];
-      } else {
-        this.selectedParidadId = null;
-      }
-    }
   }
 
   private _actionNewParidad(): void {
@@ -243,6 +244,22 @@ export class ParidadesContainerComponent implements OnInit, OnDestroy {
     this.openedParidasId.push(today);
     this._openedParidades.push(newParidad);
     this.selectedParidadId = today;
+    this.selectedTabIndex = this.openedParidasId.indexOf(today);
+  }
+
+  private _closeParidad(fecha: string): void {
+    const index = this.openedParidasId.indexOf(fecha);
+    if (index !== -1) {
+      this.openedParidasId.splice(index, 1);
+      this._openedParidades.splice(index, 1);
+      this.selectedParidadId = this.openedParidasId.length > 0
+        ? this.openedParidasId[Math.max(index - 1, 0)]
+        : null;
+    }
+
+    this.selectedTabIndex = this.selectedParidadId !== null
+      ? this.openedParidasId.indexOf(this.selectedParidadId)
+      : -1;
   }
 
   private _deleteParidad(item: ParidadGrid): void {
@@ -250,15 +267,37 @@ export class ParidadesContainerComponent implements OnInit, OnDestroy {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: () => {
+          this._dataLoaded = this._dataLoaded.filter(gridItem => gridItem.paridad_fecha !== item.paridad_fecha);
+          this._gridService.setData(this._dataLoaded);
+          this._closeParidad(item.paridad_fecha);
           this._messagesService.addMessage('MESSAGE.successDelete', EnumMessageType.Info);
-          this._dataLoaded = [];
-          this._pageFilter.page = 1;
-          this.loadParidades(this._pageFilter, this.filterParameters);
         },
         error: (error) => {
           this._messagesService.addMessage(error, EnumMessageType.Error);
         }
       });
+  }
+
+  private _paridadGridToParidad(itemGrid: ParidadGrid): Paridad {
+    const item = new Paridad();
+    item.paridad_fecha = itemGrid.paridad_fecha;
+    item.paridad_fechaCorrespondeA = itemGrid.paridad_fechaCorrespondeA;
+    item.paridad_dolar = itemGrid.paridad_dolar;
+    item.paridad_euro = itemGrid.paridad_euro;
+    item.paridad_dolarDivisa = itemGrid.paridad_dolarDivisa;
+    item.paridad_euroDivisa = itemGrid.paridad_euroDivisa;
+    return item;
+  }
+
+  private _paridadToParidadGrid(item: Paridad): ParidadGrid {
+    const itemGrid = new ParidadGrid();
+    itemGrid.paridad_fecha = item.paridad_fecha;
+    itemGrid.paridad_fechaCorrespondeA = item.paridad_fechaCorrespondeA;
+    itemGrid.paridad_dolar = item.paridad_dolar;
+    itemGrid.paridad_euro = item.paridad_euro;
+    itemGrid.paridad_dolarDivisa = item.paridad_dolarDivisa;
+    itemGrid.paridad_euroDivisa = item.paridad_euroDivisa;
+    return itemGrid;
   }
 
   private _openParidad(item: ParidadGrid): void {
@@ -280,7 +319,7 @@ export class ParidadesContainerComponent implements OnInit, OnDestroy {
     this._actionService.setActions(actions);
   }
 
-  private makeConditions(): string {
+  makeConditions(): string {
     return '#|V|#';
   }
 
@@ -292,17 +331,6 @@ export class ParidadesContainerComponent implements OnInit, OnDestroy {
           this.config = config.items.find(c => c.literalKey === EnumLiteralKeys.eModule_Paridades) || new ConfigurationItem();
         }
       });
-  }
-
-  private _mapParidadToGrid(paridad: Paridad): ParidadGrid {
-    const grid = new ParidadGrid();
-    grid.paridad_fecha = paridad.paridad_fecha;
-    grid.paridad_fechaCorrespondeA = paridad.paridad_fechaCorrespondeA;
-    grid.paridad_dolar = paridad.paridad_dolar;
-    grid.paridad_euro = paridad.paridad_euro;
-    grid.paridad_dolarDivisa = paridad.paridad_dolarDivisa;
-    grid.paridad_euroDivisa = paridad.paridad_euroDivisa;
-    return grid;
   }
 
   private _createPageFilter(): void {

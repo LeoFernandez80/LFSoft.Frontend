@@ -1,0 +1,28 @@
+<lfsoft-shared-form [title]="'TITLE.filter' | translate">
+  <div data>
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="alicuotas-iva-filter-tab">
+            <div class="alicuotas-iva-filter-tab__label">
+              {{ 'TITLE.alicuotaIvaData' | translate }}
+            </div>
+          </div>
+        </ng-template>
+        <form [formGroup]="form">
+          <div class="alicuotas-iva-filter">
+            <div class="alicuotas-iva-filter__group" col-span="6">
+              <label class="alicuotas-iva-filter__label" for="alicuotaIva_codigo">{{ 'LABEL.number' | translate }}</label>
+              <input id="alicuotaIva_codigo" type="number" formControlName="alicuotaIva_codigo" class="alicuotas-iva-filter__control">
+            </div>
+            <div class="alicuotas-iva-filter__group" col-span="6">
+              <label class="alicuotas-iva-filter__label" for="alicuotaIva_descripcion">{{ 'LABEL.description' | translate }}</label>
+              <input id="alicuotaIva_descripcion" type="text" formControlName="alicuotaIva_descripcion" class="alicuotas-iva-filter__control">
+            </div>
+          </div>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <lfsoft-shared-actions footerContent (action)="onAction($event)"></lfsoft-shared-actions>
+</lfsoft-shared-form>

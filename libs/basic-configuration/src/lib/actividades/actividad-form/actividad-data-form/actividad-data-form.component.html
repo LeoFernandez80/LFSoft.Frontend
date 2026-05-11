@@ -1,0 +1,16 @@
+﻿<form [formGroup]="actividadForm" class="actividad-data-form">
+  <div class="actividad-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('actividad_codigo')">
+    <label class="actividad-data-form__label" for="actividad_codigo">{{ 'LABEL.actividad_codigo' | translate }}</label>
+    <input id="actividad_codigo" type="text" formControlName="actividad_codigo" class="actividad-data-form__control">
+  </div>
+
+  <div class="actividad-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('actividad_descripcion')">
+    <label class="actividad-data-form__label" for="actividad_descripcion">{{ 'LABEL.actividad_descripcion' | translate }}</label>
+    <input id="actividad_descripcion" type="text" formControlName="actividad_descripcion" class="actividad-data-form__control">
+  </div>
+
+  <div class="actividad-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('actividad_colorHojaRGB')">
+    <label class="actividad-data-form__label" for="actividad_colorHojaRGB">{{ 'LABEL.actividad_colorHojaRGB' | translate }}</label>
+    <input id="actividad_colorHojaRGB" type="number" formControlName="actividad_colorHojaRGB" class="actividad-data-form__control">
+  </div>
+</form>

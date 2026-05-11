@@ -10,6 +10,11 @@
     eModule_Entities = 'eModule_Entities',
     eModule_Companies = 'eModule_Companies',
     eModule_Paridades = 'eModule_Paridades',
+    eModule_Actividades = 'eModule_Actividades',
+    eModule_AlicuotasIva = 'eModule_AlicuotasIva',
+    eModule_UnidadesMedida = 'eModule_UnidadesMedida',
+    eModule_Familias = 'eModule_Familias',
+    eModule_Grupos = 'eModule_Grupos',
 
     //Modules users and security
     eModule_Users = 'eModule_Users',
@@ -30,6 +35,11 @@
     eGrid_Persons = 'eGrid_Persons',
     eGrid_UserRoles = 'eGrid_UserRoles',
     eGrid_Paridades = 'eGrid_Paridades',
+    eGrid_Actividades = 'eGrid_Actividades',
+    eGrid_AlicuotasIva = 'eGrid_AlicuotasIva',
+    eGrid_UnidadesMedida = 'eGrid_UnidadesMedida',
+    eGrid_Familias = 'eGrid_Familias',
+    eGrid_Grupos = 'eGrid_Grupos',
     
     //Forms
     eForm_UsersConfig = 'eForm_UsersConfig',
@@ -39,6 +49,11 @@
     eForm_Persons = 'eForm_Persons',
     eForm_Companies = 'eForm_Companies',
     eForm_Paridades = 'eForm_Paridades',
+    eForm_Actividad = 'eForm_Actividad',
+    eForm_AlicuotaIva = 'eForm_AlicuotaIva',
+    eForm_UnidadesMedida = 'eForm_UnidadesMedida',
+    eForm_Familia = 'eForm_Familia',
+    eForm_Grupo = 'eForm_Grupo',
     
     //Actions
     eAction_Edit = 'eAction_Edit',

@@ -103,13 +103,13 @@ export class UserFormComponent implements OnInit, OnDestroy {
     //this.isLoading = false;
     this._loadParams().subscribe(() => {                  
       switch (this._operation) {
-        case 'open':          
+        case 'open':   
           this._openUser(this._userId).subscribe(user => {
             this.userData = user;
             this._enabledActions();
           });
           break;
-        default: 
+        default:         
           if (this._userId) {              
             this._openUser(this._userId).subscribe(user => {                  
               this.userData = user;

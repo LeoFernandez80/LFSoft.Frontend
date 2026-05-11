@@ -1,0 +1,11 @@
+﻿<lfsoft-shared-form [title]="'TITLE.grupos' | translate">
+  <div data>
+    <app-grupo-data-form
+      #formGrupoData
+      [grupo]="grupoData"
+      (dataChange)="onGrupoDataChange()">
+    </app-grupo-data-form>
+  </div>
+
+  <lfsoft-shared-actions footerContent (action)="onAction($event)"></lfsoft-shared-actions>
+</lfsoft-shared-form>

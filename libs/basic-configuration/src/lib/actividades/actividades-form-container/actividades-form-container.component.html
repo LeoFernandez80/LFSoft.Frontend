@@ -1,0 +1,9 @@
+﻿<lfsoft-shared-message></lfsoft-shared-message>
+<lfsoft-shared-layout [title]="'TITLE.actividades' | translate" class="actividades-container">
+  <app-actividad-form
+    formContent
+    [actividad]="actividadId"
+    (save)="onSaveActividad($event)"
+    (cancel)="onCancelActividad()">
+  </app-actividad-form>
+</lfsoft-shared-layout>

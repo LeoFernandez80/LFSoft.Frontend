@@ -1,0 +1,11 @@
+<lfsoft-shared-form [title]="'TITLE.familias' | translate">
+  <div data>
+    <app-familia-data-form
+      #formFamiliaData
+      [familia]="familiaData"
+      (dataChange)="onFamiliaDataChange()">
+    </app-familia-data-form>
+  </div>
+
+  <lfsoft-shared-actions footerContent (action)="onAction($event)"></lfsoft-shared-actions>
+</lfsoft-shared-form>

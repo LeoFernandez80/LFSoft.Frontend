@@ -64,6 +64,8 @@ export class ConfigurationService {
       { literalKey: EnumLiteralKeys.eModule_Companies, color: 'RGB(0, 128, 128)' },
       { literalKey: EnumLiteralKeys.eModule_Persons, color: 'RGB(0, 50, 50)' },
       { literalKey: EnumLiteralKeys.eModule_Paridades, color: 'RGB(100, 120, 128)' },
+      { literalKey: EnumLiteralKeys.eModule_AlicuotasIva, color: 'RGB(170, 110, 30)' },
+      { literalKey: EnumLiteralKeys.eModule_Familias, color: 'RGB(128, 100, 60)' },
 
       { literalKey: EnumLiteralKeys.eModule_Products, color: 'RGB(0, 0, 255)' },
       { literalKey: EnumLiteralKeys.eModule_Sales, color: 'RGB(255, 0, 255)' }      
@@ -83,6 +85,8 @@ export class ConfigurationService {
       { literalKey: EnumLiteralKeys.eModule_Companies, color: 'RGB(0, 128, 128)' },
       { literalKey: EnumLiteralKeys.eModule_Persons, color: 'RGB(0, 50, 50)' },
       { literalKey: EnumLiteralKeys.eModule_Paridades, color: 'RGB(100, 120, 128)' },
+      { literalKey: EnumLiteralKeys.eModule_AlicuotasIva, color: 'RGB(170, 110, 30)' },
+      { literalKey: EnumLiteralKeys.eModule_Familias, color: 'RGB(128, 100, 60)' },
       { literalKey: EnumLiteralKeys.eModule_Entities, color: 'RGB(0, 255, 0)' },
 
       { literalKey: EnumLiteralKeys.eModule_Products, color: 'RGB(255, 0, 0)' },

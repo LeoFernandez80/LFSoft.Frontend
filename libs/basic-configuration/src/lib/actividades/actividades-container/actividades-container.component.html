@@ -1,0 +1,50 @@
+﻿<div class="body">
+  <div class="floating-toolbar" [style.border]="'4px solid ' + config.color">
+    <lfsoft-shared-actions (action)="onAction($event)"></lfsoft-shared-actions>
+  </div>
+
+  <lfsoft-shared-message></lfsoft-shared-message>
+  <lfsoft-shared-layout [title]="'TITLE.actividades' | translate" class="actividades-container">
+
+    <app-actividad-grid-filter
+      filterContent
+      class="actividades-container__filter"
+      [filter]="filterParameters"
+      (apply)="onFilterApplied($event)">
+    </app-actividad-grid-filter>
+
+    <app-actividad-grid
+      gridContent
+      class="actividades-container__grid"
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)"
+      (open)="onOpen($event)"
+      (sortChange)="onSortChange($event)"
+      (scrollEndChange)="onLoadNextPage()">
+    </app-actividad-grid>
+
+    <div formContent>
+      <mat-tab-group [style.border]="'4px solid ' + config.color" [selectedIndex]="selectedTabIndex">
+        <mat-tab *ngFor="let codigo of openedActividadesId">
+          <ng-template mat-tab-label>
+            <div class="actividades-container__tab" (click)="onClickTab(codigo)">
+              <div class="actividades-container__tab-label">
+                {{ getActividadByCodigo(codigo)?.actividad_codigo || 'Actividad' }}
+              </div>
+              <button mat-icon-button class="actividades-container__tab-button" (click)="onCloseTab(codigo); $event.stopPropagation()">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+          </ng-template>
+          <app-actividad-form
+            formContent
+            [actividad]="getActividadByCodigo(codigo)"
+            (save)="onSave($event)"
+            (cancel)="onCancel()">
+          </app-actividad-form>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+
+  </lfsoft-shared-layout>
+</div>

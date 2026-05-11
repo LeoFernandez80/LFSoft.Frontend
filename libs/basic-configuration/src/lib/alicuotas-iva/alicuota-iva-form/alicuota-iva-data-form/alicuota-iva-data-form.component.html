@@ -1,0 +1,18 @@
+<form [formGroup]="alicuotaIvaForm">
+  <div class="alicuota-iva-data-form">
+    <div class="alicuota-iva-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('alicuotaIva_codigo')">
+      <label class="alicuota-iva-data-form__label" for="alicuotaIva_codigo">{{ 'LABEL.id' | translate }}</label>
+      <label for="alicuotaIva_codigo" formControlName="alicuotaIva_codigo" class="alicuota-iva-data-form__control"></label>
+    </div>
+
+    <div class="alicuota-iva-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('alicuotaIva_descripcion')">
+      <label class="alicuota-iva-data-form__label" for="alicuotaIva_descripcion">{{ 'LABEL.description' | translate }}</label>
+      <input id="alicuotaIva_descripcion" type="text" formControlName="alicuotaIva_descripcion" class="alicuota-iva-data-form__control">
+    </div>
+
+    <div class="alicuota-iva-data-form__group skeleton-field" col-span="2" *ngIf="!isHiddenField('alicuotaIva_tasa')">
+      <label class="alicuota-iva-data-form__label" for="alicuotaIva_tasa">{{ 'LABEL.alicuotaIva_tasa' | translate }}</label>
+      <input id="alicuotaIva_tasa" type="number" step="0.01" formControlName="alicuotaIva_tasa" class="alicuota-iva-data-form__control">
+    </div>
+  </div>
+</form>

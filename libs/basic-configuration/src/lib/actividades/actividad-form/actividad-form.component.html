@@ -1,0 +1,13 @@
+﻿<lfsoft-shared-form [title]="'TITLE.actividadData' | translate">
+  <div data>
+    <app-actividad-data-form
+      #formActividadData
+      [actividad]="actividadData"
+      (dataChange)="onActividadDataChange()">
+    </app-actividad-data-form>
+  </div>
+
+  <div footerContent>
+    <lfsoft-shared-actions (action)="onAction($event)"></lfsoft-shared-actions>
+  </div>
+</lfsoft-shared-form>

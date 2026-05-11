@@ -1,0 +1,10 @@
+﻿<lfsoft-shared-message></lfsoft-shared-message>
+
+<lfsoft-shared-layout [title]="'TITLE.grupos' | translate">
+  <app-grupo-form
+    formContent
+    [grupo]="0"
+    (save)="onSaveGrupo()"
+    (cancel)="onCancelGrupo()">
+  </app-grupo-form>
+</lfsoft-shared-layout>

@@ -31,8 +31,8 @@ Definir el flujo de edicion principal de la entidad, separando claramente el con
 1. Recibir una entidad o un id via `@Input()`.
 2. Resolver la operacion de ruta desde `ActivatedRoute`.
 3. Validar el id recibido por query param usando `UrlSecurityService`.
-4. Abrir la entidad mediante `open(id)` cuando corresponda.
-5. Determinar `objectMode` segun seguridad o lock devuelto por backend.
+4. Abrir la entidad mediante `open(id)` tanto en modo `open` como en modo edicion con id.
+5. Determinar `objectMode` exclusivamente a partir de la respuesta de `open(id)` segun seguridad o lock devuelto por backend.
 6. Coordinar acciones `save` y `cancel`.
 7. Emitir eventos al contenedor padre.
 
@@ -44,6 +44,7 @@ Definir el flujo de edicion principal de la entidad, separando claramente el con
 
 Estado privado minimo esperado:
 - `_<entity-singular>Id`
+- `_initialized` o mecanismo equivalente para reaccionar a cambios tardios del `@Input()`
 - `_operation`
 - `_destroyRef`
 
@@ -51,9 +52,16 @@ Estado privado minimo esperado:
 1. Aplicar seguridad.
 2. Leer parametros de ruta.
 3. Si la operacion es `open`, validar `id`.
-4. Si hay id, cargar la entidad por `open()`.
+4. Si hay id, cargar la entidad por un unico metodo privado que internamente use `open()`.
 5. Si no hay id, preparar una nueva entidad.
-6. Habilitar o deshabilitar acciones segun estado del formulario.
+6. Si el `@Input()` recibe un numero despues de `ngOnInit`, volver a disparar ese mismo flujo de carga en lugar de dejar el formulario en estado `NEW`.
+7. Habilitar o deshabilitar acciones segun estado del formulario.
+
+## Reglas obligatorias de implementacion
+- No usar `get<Entity>()` o lecturas alternativas dentro del `FormComponent` para editar una entidad ya existente. El formulario debe resolver apertura y lock con `open(id)`.
+- No duplicar la logica entre `_loadData()` y `_open<Entity>()`. `_loadData()` solo decide entre abrir existente o crear nuevo; `_open<Entity>()` concentra la transformacion de respuesta y `objectMode`.
+- Si el contenedor pasa un `id` por binding asincrono, el `FormComponent` debe reaccionar al cambio posterior del `@Input()` o el contenedor debe diferir el render hasta tener el valor final.
+- No dejar `console.log` de depuracion en la implementacion final.
 
 ## Flujo de guardado recomendado
 1. Verificar si el formulario fue modificado.
@@ -80,6 +88,8 @@ Estado privado minimo esperado:
 ## Riesgos comunes
 - Validar tarde el `id` de query param.
 - No contemplar el modo readonly al abrir una entidad lockeada.
+- Cargar edicion con `get<Entity>()` y saltear el lock remoto o el calculo centralizado de `objectMode`.
+- Crear el formulario en modo `NEW` antes de que llegue el `id` por `@Input()` y no recargarlo despues.
 - No cerrar el lock al cancelar.
 
 ## Archivos de referencia
@@ -116,6 +126,7 @@ Importa los tokens de estilo compartidos y aplica `@extend`:
 
 ## Checklist de salida
 - El contenedor externo y el formulario tienen responsabilidades separadas.
-- La carga por `open` esta documentada de forma segura.
+- La carga por `open` esta documentada de forma segura y reutilizada para cualquier edicion con id.
 - Los flujos de save y cancel estan resueltos.
 - El manejo de lock y readonly esta contemplado.
+- El formulario sigue funcionando si el `id` llega despues de `ngOnInit`.
