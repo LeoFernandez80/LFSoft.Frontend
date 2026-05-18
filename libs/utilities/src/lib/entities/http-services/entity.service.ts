@@ -18,7 +18,7 @@ class HTTPRequestEntity {
 export class HTTPServiceEntity {
   private readonly _configurationService = inject(ConfigurationService);
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = `${environment.apiUrl}/entities`;
+  private readonly apiUrl = `${environment.utilitiesApiUrl}/entities`;
 
   getEntities(pageFilter: PageFilter, filterParameters: EntityFilter): Observable<PaginatedList<EntityGrid>> {
     const pageParams = pageFilter.toString();

@@ -20,7 +20,7 @@ class HTTPRequestGrupo {
 export class HTTPServiceGrupo {
   private http = inject(HttpClient);
   private configurationService = inject(ConfigurationService);
-  private apiUrl = `${environment.apiUrl}/grupos`;
+  private apiUrl = `${environment.basicConfigurationsApiUrl}/grupos`;
 
   getGrupos(pageFilter: PageFilter, filterParameters: GrupoFilter): Observable<PaginatedList<GrupoGrid>> {
     const pageParams = pageFilter.toString();

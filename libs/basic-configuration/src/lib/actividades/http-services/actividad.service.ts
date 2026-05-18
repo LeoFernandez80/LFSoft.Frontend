@@ -20,7 +20,7 @@ class HTTPRequestActividad {
 export class HTTPServiceActividad {
   private http = inject(HttpClient);
   private configurationService = inject(ConfigurationService);
-  private apiUrl = `${environment.apiUrl}/actividades`;
+  private apiUrl = `${environment.utilitiesApiUrl}/actividades`;
 
   getActividades(pageFilter: PageFilter, filterParameters: ActividadFilter): Observable<PaginatedList<ActividadGrid>> {
     const pageParams = pageFilter.toString();

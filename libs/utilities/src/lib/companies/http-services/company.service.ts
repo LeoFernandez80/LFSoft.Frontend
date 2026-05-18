@@ -18,7 +18,7 @@ class HTTPRequestCompany {
 export class HTTPServiceCompany {
   private readonly _configurationService = inject(ConfigurationService);
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = `${environment.apiUrl}/companies`;
+  private readonly apiUrl = `${environment.utilitiesApiUrl}/companies`;
 
   getCompanies(pageFilter: PageFilter, filterParameters: CompanyFilter): Observable<PaginatedList<CompanyGrid>> {
     const pageParams = pageFilter.toString();

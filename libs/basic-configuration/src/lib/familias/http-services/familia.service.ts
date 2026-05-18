@@ -18,7 +18,7 @@ class HTTPRequestFamilia {
 export class HTTPServiceFamilia {
   private readonly _configurationService = inject(ConfigurationService);
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = `${environment.apiUrl}/familias`;
+  private readonly apiUrl = `${environment.basicConfigurationsApiUrl}/familias`;
 
   getFamilias(pageFilter: PageFilter, filterParameters: FamiliaFilter): Observable<PaginatedList<FamiliaGrid>> {
     const pageParams = pageFilter.toString();

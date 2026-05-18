@@ -20,7 +20,7 @@ class HTTPRequestAlicuotaIva {
 export class HTTPServiceAlicuotaIva {
   private readonly _configurationService = inject(ConfigurationService);
   private http = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}/alicuotas-iva`;
+  private apiUrl = `${environment.basicConfigurationsApiUrl}/alicuotas-iva`;
 
   getAlicuotasIva(pageFilter: PageFilter, filterParameters: AlicuotaIvaFilter): Observable<PaginatedList<AlicuotaIvaGrid>> {
     const pageParams = pageFilter.toString();

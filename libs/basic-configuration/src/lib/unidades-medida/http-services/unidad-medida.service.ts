@@ -20,7 +20,7 @@ class HTTPRequestUnidadMedida {
 export class HTTPServiceUnidadMedida {
   private readonly _configurationService = inject(ConfigurationService);
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = `${environment.apiUrl}/unidades-medida`;
+  private readonly apiUrl = `${environment.basicConfigurationsApiUrl}/unidades-medida`;
 
   getUnidadesMedida(pageFilter: PageFilter, filterParameters: UnidadMedidaFilter): Observable<PaginatedList<UnidadMedidaGrid>> {
     const pageParams = pageFilter.toString();

@@ -17,7 +17,7 @@ class HTTPRequestParidad {
 })
 export class HTTPServiceParidad {
   private http = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}/paridades`;
+  private apiUrl = `${environment.utilitiesApiUrl}/paridades`;
 
   getParidades(pageFilter: PageFilter, filterParameters: ParidadFilter): Observable<PaginatedList<ParidadGrid>> {
     const pageParams = pageFilter.toString();
